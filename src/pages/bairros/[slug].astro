@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { telHref, waHref } from '../../data/site';
+import { bairros, getBairro, noBairro, type Bairro } from '../../data/bairros';
+import { servicos, getServico } from '../../data/servicos';
+import { breadcrumbSchema, faqSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return bairros.map((b) => ({ params: { slug: b.slug }, props: { b } }));
+}
+interface Props { b: Bairro }
+const { b } = Astro.props;
+const path = `/bairros/${b.slug}`;
+const em = noBairro(b);
+const title = `Desentupidora ${em}, Ubatuba 24h | M & C`;
+const description = `Desentupidora ${em}, em Ubatuba-SP, 24 horas. Pia, vaso, esgoto, caixa de gordura e fossa sem quebra desnecessária. Chame a M & C no WhatsApp.`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Bairros atendidos', path: '/bairros' },
+  { name: b.nome, path },
+];
+const msg = `Olá, M & C! Preciso de desentupimento ${em}, em Ubatuba.`;
+const destaque = b.servicos.map((slug) => getServico(slug)).filter((s) => s !== undefined);
+const demais = servicos.filter((s) => !b.servicos.includes(s.slug));
+const vizinhos = b.vizinhos.map((slug) => getBairro(slug)).filter((v) => v !== undefined);
+const faqs = [
+  { q: `A M & C atende ${em} de madrugada e em feriados?`, a: `Sim. O atendimento ${em} e em toda Ubatuba é 24 horas, todos os dias. Chame pelo WhatsApp informando o endereço e o tipo de problema.` },
+  { q: `Quais serviços são mais pedidos ${em}?`, a: `${destaque.map((s) => s.nome).join(', ')}. Também fazemos ${demais.map((s) => s.nome.toLowerCase()).join(', ')}.` },
+  { q: 'O valor é combinado antes?', a: 'Sim. Depois do diagnóstico informamos o valor e só começamos com a sua aprovação.' },
+];
+---
+<Base title={title} description={description} path={path} schema={[breadcrumbSchema(crumbs), faqSchema(faqs)]}>
+  <section class="b-hero">
+    <div class="wrap b-grid">
+      <div class="hero-in">
+        <Breadcrumbs items={crumbs} />
+        <h1>Desentupidora {em}, Ubatuba</h1>
+        <p class="lead">{b.intro}</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={waHref(msg)} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={22} /> Chamar no WhatsApp</a>
+          <a class="btn btn-ghost" href={telHref}><Icon name="phone" size={20} /> Ligar agora</a>
+        </div>
+      </div>
+      <div class="b-ctx">
+        <p class="b-reg"><Icon name="map-pin" size={20} /> {b.regiao} de Ubatuba</p>
+        <p>{b.contexto}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="dest-t">
+    <div class="wrap">
+      <h2 id="dest-t">Serviços mais pedidos {em}</h2>
+      <ul class="dest">
+        {destaque.map((s) => (
+          <li class="reveal">
+            <a href={`/servicos/${s.slug}`}>
+              <Icon name={s.icon} size={30} />
+              <h3>{s.nome}</h3>
+              <p>{s.resumo}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="muted also">
+        Também {em}:{' '}
+        {demais.map((s, i) => <>{i > 0 && ', '}<a href={`/servicos/${s.slug}`}>{s.nome.toLowerCase()}</a></>)}.
+      </p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title={`Desentupidora ${em}: dúvidas`} />
+
+  <section class="section near" aria-labelledby="viz-t">
+    <div class="wrap">
+      <h2 id="viz-t" class="h-small">Também atendemos perto de {b.nome}</h2>
+      <ul class="pills">
+        {vizinhos.map((v) => <li><a href={`/bairros/${v.slug}`}>Desentupidora {noBairro(v)}</a></li>)}
+        <li><a href="/bairros">Todos os bairros</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title={`Entupiu ${em}? Chame agora.`} message={msg} />
+</Base>
+
+<style>
+  .b-hero { padding-block: clamp(32px, 5vw, 72px); }
+  .b-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr); gap: clamp(28px, 5vw, 64px); align-items: end; }
+  .b-grid h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
+  .b-grid .lead { margin-bottom: 28px; }
+  .b-ctx { background: var(--deep); color: var(--on-deep); border-radius: var(--radius); padding: 28px; }
+  .b-ctx p { margin: 0; color: var(--on-deep-muted); }
+  .b-ctx .b-reg { color: var(--on-deep); font-weight: 600; display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .b-reg :global(.icon) { color: var(--accent-on-deep); }
+  .dest { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; }
+  .dest a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 26px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s; }
+  .dest li:first-child a { background: var(--accent-soft); border-color: transparent; }
+  .dest a:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--ink); }
+  .dest :global(.icon) { color: var(--accent); }
+  .dest h3 { margin: 10px 0 0; }
+  .dest p { margin: 0; color: var(--muted); }
+  .also { margin-top: 24px; max-width: 80ch; }
+  .near { padding-top: 0; }
+  .h-small { font-size: 1.25rem; }
+  .pills { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills a { display: inline-block; padding: 9px 16px; border-radius: var(--pill); border: 1px solid var(--line); background: var(--surface); text-decoration: none; font-weight: 520; }
+  .pills a:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 900px) { .b-grid { grid-template-columns: 1fr; } .dest { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .b-hero .btn-row .btn { flex: 1 1 100%; } }
+</style>

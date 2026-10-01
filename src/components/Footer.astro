@@ -1,0 +1,49 @@
+---
+import Logo from './Logo.astro';
+import { site, telHref, waHref } from '../data/site';
+import { servicos } from '../data/servicos';
+import { bairros } from '../data/bairros';
+const year = new Date().getFullYear();
+---
+<footer class="ftr">
+  <div class="wrap ftr-grid">
+    <div class="ftr-brand">
+      <Logo />
+      <p class="muted">Desentupidora em Ubatuba-SP. {site.hours}.</p>
+      <address>
+        <a href={telHref}>{site.phoneDisplay}</a><br />
+        <a href={waHref()} rel="noopener" target="_blank">WhatsApp</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a><br />
+        {site.address.street && <>{site.address.street}<br /></>}
+        {site.address.locality} - {site.address.region}, {site.address.postalCode}
+      </address>
+    </div>
+    <nav aria-label="Serviços">
+      <h2 class="ftr-h">Serviços</h2>
+      <ul>{servicos.map((s) => <li><a href={`/servicos/${s.slug}`}>{s.nome}</a></li>)}</ul>
+    </nav>
+    <nav aria-label="Bairros atendidos">
+      <h2 class="ftr-h">Bairros</h2>
+      <ul class="cols">{bairros.map((b) => <li><a href={`/bairros/${b.slug}`}>{b.nome}</a></li>)}</ul>
+    </nav>
+  </div>
+  <div class="wrap ftr-bottom">
+    <p>&copy; {year} {site.legalName}{site.cnpj && ` - CNPJ ${site.cnpj}`}. Desentupidora em Ubatuba, Litoral Norte de SP.</p>
+    <p><a href="/sobre">Sobre</a> <a href="/contato">Contato</a></p>
+  </div>
+</footer>
+<style>
+  .ftr { border-top: 1px solid var(--line); background: var(--surface); padding-top: 64px; padding-bottom: 96px; font-size: 0.95rem; }
+  .ftr-grid { display: grid; grid-template-columns: 1.3fr 1fr 1.2fr; gap: 40px; }
+  .ftr-brand p { margin-top: 16px; max-width: 34ch; }
+  address { font-style: normal; line-height: 1.9; }
+  .ftr-h { font-size: 0.95rem; font-weight: 650; letter-spacing: 0; margin-bottom: 14px; }
+  ul { list-style: none; margin: 0; padding: 0; line-height: 2; }
+  ul a, .ftr-bottom a { text-decoration: none; color: var(--muted); }
+  ul a:hover, .ftr-bottom a:hover { color: var(--accent); }
+  .cols { columns: 2; column-gap: 24px; }
+  .ftr-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
+  .ftr-bottom p { margin: 0; }
+  .ftr-bottom p a + a { margin-left: 16px; }
+  @media (max-width: 860px) { .ftr-grid { grid-template-columns: 1fr; gap: 32px; } }
+</style>

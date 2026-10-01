@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import { site, telHref, waHref } from '../data/site';
+interface Props { title?: string; text?: string; message?: string }
+const {
+  title = 'Entupiu? Chame agora.',
+  text = 'Atendemos Ubatuba inteira, do Sertão da Quina a Picinguaba, 24 horas por dia.',
+  message,
+} = Astro.props;
+---
+<section class="cta-band" aria-label="Chamar a desentupidora">
+  <div class="wrap cta-in reveal">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href={waHref(message)} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={22} /> Chamar no WhatsApp</a>
+      <a class="btn btn-ondeep" href={telHref}><Icon name="phone" size={20} /> {site.phoneDisplay}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .cta-band { background: var(--deep); color: var(--on-deep); padding-block: clamp(48px, 7vw, 80px); }
+  .cta-in { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px; }
+  h2 { margin-bottom: 0.3em; }
+  p { color: var(--on-deep-muted); margin: 0; max-width: 52ch; }
+  .btn-ondeep { border-color: color-mix(in srgb, var(--on-deep) 35%, transparent); color: var(--on-deep); }
+  .btn-ondeep:hover { border-color: var(--on-deep); color: var(--on-deep); }
+</style>

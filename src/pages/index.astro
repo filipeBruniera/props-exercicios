@@ -1,0 +1,214 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, telHref, waHref } from '../data/site';
+import { servicos } from '../data/servicos';
+import { bairros, outrasLocalidades } from '../data/bairros';
+import { faqHome } from '../data/faq';
+import { faqSchema } from '../data/schema';
+
+const title = 'Desentupidora em Ubatuba 24h | M & C Desentupidora';
+const description =
+  'Desentupidora em Ubatuba-SP com atendimento 24 horas. Pia, vaso, ralo, esgoto, caixa de gordura e fossa. Sem quebra na maioria dos casos. Chame no WhatsApp.';
+
+const regioes = ['Região Sul', 'Região Central', 'Região Norte'] as const;
+
+const passos = [
+  { icon: 'whatsapp-logo', titulo: 'Você chama', texto: 'Mande o problema, o bairro e uma foto pelo WhatsApp ou ligue.' },
+  { icon: 'magnifying-glass', titulo: 'Diagnóstico', texto: 'Localizamos o ponto da obstrução e confirmamos o valor antes de começar.' },
+  { icon: 'pipe-wrench', titulo: 'Desentupimento', texto: 'Máquina rotativa ou hidrojateamento, sem produtos químicos e sem quebra desnecessária.' },
+  { icon: 'check-circle', titulo: 'Teste final', texto: 'Testamos o escoamento na sua frente e deixamos o local limpo.' },
+];
+
+const diferenciais = [
+  { icon: 'clock', titulo: '24 horas, todos os dias', texto: 'Inclusive feriados e alta temporada, quando o esgoto mais trava.' },
+  { icon: 'house-line', titulo: 'Sem quebra desnecessária', texto: 'Equipamento que trabalha por dentro do cano. Quebra só com sua autorização.' },
+  { icon: 'receipt', titulo: 'Valor combinado antes', texto: 'Você sabe quanto vai pagar antes de começarmos o serviço.' },
+  { icon: 'map-pin', titulo: 'Ubatuba de ponta a ponta', texto: 'Do Sertão da Quina a Picinguaba, incluindo bairros que dependem de fossa.' },
+];
+---
+<Base title={title} description={description} path="/" schema={[faqSchema(faqHome)]}>
+  <!-- HERO: split assimétrico, card de atendimento real à direita -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy hero-in">
+        <span class="eyebrow">Ubatuba - SP, atendimento 24h</span>
+        <h1>Desentupidora em Ubatuba, a qualquer hora.</h1>
+        <p class="lead">Pia, vaso, ralo, esgoto e fossa resolvidos sem quebrar a casa. Valor combinado antes de começar.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={waHref()} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={22} /> Chamar no WhatsApp</a>
+          <a class="btn btn-ghost" href={telHref}><Icon name="phone" size={20} /> Ligar agora</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Atendimento imediato">
+        <p class="hc-status"><Icon name="siren" size={20} /> Plantão de emergência</p>
+        <a class="hc-phone" href={telHref}>{site.phoneDisplay}</a>
+        <ul class="hc-list">
+          <li><Icon name="check" size={18} /> Esgoto voltando, vaso transbordando, pia parada</li>
+          <li><Icon name="check" size={18} /> Casas, pousadas, restaurantes e condomínios</li>
+          <li><Icon name="check" size={18} /> Sem soda cáustica, sem produto químico</li>
+        </ul>
+        <p class="hc-foot">Atendimento em toda Ubatuba, inclusive fins de semana e feriados.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS: bento com tamanhos variados -->
+  <section class="section" aria-labelledby="serv-t">
+    <div class="wrap">
+      <h2 id="serv-t">Serviços de desentupimento em Ubatuba</h2>
+      <p class="lead">Cada tipo de entupimento pede uma ferramenta. Escolha o seu problema.</p>
+      <ul class="bento">
+        {servicos.map((s, i) => (
+          <li class={`cell cell-${i} reveal`}>
+            <a href={`/servicos/${s.slug}`}>
+              <Icon name={s.icon} size={28} />
+              <h3>{s.nome}</h3>
+              <p>{s.resumo}</p>
+              <span class="cell-more">Ver detalhes <Icon name="arrow-right" size={16} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA: faixa horizontal -->
+  <section class="section steps-sec" aria-labelledby="como-t">
+    <div class="wrap">
+      <h2 id="como-t">Como funciona o atendimento</h2>
+      <ol class="steps">
+        {passos.map((p) => (
+          <li class="reveal">
+            <span class="step-ic"><Icon name={p.icon} size={24} /></span>
+            <h3>{p.titulo}</h3>
+            <p>{p.texto}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- RESPOSTA DIRETA (texto editorial, extraível por buscadores e IAs) -->
+  <section class="section" aria-labelledby="oque-t">
+    <div class="wrap answer">
+      <div class="answer-main">
+        <h2 id="oque-t">O que faz uma desentupidora em Ubatuba?</h2>
+        <p>
+          Uma desentupidora remove obstruções em pias, vasos sanitários, ralos, redes de esgoto, caixas de gordura e fossas,
+          usando máquina rotativa, hidrojateamento e caminhão de sucção. Em Ubatuba, os casos mais comuns são gordura de
+          cozinha, areia de praia nos ralos e fossas cheias em casas de temporada.
+        </p>
+        <p>
+          A M & C Desentupidora atende o município inteiro 24 horas, com foco em resolver sem quebrar, combinar o valor antes
+          e explicar a causa do problema para que ele não volte.
+        </p>
+      </div>
+      <ul class="diffs">
+        {diferenciais.map((d) => (
+          <li class="reveal">
+            <Icon name={d.icon} size={26} />
+            <div>
+              <h3>{d.titulo}</h3>
+              <p>{d.texto}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- BAIRROS: agrupado por região -->
+  <section class="section bairros-sec" aria-labelledby="bairros-t">
+    <div class="wrap">
+      <span class="eyebrow">Área de atendimento</span>
+      <h2 id="bairros-t">Atendemos todos os bairros de Ubatuba</h2>
+      <div class="regioes">
+        {regioes.map((r) => (
+          <div class="regiao reveal">
+            <h3>{r}</h3>
+            <ul class="pills">
+              {bairros.filter((b) => b.regiao === r).map((b) => (
+                <li><a href={`/bairros/${b.slug}`}>{b.nome}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="muted outros">Também atendemos: {outrasLocalidades.join(', ')} e demais localidades de Ubatuba.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqHome} title="Dúvidas sobre desentupimento em Ubatuba" />
+  <CtaBand />
+</Base>
+
+<style>
+  .hero { padding-top: clamp(32px, 6vw, 80px); padding-bottom: clamp(48px, 7vw, 96px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero-copy h1 { max-width: 15ch; }
+  .hero-copy .lead { margin-bottom: 28px; }
+  .hero-card { background: var(--deep); color: var(--on-deep); border-radius: var(--radius); padding: clamp(24px, 3vw, 36px); box-shadow: var(--shadow); }
+  .hc-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--on-deep-muted); margin-bottom: 8px; }
+  .hc-phone { display: block; font-size: clamp(1.9rem, 3.4vw, 2.5rem); font-weight: 720; letter-spacing: -0.02em; text-decoration: none; color: var(--on-deep); margin-bottom: 20px; }
+  .hc-phone:hover { color: var(--accent-on-deep); }
+  .hc-list { list-style: none; margin: 0 0 20px; padding: 20px 0 0; border-top: 1px solid color-mix(in srgb, var(--on-deep) 18%, transparent); display: grid; gap: 12px; }
+  .hc-list li { display: flex; gap: 10px; align-items: flex-start; }
+  .hc-list :global(.icon) { color: var(--accent-on-deep); margin-top: 4px; }
+  .hc-foot { color: var(--on-deep-muted); font-size: 0.92rem; margin: 0; }
+
+  .bento { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .cell a { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 24px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s; }
+  .cell a:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--ink); }
+  .cell h3 { margin: 8px 0 0; }
+  .cell p { color: var(--muted); margin: 0; font-size: 0.98rem; }
+  .cell-more { margin-top: auto; padding-top: 12px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.92rem; color: var(--accent); }
+  .cell-0 { grid-column: span 2; }
+  .cell-0 a { background: var(--accent-soft); border-color: transparent; padding: 32px; }
+  .cell-3 { grid-column: span 2; }
+  .cell-3 a { background: var(--deep); color: var(--on-deep); border-color: transparent; }
+  .cell-3 a:hover { color: var(--on-deep); }
+  .cell-3 p { color: var(--on-deep-muted); }
+  .cell-3 .cell-more, .cell-3 :global(.icon) { color: var(--accent-on-deep); }
+  .cell-0 .cell-more, .cell-6 .cell-more { color: var(--accent-text); }
+  .cell-6 { grid-column: span 2; }
+  .cell-6 a { background: var(--surface-2); border-color: transparent; }
+  .cell-7 { grid-column: span 2; }
+
+  .steps-sec { background: var(--surface); border-block: 1px solid var(--line); }
+  .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .steps li { position: relative; }
+  .step-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); margin-bottom: 16px; }
+  .steps p { color: var(--muted); margin: 0; }
+
+  .answer { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+  .answer-main p { max-width: 62ch; color: var(--muted); font-size: 1.08rem; }
+  .diffs { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+  .diffs li { display: flex; gap: 16px; }
+  .diffs :global(.icon) { color: var(--accent); margin-top: 2px; }
+  .diffs h3 { margin-bottom: 4px; }
+  .diffs p { margin: 0; color: var(--muted); }
+
+  .bairros-sec { background: var(--surface); border-top: 1px solid var(--line); }
+  .regioes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 36px; }
+  .regiao h3 { font-size: 1rem; color: var(--muted); font-weight: 600; }
+  .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills a { display: inline-block; padding: 9px 16px; border-radius: var(--pill); border: 1px solid var(--line); background: var(--bg); text-decoration: none; font-weight: 520; }
+  .pills a:hover { border-color: var(--accent); color: var(--accent); }
+  .outros { margin-top: 32px; font-size: 0.95rem; max-width: 80ch; }
+
+  @media (max-width: 960px) {
+    .hero-grid, .answer { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .regioes { grid-template-columns: 1fr; gap: 24px; }
+  }
+  @media (max-width: 600px) {
+    .bento { grid-template-columns: 1fr; }
+    .cell-0, .cell-3, .cell-6, .cell-7 { grid-column: auto; grid-row: auto; }
+    .steps { grid-template-columns: 1fr; }
+    .hero .btn-row .btn { flex: 1 1 100%; }
+  }
+</style>

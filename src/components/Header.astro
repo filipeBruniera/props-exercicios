@@ -1,0 +1,61 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site, telHref, waHref } from '../data/site';
+
+const nav = [
+  { href: '/servicos', label: 'Serviços' },
+  { href: '/bairros', label: 'Bairros atendidos' },
+  { href: '/sobre', label: 'Sobre' },
+  { href: '/contato', label: 'Contato' },
+];
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+---
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <Logo />
+    <nav aria-label="Principal" class="nav-desk">
+      <ul>
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="hdr-cta">
+      <a class="tel" href={telHref}><Icon name="phone" size={18} /> {site.phoneDisplay}</a>
+      <a class="btn btn-primary btn-sm" href={waHref()} rel="noopener" target="_blank">
+        <Icon name="whatsapp-logo" size={20} /> WhatsApp
+      </a>
+      <details class="nav-mob">
+        <summary aria-label="Abrir menu"><Icon name="list" size={26} /></summary>
+        <nav aria-label="Menu móvel">
+          <ul>
+            {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            <li><a href={telHref}>Ligar: {site.phoneDisplay}</a></li>
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<style>
+  .hdr { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .hdr-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+  .nav-desk ul, .nav-mob ul { list-style: none; margin: 0; padding: 0; }
+  .nav-desk ul { display: flex; gap: 28px; }
+  .nav-desk a { text-decoration: none; font-weight: 520; color: var(--muted); }
+  .nav-desk a:hover, .nav-desk a[aria-current='page'] { color: var(--ink); }
+  .hdr-cta { display: flex; align-items: center; gap: 14px; }
+  .tel { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .btn-sm { min-height: 42px; padding: 0 1rem; font-size: 0.95rem; }
+  .nav-mob { display: none; position: relative; }
+  .nav-mob summary { list-style: none; cursor: pointer; padding: 8px; border-radius: 10px; }
+  .nav-mob summary::-webkit-details-marker { display: none; }
+  .nav-mob nav { position: absolute; right: 0; top: calc(100% + 10px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px; min-width: 240px; }
+  .nav-mob a { display: block; padding: 12px 14px; text-decoration: none; border-radius: 10px; font-weight: 550; }
+  .nav-mob a:hover { background: var(--surface-2); color: var(--ink); }
+  @media (max-width: 1000px) { .nav-desk { display: none; } .nav-mob { display: block; } }
+  @media (max-width: 640px) { .tel { display: none; } .logo-text { font-size: 0.95rem; } }
+  @media (max-width: 380px) { .btn-sm { padding: 0 0.75rem; } }
+</style>

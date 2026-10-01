@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+import { waHref } from '../data/site';
+---
+<a class="fab" href={waHref()} rel="noopener" target="_blank" aria-label="Chamar no WhatsApp">
+  <Icon name="whatsapp-logo" size={30} />
+</a>
+<style>
+  .fab { position: fixed; right: 18px; bottom: 18px; z-index: 50; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  .fab:hover { color: var(--on-accent); transform: translateY(-2px); }
+  .fab:active { transform: scale(0.96); }
+</style>
