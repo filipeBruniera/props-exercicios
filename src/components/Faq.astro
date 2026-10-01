@@ -8,8 +8,8 @@ const { faqs, title = 'Perguntas frequentes' } = Astro.props;
     <h2 id="faq-t">{title}</h2>
     <div class="faq-list">
       {faqs.map((f) => (
-        <details class="reveal">
-          <summary><h3>{f.q}</h3></summary>
+        <details>
+          <summary><h3>{f.q}</h3><span class="pm" aria-hidden="true"></span></summary>
           <p>{f.a}</p>
         </details>
       ))}
@@ -17,14 +17,16 @@ const { faqs, title = 'Perguntas frequentes' } = Astro.props;
   </div>
 </section>
 <style>
-  .faq-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 48px; align-items: start; }
-  .faq-list { display: grid; gap: 12px; }
-  details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 4px 22px; }
-  summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; }
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.5fr); gap: 48px; align-items: start; }
+  .faq-list { border-top: 3px solid var(--ink); }
+  details { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 0; }
   summary::-webkit-details-marker { display: none; }
-  summary::after { content: '+'; font-size: 1.5rem; line-height: 1; color: var(--accent); transition: transform 0.2s; }
-  details[open] summary::after { transform: rotate(45deg); }
-  summary h3 { margin: 0; font-size: 1.05rem; }
-  details p { color: var(--muted); padding-bottom: 8px; max-width: 65ch; }
-  @media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; gap: 24px; } }
+  summary h3 { margin: 0; font-family: var(--body); text-transform: none; font-size: 1.12rem; font-weight: 700; line-height: 1.35; }
+  .pm { position: relative; flex: 0 0 28px; height: 28px; background: var(--yellow); border-radius: 2px; }
+  .pm::before, .pm::after { content: ''; position: absolute; left: 7px; right: 7px; top: 12.5px; height: 3px; background: var(--ink); transition: transform var(--t-std) var(--ease); }
+  .pm::after { transform: rotate(90deg); }
+  details[open] .pm::after { transform: rotate(0deg); }
+  details p { color: var(--steel); padding-bottom: 12px; max-width: 68ch; }
+  @media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; gap: 20px; } }
 </style>

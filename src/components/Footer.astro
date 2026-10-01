@@ -7,15 +7,14 @@ const year = new Date().getFullYear();
 ---
 <footer class="ftr">
   <div class="wrap ftr-grid">
-    <div class="ftr-brand">
+    <div>
       <Logo />
-      <p class="muted">Desentupidora em Ubatuba-SP. {site.hours}.</p>
+      <p>Desentupidora em Ubatuba-SP. {site.hours}.</p>
       <address>
-        <a href={telHref}>{site.phoneDisplay}</a><br />
-        <a href={waHref()} rel="noopener" target="_blank">WhatsApp</a><br />
-        <a href={`mailto:${site.email}`}>{site.email}</a><br />
-        {site.address.street && <>{site.address.street}<br /></>}
-        {site.address.locality} - {site.address.region}, {site.address.postalCode}
+        <a class="ftr-phone" href={telHref}>{site.phoneDisplay}</a>
+        <a href={waHref()} rel="noopener" target="_blank">WhatsApp</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <span>{site.address.street && `${site.address.street}, `}{site.address.locality} - {site.address.region}, {site.address.postalCode}</span>
       </address>
     </div>
     <nav aria-label="Serviços">
@@ -29,21 +28,23 @@ const year = new Date().getFullYear();
   </div>
   <div class="wrap ftr-bottom">
     <p>&copy; {year} {site.legalName}{site.cnpj && ` - CNPJ ${site.cnpj}`}. Desentupidora em Ubatuba, Litoral Norte de SP.</p>
-    <p><a href="/sobre">Sobre</a> <a href="/contato">Contato</a></p>
+    <p><a href="/sobre">A empresa</a> <a href="/contato">Contato</a></p>
   </div>
 </footer>
 <style>
-  .ftr { border-top: 1px solid var(--line); background: var(--surface); padding-top: 64px; padding-bottom: 96px; font-size: 0.95rem; }
-  .ftr-grid { display: grid; grid-template-columns: 1.3fr 1fr 1.2fr; gap: 40px; }
-  .ftr-brand p { margin-top: 16px; max-width: 34ch; }
-  address { font-style: normal; line-height: 1.9; }
-  .ftr-h { font-size: 0.95rem; font-weight: 650; letter-spacing: 0; margin-bottom: 14px; }
-  ul { list-style: none; margin: 0; padding: 0; line-height: 2; }
-  ul a, .ftr-bottom a { text-decoration: none; color: var(--muted); }
-  ul a:hover, .ftr-bottom a:hover { color: var(--accent); }
+  .ftr { background: var(--ink); color: var(--steel-light); padding-top: 64px; padding-bottom: 104px; font-size: 0.97rem; }
+  .ftr-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 40px; }
+  .ftr-grid > div > p { margin-top: 18px; max-width: 34ch; }
+  address { font-style: normal; display: grid; gap: 6px; }
+  address a { color: var(--white); text-decoration: none; }
+  .ftr-phone { font-family: var(--display); font-weight: 800; font-size: 2rem; color: var(--yellow) !important; line-height: 1; }
+  .ftr-h { font-size: 1.3rem; color: var(--white); margin-bottom: 14px; }
+  ul { list-style: none; margin: 0; padding: 0; line-height: 2.05; }
+  ul a, .ftr-bottom a { color: var(--steel-light); text-decoration: none; }
+  ul a:hover, .ftr-bottom a:hover { color: var(--yellow); }
   .cols { columns: 2; column-gap: 24px; }
-  .ftr-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
+  .ftr-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--navy-3); font-size: 0.88rem; }
   .ftr-bottom p { margin: 0; }
-  .ftr-bottom p a + a { margin-left: 16px; }
+  .ftr-bottom a + a { margin-left: 16px; }
   @media (max-width: 860px) { .ftr-grid { grid-template-columns: 1fr; gap: 32px; } }
 </style>

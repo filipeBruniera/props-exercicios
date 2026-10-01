@@ -1,10 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { telHref, waHref } from '../../data/site';
 import { bairros, getBairro, noBairro, type Bairro } from '../../data/bairros';
 import { servicos, getServico } from '../../data/servicos';
 import { breadcrumbSchema, faqSchema } from '../../data/schema';
@@ -34,39 +33,29 @@ const faqs = [
 ];
 ---
 <Base title={title} description={description} path={path} schema={[breadcrumbSchema(crumbs), faqSchema(faqs)]}>
-  <section class="b-hero">
-    <div class="wrap b-grid">
-      <div class="hero-in">
-        <Breadcrumbs items={crumbs} />
-        <h1>Desentupidora {em}, Ubatuba</h1>
-        <p class="lead">{b.intro}</p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href={waHref(msg)} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={22} /> Chamar no WhatsApp</a>
-          <a class="btn btn-ghost" href={telHref}><Icon name="phone" size={20} /> Ligar agora</a>
-        </div>
-      </div>
-      <div class="b-ctx">
-        <p class="b-reg"><Icon name="map-pin" size={20} /> {b.regiao} de Ubatuba</p>
-        <p>{b.contexto}</p>
-      </div>
+  <PageHero crumbs={crumbs} title={`Desentupidora ${em}`} lead={b.intro} tag={`${b.regiao} de Ubatuba`} message={msg}>
+    <div class="ctx">
+      <p class="ctx-h"><Icon name="map-pin" weight="fill" size={24} /> {b.nome} na prática</p>
+      <p>{b.contexto}</p>
     </div>
-  </section>
+  </PageHero>
 
   <section class="section" aria-labelledby="dest-t">
     <div class="wrap">
-      <h2 id="dest-t">Serviços mais pedidos {em}</h2>
+      <h2 id="dest-t">Mais pedidos {em}</h2>
       <ul class="dest">
         {destaque.map((s) => (
           <li class="reveal">
             <a href={`/servicos/${s.slug}`}>
-              <Icon name={s.icon} size={30} />
+              <span class="d-ic"><Icon name={s.icon} size={30} /></span>
               <h3>{s.nome}</h3>
               <p>{s.resumo}</p>
+              <span class="d-go">Ver serviço <Icon name="arrow-right" size={18} /></span>
             </a>
           </li>
         ))}
       </ul>
-      <p class="muted also">
+      <p class="also">
         Também {em}:{' '}
         {demais.map((s, i) => <>{i > 0 && ', '}<a href={`/servicos/${s.slug}`}>{s.nome.toLowerCase()}</a></>)}.
       </p>
@@ -77,8 +66,8 @@ const faqs = [
 
   <section class="section near" aria-labelledby="viz-t">
     <div class="wrap">
-      <h2 id="viz-t" class="h-small">Também atendemos perto de {b.nome}</h2>
-      <ul class="pills">
+      <h2 id="viz-t" class="h-sm">Bairros perto de {b.nome}</h2>
+      <ul class="chips">
         {vizinhos.map((v) => <li><a href={`/bairros/${v.slug}`}>Desentupidora {noBairro(v)}</a></li>)}
         <li><a href="/bairros">Todos os bairros</a></li>
       </ul>
@@ -89,27 +78,21 @@ const faqs = [
 </Base>
 
 <style>
-  .b-hero { padding-block: clamp(32px, 5vw, 72px); }
-  .b-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr); gap: clamp(28px, 5vw, 64px); align-items: end; }
-  .b-grid h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
-  .b-grid .lead { margin-bottom: 28px; }
-  .b-ctx { background: var(--deep); color: var(--on-deep); border-radius: var(--radius); padding: 28px; }
-  .b-ctx p { margin: 0; color: var(--on-deep-muted); }
-  .b-ctx .b-reg { color: var(--on-deep); font-weight: 600; display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
-  .b-reg :global(.icon) { color: var(--accent-on-deep); }
-  .dest { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; }
-  .dest a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 26px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s; }
-  .dest li:first-child a { background: var(--accent-soft); border-color: transparent; }
-  .dest a:hover { transform: translateY(-3px); border-color: var(--accent); color: var(--ink); }
-  .dest :global(.icon) { color: var(--accent); }
-  .dest h3 { margin: 10px 0 0; }
-  .dest p { margin: 0; color: var(--muted); }
-  .also { margin-top: 24px; max-width: 80ch; }
+  .ctx { background: var(--white); color: var(--ink); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); padding: 24px; }
+  .ctx p { color: var(--steel); margin: 0; }
+  .ctx .ctx-h { display: flex; align-items: center; gap: 8px; color: var(--ink); font-family: var(--display); font-weight: 800; font-size: 1.6rem; text-transform: uppercase; line-height: 1; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
+  .dest { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .dest a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 24px; border: 3px solid var(--ink); background: var(--white); text-decoration: none; color: var(--ink); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease); }
+  .dest a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--yellow); }
+  .d-ic { display: grid; place-items: center; width: 56px; height: 56px; background: var(--navy); color: var(--yellow); margin-bottom: 8px; }
+  .dest h3 { margin: 0; }
+  .dest p { color: var(--steel); margin: 0; }
+  .d-go { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+  .also { margin-top: 24px; max-width: 85ch; color: var(--steel); }
   .near { padding-top: 0; }
-  .h-small { font-size: 1.25rem; }
-  .pills { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .pills a { display: inline-block; padding: 9px 16px; border-radius: var(--pill); border: 1px solid var(--line); background: var(--surface); text-decoration: none; font-weight: 520; }
-  .pills a:hover { border-color: var(--accent); color: var(--accent); }
-  @media (max-width: 900px) { .b-grid { grid-template-columns: 1fr; } .dest { grid-template-columns: 1fr; } }
-  @media (max-width: 560px) { .b-hero .btn-row .btn { flex: 1 1 100%; } }
+  .h-sm { font-size: 1.9rem; }
+  .chips { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chips a { display: inline-block; padding: 9px 14px; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--white); text-decoration: none; font-weight: 700; transition: background-color var(--t-quick) var(--ease); }
+  .chips a:hover { background: var(--yellow); }
+  @media (max-width: 900px) { .dest { grid-template-columns: 1fr; } }
 </style>

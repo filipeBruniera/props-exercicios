@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
 import { site, telHref, waHref } from '../data/site';
 import { breadcrumbSchema } from '../data/schema';
 
@@ -11,18 +11,16 @@ const crumbs = [{ name: 'Início', path: '/' }, { name: 'Contato', path: '/conta
 const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent('Ubatuba, SP')}&output=embed`;
 ---
 <Base title={title} description={description} path="/contato" schema={[breadcrumbSchema(crumbs)]}>
+  <PageHero crumbs={crumbs} title="Fale com a M & C" lead="O WhatsApp é o canal mais rápido. Mande o bairro, o problema e uma foto, se puder." cta={false} />
   <section class="section">
     <div class="wrap ct">
       <div>
-        <Breadcrumbs items={crumbs} />
-        <h1>Fale com a M & C</h1>
-        <p class="lead">O WhatsApp é o canal mais rápido. Mande o bairro, o problema e uma foto, se puder.</p>
         <ul class="ch">
-          <li><a href={waHref()} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={28} /><span><strong>WhatsApp</strong>{site.phoneDisplay}</span></a></li>
-          <li><a href={telHref}><Icon name="phone" size={28} /><span><strong>Telefone</strong>{site.phoneDisplay}</span></a></li>
-          <li><a href={`mailto:${site.email}`}><Icon name="envelope" size={28} /><span><strong>E-mail</strong>{site.email}</span></a></li>
+          <li><a href={waHref()} rel="noopener" target="_blank"><span class="ic"><Icon name="whatsapp-logo" size={30} /></span><span><strong>WhatsApp</strong>{site.phoneDisplay}</span></a></li>
+          <li><a href={telHref}><span class="ic"><Icon name="phone" size={30} /></span><span><strong>Telefone</strong>{site.phoneDisplay}</span></a></li>
+          <li><a href={`mailto:${site.email}`}><span class="ic"><Icon name="envelope" size={30} /></span><span><strong>E-mail</strong>{site.email}</span></a></li>
         </ul>
-        <p class="muted">{site.hours}. Atendemos todos os bairros de {site.city} - {site.state}.</p>
+        <p class="note">{site.hours}. Atendemos todos os bairros de {site.city} - {site.state}.</p>
       </div>
       <div class="map">
         <iframe title="Mapa da área de atendimento em Ubatuba" src={mapSrc} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -32,12 +30,14 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent('Ubatuba, SP'
 </Base>
 <style>
   .ct { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
-  .ch { list-style: none; margin: 28px 0; padding: 0; display: grid; gap: 12px; }
-  .ch a { display: flex; gap: 16px; align-items: center; padding: 18px 20px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); }
-  .ch a:hover { border-color: var(--accent); color: var(--ink); }
-  .ch :global(.icon) { color: var(--accent); }
-  .ch span { display: grid; word-break: break-word; }
-  .map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4 / 5; background: var(--surface-2); }
-  .map iframe { width: 100%; height: 100%; border: 0; }
+  .ch { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 16px; }
+  .ch a { display: flex; gap: 16px; align-items: center; padding: 16px; border: 3px solid var(--ink); background: var(--white); text-decoration: none; color: var(--ink); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease); }
+  .ch a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--yellow); }
+  .ic { display: grid; place-items: center; width: 56px; height: 56px; background: var(--navy); color: var(--yellow); flex: none; }
+  .ch strong { display: block; font-family: var(--display); font-size: 1.5rem; text-transform: uppercase; line-height: 1; }
+  .ch span { word-break: break-word; }
+  .note { color: var(--steel); }
+  .map { border: 3px solid var(--ink); aspect-ratio: 4 / 5; background: var(--white); }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; }
   @media (max-width: 860px) { .ct { grid-template-columns: 1fr; } .map { aspect-ratio: 4 / 3; } }
 </style>

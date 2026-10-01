@@ -1,19 +1,23 @@
 ---
 // Ícones Phosphor (biblioteca oficial), embutidos como SVG inline no build.
-const icons = import.meta.glob<string>(
-  '../../node_modules/@phosphor-icons/core/assets/regular/*.svg',
-  { query: '?raw', import: 'default', eager: true },
-);
+const sets = {
+  bold: import.meta.glob<string>('../../node_modules/@phosphor-icons/core/assets/bold/*.svg', { query: '?raw', import: 'default', eager: true }),
+  fill: import.meta.glob<string>('../../node_modules/@phosphor-icons/core/assets/fill/*.svg', { query: '?raw', import: 'default', eager: true }),
+};
 
 interface Props {
   name: string;
   size?: number;
+  weight?: keyof typeof sets;
   class?: string;
 }
-const { name, size = 24, class: className } = Astro.props;
-const key = Object.keys(icons).find((k) => k.endsWith(`/${name}.svg`));
-if (!key) throw new Error(`Ícone Phosphor não encontrado: ${name}`);
-const svg = icons[key]
-  .replace('<svg ', `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false" class="icon ${className ?? ''}" `);
+const { name, size = 24, weight = 'bold', class: className } = Astro.props;
+const file = weight === 'bold' ? `${name}-bold.svg` : `${name}-fill.svg`;
+const key = Object.keys(sets[weight]).find((k) => k.endsWith(`/${file}`));
+if (!key) throw new Error(`Ícone Phosphor não encontrado: ${name} (${weight})`);
+const svg = sets[weight][key].replace(
+  '<svg ',
+  `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false" class="icon ${className ?? ''}" `,
+);
 ---
 <Fragment set:html={svg} />

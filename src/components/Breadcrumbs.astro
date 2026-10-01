@@ -10,8 +10,9 @@ const { items } = Astro.props;
   </ol>
 </nav>
 <style>
-  .crumbs ol { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.9rem; color: var(--muted); }
-  .crumbs li + li::before { content: '/'; margin-right: 6px; opacity: 0.5; }
-  .crumbs a { text-decoration: none; color: var(--muted); }
-  .crumbs a:hover { color: var(--accent); }
+  .crumbs ol { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.92rem; font-weight: 600; color: var(--steel-light); }
+  .crumbs li + li::before { content: '›'; margin-right: 6px; color: var(--yellow); }
+  .crumbs a { color: var(--steel-light); text-decoration: none; }
+  .crumbs a:hover { color: var(--white); }
+  .crumbs [aria-current] { color: var(--white); }
 </style>

@@ -3,6 +3,8 @@ export type Faq = { q: string; a: string };
 export type Servico = {
   slug: string;
   nome: string;
+  /** Rótulo curto para listas (ex.: "Pia") */
+  curto: string;
   icon: string;
   title: string;
   description: string;
@@ -19,6 +21,7 @@ export const servicos: Servico[] = [
   {
     slug: 'desentupimento-de-pia',
     nome: 'Desentupimento de pia',
+    curto: 'Pia de cozinha e banheiro',
     icon: 'cooking-pot',
     title: 'Desentupimento de Pia em Ubatuba 24h | M & C Desentupidora',
     description:
@@ -53,6 +56,7 @@ export const servicos: Servico[] = [
   {
     slug: 'desentupimento-de-vaso-sanitario',
     nome: 'Desentupimento de vaso sanitário',
+    curto: 'Vaso sanitário',
     icon: 'toilet',
     title: 'Desentupimento de Vaso Sanitário em Ubatuba 24h | M & C',
     description:
@@ -87,6 +91,7 @@ export const servicos: Servico[] = [
   {
     slug: 'desentupimento-de-ralo',
     nome: 'Desentupimento de ralo',
+    curto: 'Ralo e caixa sifonada',
     icon: 'shower',
     title: 'Desentupimento de Ralo em Ubatuba 24h | M & C',
     description:
@@ -121,6 +126,7 @@ export const servicos: Servico[] = [
   {
     slug: 'desentupimento-de-esgoto',
     nome: 'Desentupimento de esgoto',
+    curto: 'Rede de esgoto',
     icon: 'pipe',
     title: 'Desentupimento de Esgoto em Ubatuba 24h | M & C',
     description:
@@ -155,6 +161,7 @@ export const servicos: Servico[] = [
   {
     slug: 'limpeza-de-caixa-de-gordura',
     nome: 'Limpeza de caixa de gordura',
+    curto: 'Caixa de gordura',
     icon: 'drop',
     title: 'Limpeza de Caixa de Gordura em Ubatuba | M & C',
     description:
@@ -189,6 +196,7 @@ export const servicos: Servico[] = [
   {
     slug: 'limpeza-de-fossa',
     nome: 'Limpeza de fossa',
+    curto: 'Fossa séptica',
     icon: 'truck',
     title: 'Limpeza de Fossa Séptica em Ubatuba | M & C',
     description:
@@ -223,6 +231,7 @@ export const servicos: Servico[] = [
   {
     slug: 'hidrojateamento',
     nome: 'Hidrojateamento',
+    curto: 'Hidrojateamento',
     icon: 'drop-half',
     title: 'Hidrojateamento em Ubatuba | Limpeza de Tubulação | M & C',
     description:
@@ -256,6 +265,7 @@ export const servicos: Servico[] = [
   {
     slug: 'deteccao-de-vazamento',
     nome: 'Detecção de vazamento',
+    curto: 'Caça vazamento',
     icon: 'magnifying-glass',
     title: 'Caça Vazamento em Ubatuba | Detecção de Vazamento | M & C',
     description:

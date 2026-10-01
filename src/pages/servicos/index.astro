@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { servicos } from '../../data/servicos';
 import { breadcrumbSchema } from '../../data/schema';
@@ -11,21 +11,19 @@ const description = 'Todos os serviços da M & C em Ubatuba: desentupimento de p
 const crumbs = [{ name: 'Início', path: '/' }, { name: 'Serviços', path: '/servicos' }];
 ---
 <Base title={title} description={description} path="/servicos" schema={[breadcrumbSchema(crumbs)]}>
+  <PageHero crumbs={crumbs} title="Serviços de desentupimento em Ubatuba" lead="Do ralo do box à rede do condomínio. Atendimento 24 horas em todos os bairros." />
   <section class="section">
     <div class="wrap">
-      <Breadcrumbs items={crumbs} />
-      <h1>Serviços de desentupimento em Ubatuba</h1>
-      <p class="lead">Do ralo do box à rede do condomínio. Atendimento 24 horas em todos os bairros.</p>
       <ul class="list">
         {servicos.map((s) => (
           <li class="reveal">
             <a href={`/servicos/${s.slug}`}>
-              <Icon name={s.icon} size={30} />
+              <span class="ic"><Icon name={s.icon} size={30} /></span>
               <div>
                 <h2>{s.nome}</h2>
                 <p>{s.description}</p>
               </div>
-              <Icon name="arrow-right" size={22} class="go" />
+              <Icon name="arrow-right" size={24} class="go" />
             </a>
           </li>
         ))}
@@ -35,12 +33,12 @@ const crumbs = [{ name: 'Início', path: '/' }, { name: 'Serviços', path: '/ser
   <CtaBand />
 </Base>
 <style>
-  .list { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .list a { display: flex; gap: 18px; align-items: flex-start; height: 100%; padding: 26px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); transition: border-color 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-  .list a:hover { border-color: var(--accent); transform: translateY(-2px); color: var(--ink); }
-  .list :global(.icon) { color: var(--accent); }
-  .list h2 { font-size: 1.25rem; margin-bottom: 6px; }
-  .list p { color: var(--muted); margin: 0; font-size: 0.97rem; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .list a { display: flex; gap: 18px; align-items: flex-start; height: 100%; padding: 24px; border: 3px solid var(--ink); background: var(--white); text-decoration: none; color: var(--ink); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease); }
+  .list a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--yellow); }
+  .ic { display: grid; place-items: center; width: 56px; height: 56px; background: var(--navy); color: var(--yellow); flex: none; }
+  .list h2 { font-size: 1.7rem; margin-bottom: 6px; }
+  .list p { color: var(--steel); margin: 0; font-size: 0.98rem; }
   .list :global(.go) { margin-left: auto; align-self: center; }
   @media (max-width: 800px) { .list { grid-template-columns: 1fr; } }
 </style>

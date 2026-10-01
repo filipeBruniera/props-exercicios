@@ -1,23 +1,28 @@
-// Gera public/og.png (1200x630) e public/logo.png (512x512) a partir de HTML.
-// Uso: node scripts/make-images.mjs  (requer Playwright com Chromium)
+// Gera public/og.png (1200x630) e public/logo.png (512x512) na identidade da marca.
+// Uso: npm run build && node scripts/make-images.mjs  (requer Playwright com Chromium)
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
 
-const font = 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-const mark = (s) => `<svg width="${s}" height="${s}" viewBox="0 0 36 36"><rect width="36" height="36" rx="10" fill="#c2410c"/><path d="M9 25V11l9 9 9-9v14" fill="none" stroke="#fff8f3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const siteSrc = readFileSync(new URL('../src/data/site.ts', import.meta.url), 'utf8');
-const phone = siteSrc.match(/phoneDisplay: '([^']+)'/)[1];
+const font = (f) => readFileSync(new URL(`../node_modules/@fontsource/barlow-condensed/files/barlow-condensed-latin-${f}-normal.woff2`, import.meta.url)).toString('base64');
+const css = `@font-face{font-family:BC;font-weight:800;src:url(data:font/woff2;base64,${font(800)})}
+@font-face{font-family:BC;font-weight:700;src:url(data:font/woff2;base64,${font(700)})}
+body{margin:0;font-family:BC,sans-serif;text-transform:uppercase}
+.mark{display:inline-block;background:#ffc400;color:#141000;font-weight:800;transform:skewX(-8deg);border-radius:4px}
+.stripe{height:28px;background:repeating-linear-gradient(-45deg,#ffc400 0 22px,#0d1b2a 22px 44px)}`;
+const phone = readFileSync(new URL('../src/data/site.ts', import.meta.url), 'utf8').match(/phoneDisplay: '([^']+)'/)[1];
 
-const og = `<html><body style="margin:0;width:1200px;height:630px;background:#10262e;color:#eaf1f2;font-family:${font};display:flex;flex-direction:column;justify-content:space-between;padding:72px;box-sizing:border-box">
-<div style="display:flex;align-items:center;gap:18px;font-size:34px"><span>${mark(64)}</span><b>M &amp; C</b>&nbsp;Desentupidora</div>
-<div><div style="font-size:84px;font-weight:750;letter-spacing:-2px;line-height:1.02">Desentupidora em Ubatuba<br><span style="color:#f07a3e">24 horas.</span></div>
-<div style="font-size:32px;color:#a9bec3;margin-top:24px">Pia, vaso, esgoto, caixa de gordura e fossa &nbsp;|&nbsp; ${phone}</div></div></body></html>`;
-const logo = `<html><body style="margin:0;width:512px;height:512px;background:#c2410c;display:grid;place-items:center">${mark(512)}</body></html>`;
+const og = `<html><head><style>${css}</style></head><body style="width:1200px;height:630px;background:#0b2545;color:#fff;display:flex;flex-direction:column;justify-content:space-between">
+<div style="padding:56px 72px 0;display:flex;align-items:center;gap:20px"><span class="mark" style="font-size:52px;padding:8px 16px 4px">M&amp;C</span><span style="font-size:40px;font-weight:800;line-height:.9">Desentupidora<br><span style="color:#ffc400;font-size:22px;letter-spacing:4px">Ubatuba 24h</span></span></div>
+<div style="padding:0 72px"><div style="font-size:112px;font-weight:800;line-height:.9">Desentupidora<br>em Ubatuba</div>
+<div style="font-size:64px;font-weight:800;color:#ffc400;margin-top:18px">${phone} &nbsp;|&nbsp; 24 horas</div></div>
+<div class="stripe"></div></body></html>`;
+const logo = `<html><head><style>${css}</style></head><body style="width:512px;height:512px;background:#0b2545;display:grid;place-items:center"><span class="mark" style="font-size:190px;padding:24px 40px 6px">M&amp;C</span></body></html>`;
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH });
+const browser = await chromium.launch();
 for (const [html, w, h, out] of [[og, 1200, 630, 'public/og.png'], [logo, 512, 512, 'public/logo.png']]) {
   const page = await browser.newPage({ viewport: { width: w, height: h } });
   await page.setContent(html);
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: out });
   await page.close();
 }

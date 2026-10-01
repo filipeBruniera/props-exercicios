@@ -1,14 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import Foto from '../components/Foto.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site } from '../data/site';
 import { breadcrumbSchema } from '../data/schema';
 
 const title = 'Sobre a M & C Desentupidora | Desentupidora em Ubatuba-SP';
 const description = 'Conheça a M & C Desentupidora, empresa de Ubatuba especializada em desentupimento, limpeza de fossa e caixa de gordura, com atendimento 24 horas.';
-const crumbs = [{ name: 'Início', path: '/' }, { name: 'Sobre', path: '/sobre' }];
+const crumbs = [{ name: 'Início', path: '/' }, { name: 'A empresa', path: '/sobre' }];
 const valores = [
   { icon: 'house-line', t: 'Respeito pelo seu imóvel', d: 'Trabalhamos por dentro da tubulação. Quebra, só quando não houver alternativa e com sua autorização.' },
   { icon: 'receipt', t: 'Preço claro', d: 'O valor é informado depois do diagnóstico e antes de qualquer serviço.' },
@@ -16,30 +17,25 @@ const valores = [
 ];
 ---
 <Base title={title} description={description} path="/sobre" schema={[breadcrumbSchema(crumbs)]}>
+  <PageHero crumbs={crumbs} title="Desentupidora de Ubatuba, para Ubatuba" lead={`A ${site.name} atende moradores, pousadas, restaurantes e condomínios com desentupimento, limpeza de fossa e caixa de gordura, hidrojateamento e detecção de vazamento, 24 horas por dia.`} foto="equipe" fotoAlt="Equipe da M & C Desentupidora" />
   <section class="section">
     <div class="wrap about">
       <div>
-        <Breadcrumbs items={crumbs} />
-        <h1>Desentupidora de Ubatuba, para Ubatuba.</h1>
+        <h2>Conhecemos os problemas da cidade</h2>
         <p class="lead">
-          A {site.name} atende moradores, pousadas, restaurantes e condomínios de Ubatuba com desentupimento,
-          limpeza de fossa e caixa de gordura, hidrojateamento e detecção de vazamento, 24 horas por dia.
-        </p>
-        <p class="muted">
-          Conhecemos os problemas típicos da cidade: areia de praia nos ralos, gordura de cozinha comercial na orla,
-          fossas que lotam quando a casa de temporada enche e redes que sofrem com a chuva forte do litoral.
-          Por isso chegamos com o equipamento certo para cada caso.
+          Areia de praia nos ralos, gordura de cozinha comercial na orla, fossas que lotam quando a casa de temporada
+          enche e redes que sofrem com a chuva forte do litoral. Por isso chegamos com o equipamento certo para cada caso.
         </p>
       </div>
-      <!-- TODO: foto real da equipe ou do veículo da M & C (1200x900). Foto própria aumenta a confiança e ajuda no SEO local. -->
+      <div class="about-photo"><Foto nome="caminhao" alt="Caminhão da M & C Desentupidora" sizes="(max-width: 900px) 100vw, 45vw" /></div>
     </div>
   </section>
-  <section class="section vals-sec">
+  <section class="section on-dark">
     <div class="wrap">
-      <h2>O que você pode esperar da M & C</h2>
+      <h2>O que você pode esperar</h2>
       <ul class="vals">
         {valores.map((v) => (
-          <li class="reveal"><Icon name={v.icon} size={28} /><h3>{v.t}</h3><p>{v.d}</p></li>
+          <li class="reveal"><Icon name={v.icon} size={40} /><h3>{v.t}</h3><p>{v.d}</p></li>
         ))}
       </ul>
     </div>
@@ -47,11 +43,14 @@ const valores = [
   <CtaBand />
 </Base>
 <style>
-  .about h1 { max-width: 16ch; }
-  .about p { max-width: 64ch; }
-  .vals-sec { background: var(--surface); border-top: 1px solid var(--line); }
-  .vals { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 28px; }
-  .vals :global(.icon) { color: var(--accent); margin-bottom: 14px; }
-  .vals p { color: var(--muted); margin: 0; }
-  @media (max-width: 860px) { .vals { grid-template-columns: 1fr; } }
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+  .about-photo:empty { display: none; }
+  .about-photo { border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); aspect-ratio: 4 / 3; overflow: hidden; }
+  .about-photo :global(picture) { height: 100%; }
+  .vals { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .vals li { border-top: 4px solid var(--yellow); padding-top: 22px; }
+  .vals :global(.icon) { color: var(--yellow); margin-bottom: 14px; }
+  .vals h3 { color: var(--white); font-size: 1.8rem; }
+  .vals p { margin: 0; }
+  @media (max-width: 900px) { .about, .vals { grid-template-columns: 1fr; } }
 </style>

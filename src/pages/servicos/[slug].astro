@@ -1,10 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { telHref, waHref, site } from '../../data/site';
 import { servicos, type Servico } from '../../data/servicos';
 import { bairros } from '../../data/bairros';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../../data/schema';
@@ -26,61 +25,53 @@ const outros = servicos.filter((o) => o.slug !== s.slug);
 ---
 <Base title={s.title} description={s.description} path={path}
   schema={[breadcrumbSchema(crumbs), serviceSchema(s), faqSchema(s.faq)]}>
-  <section class="svc-hero">
-    <div class="wrap svc-grid">
-      <div class="hero-in">
-        <Breadcrumbs items={crumbs} />
-        <h1>{s.h1}</h1>
-        <p class="lead">{s.intro}</p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href={waHref(msg)} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={22} /> Chamar no WhatsApp</a>
-          <a class="btn btn-ghost" href={telHref}><Icon name="phone" size={20} /> Ligar agora</a>
-        </div>
-      </div>
-      <aside class="signs" aria-labelledby="sinais-t">
-        <h2 id="sinais-t" class="h-small"><Icon name="warning" size={22} /> Sinais de que você precisa</h2>
-        <ul>{s.sinais.map((x) => <li>{x}</li>)}</ul>
-        <p class="signs-foot">{site.hours}.</p>
-      </aside>
+  <PageHero crumbs={crumbs} title={s.h1} lead={s.intro} tag="Atendimento 24h" foto={`servico-${s.slug}`} fotoAlt={`${s.nome} em Ubatuba`} message={msg}>
+    <div class="signs">
+      <p class="signs-h"><Icon name="warning" weight="fill" size={26} /> Sinais do problema</p>
+      <ul>{s.sinais.map((x) => <li>{x}</li>)}</ul>
     </div>
-  </section>
+  </PageHero>
 
-  <section class="section proc-sec" aria-labelledby="proc-t">
+  <section class="section" aria-labelledby="proc-t">
     <div class="wrap">
       <h2 id="proc-t">Como fazemos o serviço</h2>
       <ol class="proc">
-        {s.processo.map((p) => (
-          <li class="reveal"><h3>{p.titulo}</h3><p>{p.texto}</p></li>
+        {s.processo.map((p, i) => (
+          <li class="reveal">
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <h3>{p.titulo}</h3>
+            <p>{p.texto}</p>
+          </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="prev-t">
+  <section class="prev-sec" aria-labelledby="prev-t">
     <div class="wrap prev">
       <div class="prev-box reveal">
-        <h2 id="prev-t">Como evitar que volte a entupir</h2>
-        <ul>{s.prevencao.map((x) => <li><Icon name="check-circle" size={22} /> <span>{x}</span></li>)}</ul>
+        <h2 id="prev-t">Para não entupir de novo</h2>
+        <ul>{s.prevencao.map((x) => <li><Icon name="check-circle" size={26} /> <span>{x}</span></li>)}</ul>
       </div>
       <div class="areas reveal">
-        <h2 class="h-small">{s.nome} nos bairros de Ubatuba</h2>
-        <p class="muted">Atendemos todos os bairros. Veja onde este serviço é mais pedido:</p>
-        <ul class="pills">
+        <h2 class="h-sm">Onde atendemos</h2>
+        <p>{s.nome} em todos os bairros de Ubatuba. Mais pedido:</p>
+        <ul class="chips">
           {(atendidoEm.length ? atendidoEm : bairros).map((b) => <li><a href={`/bairros/${b.slug}`}>{b.nome}</a></li>)}
         </ul>
-        <p><a href="/bairros">Ver todos os bairros atendidos</a></p>
+        <a class="more" href="/bairros">Todos os bairros <Icon name="arrow-right" size={18} /></a>
       </div>
     </div>
   </section>
 
-  <Faq faqs={s.faq} title={`Dúvidas sobre ${s.nome.toLowerCase()}`} />
+  <Faq faqs={s.faq} title={`Dúvidas sobre ${s.curto.toLowerCase()}`} />
 
   <section class="section other-sec" aria-labelledby="outros-t">
     <div class="wrap">
-      <h2 id="outros-t" class="h-small">Outros serviços em Ubatuba</h2>
+      <h2 id="outros-t" class="h-sm">Outros serviços</h2>
       <ul class="other">
         {outros.map((o) => (
-          <li><a href={`/servicos/${o.slug}`}><Icon name={o.icon} size={22} /> {o.nome}</a></li>
+          <li><a href={`/servicos/${o.slug}`}><span class="o-ic"><Icon name={o.icon} size={24} /></span> {o.nome}</a></li>
         ))}
       </ul>
     </div>
@@ -90,36 +81,39 @@ const outros = servicos.filter((o) => o.slug !== s.slug);
 </Base>
 
 <style>
-  .svc-hero { padding-block: clamp(32px, 5vw, 72px); }
-  .svc-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr); gap: clamp(28px, 5vw, 64px); align-items: end; }
-  .svc-grid h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
-  .svc-grid .lead { margin-bottom: 28px; }
-  .h-small { font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
-  .signs { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
-  .signs :global(.icon) { color: var(--accent); }
-  .signs ul { margin: 0 0 16px; padding-left: 1.1rem; display: grid; gap: 8px; }
-  .signs-foot { margin: 0; font-size: 0.9rem; color: var(--muted); }
-  .proc-sec { background: var(--deep); color: var(--on-deep); }
-  .proc { list-style: none; counter-reset: p; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
-  .proc li { counter-increment: p; border-top: 2px solid var(--accent-on-deep); padding-top: 18px; }
-  .proc li::before { content: counter(p); font-weight: 700; color: var(--accent-on-deep); font-size: 0.95rem; display: block; margin-bottom: 6px; }
-  .proc p { color: var(--on-deep-muted); margin: 0; }
-  .prev { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
-  .prev-box { background: var(--accent-soft); border-radius: var(--radius); padding: clamp(24px, 4vw, 44px); }
-  .prev-box ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .signs { background: var(--white); color: var(--ink); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); padding: 24px; }
+  .signs .signs-h { display: flex; align-items: center; gap: 10px; color: var(--ink); font-family: var(--display); font-weight: 800; font-size: 1.6rem; text-transform: uppercase; line-height: 1; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
+  .signs-h :global(.icon) { color: #b45309; }
+  .signs ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 8px; font-weight: 600; }
+  .proc { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 3px solid var(--ink); background: var(--white); }
+  .proc li { padding: 26px 22px; }
+  .proc li + li { border-left: 3px solid var(--ink); }
+  .num { display: inline-grid; place-items: center; width: 48px; height: 48px; background: var(--yellow); font-family: var(--display); font-weight: 800; font-size: 1.8rem; border: 2px solid var(--ink); margin-bottom: 14px; }
+  .proc p { margin: 0; color: var(--steel); }
+  .prev-sec { background: var(--yellow); border-block: 6px solid var(--ink); padding-block: clamp(48px, 7vw, 88px); }
+  .prev { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .prev-box ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; font-weight: 600; font-size: 1.08rem; }
   .prev-box li { display: flex; gap: 12px; }
-  .prev-box :global(.icon) { color: var(--accent); margin-top: 2px; }
-  .pills { list-style: none; margin: 16px 0 20px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .pills a { display: inline-block; padding: 8px 15px; border-radius: var(--pill); border: 1px solid var(--line); background: var(--surface); text-decoration: none; font-weight: 520; }
-  .pills a:hover { border-color: var(--accent); color: var(--accent); }
+  .areas { background: var(--white); border: 3px solid var(--ink); padding: 24px; }
+  .h-sm { font-size: 1.9rem; }
+  .areas p { color: var(--steel); }
+  .chips { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips a { display: inline-block; padding: 7px 11px; border: 2px solid var(--ink); border-radius: var(--radius); text-decoration: none; font-weight: 700; transition: background-color var(--t-quick) var(--ease); }
+  .chips a:hover { background: var(--yellow); }
+  .more { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
   .other-sec { padding-top: 0; }
-  .other { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
-  .other a { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); text-decoration: none; font-weight: 550; }
-  .other a:hover { border-color: var(--accent); }
-  .other :global(.icon) { color: var(--accent); }
+  .other { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .other a { display: flex; align-items: center; gap: 12px; padding: 12px; border: 2px solid var(--ink); background: var(--white); text-decoration: none; font-weight: 700; border-radius: var(--radius); transition: transform var(--t-quick) var(--ease), box-shadow var(--t-quick) var(--ease); }
+  .other a:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--yellow); }
+  .o-ic { display: grid; place-items: center; width: 40px; height: 40px; background: var(--navy); color: var(--yellow); flex: none; }
   @media (max-width: 900px) {
-    .svc-grid, .prev { grid-template-columns: 1fr; }
+    .prev { grid-template-columns: 1fr; }
     .proc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .proc li:nth-child(3) { border-left: 0; }
+    .proc li:nth-child(n + 3) { border-top: 3px solid var(--ink); }
   }
-  @media (max-width: 560px) { .proc { grid-template-columns: 1fr; } .svc-hero .btn-row .btn { flex: 1 1 100%; } }
+  @media (max-width: 560px) {
+    .proc { grid-template-columns: 1fr; }
+    .proc li + li { border-left: 0; border-top: 3px solid var(--ink); }
+  }
 </style>

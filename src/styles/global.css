@@ -1,53 +1,38 @@
 /*
-  M & C Desentupidora - tokens de design
-  Paleta: neutros frios (ardósia) + um único acento laranja queimado.
-  Forma: cartões 16px, botões em pílula (regra única para o site todo).
+  M & C Desentupidora - sistema visual "serviço pesado"
+  Marinho de frota + amarelo de sinalização. Cantos retos (4px no máximo),
+  bordas grossas, tipografia condensada em caixa alta nos títulos.
+  Movimento: personalidade "corporativa/rígida" (motion-design skill):
+  curva única cubic-bezier(.2,0,0,1), durações 150 / 250 / 400 ms.
 */
 :root {
-  --bg: #f3f5f4;
-  --surface: #fbfcfc;
-  --surface-2: #e8eeee;
-  --ink: #0e1a1f;
-  --muted: #47575e;
-  --line: #d3dcdd;
-  --accent: #c2410c;
-  --accent-hover: #a8360a;
-  --on-accent: #fff8f3;
-  --accent-soft: #fbe6da;
-  --accent-text: #9a330a; /* acento para texto pequeno sobre fundos tingidos */
-  --accent-on-deep: #f5935f;
-  --deep: #10262e;
-  --on-deep: #eaf1f2;
-  --on-deep-muted: #a9bec3;
-  --shadow: 0 1px 2px rgb(16 38 46 / 0.06), 0 12px 32px -12px rgb(16 38 46 / 0.18);
+  --navy: #0b2545;
+  --navy-2: #13315c;
+  --navy-3: #1d3f6e;
+  --ink: #0d1b2a;
+  --yellow: #ffc400;
+  --yellow-2: #ffd54a;
+  --on-yellow: #141000;
+  --paper: #f3f5f7;
+  --white: #ffffff;
+  --steel: #4a5866;
+  --steel-light: #b7c4d3;
+  --line: #d3dae2;
+  --wa: #1d9e52;
 
-  --radius: 16px;
-  --pill: 999px;
-  --max: 1200px;
+  --radius: 4px;
+  --max: 1240px;
   --gutter: clamp(16px, 4vw, 40px);
-  --font: 'Onest Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  color-scheme: light dark;
-}
+  --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0b1316;
-    --surface: #111c20;
-    --surface-2: #172529;
-    --ink: #e6eef0;
-    --muted: #9db0b6;
-    --line: #233339;
-    --accent: #f07a3e;
-    --accent-hover: #f6935e;
-    --on-accent: #1c0d04;
-    --accent-soft: #2a1a12;
-    --accent-text: #f07a3e;
-    --accent-on-deep: #f07a3e;
-    --deep: #0f2128;
-    --on-deep: #e6eef0;
-    --on-deep-muted: #9db0b6;
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.6);
-  }
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --t-quick: 150ms;
+  --t-std: 250ms;
+  --t-slow: 400ms;
+
+  --stripe: repeating-linear-gradient(-45deg, var(--yellow) 0 16px, var(--ink) 16px 32px);
+  color-scheme: light;
 }
 
 *,
@@ -63,9 +48,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
-  font-family: var(--font);
+  font-family: var(--body);
   font-size: 1.0625rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -73,9 +58,16 @@ body {
 }
 
 img,
-svg {
+svg,
+picture {
   display: block;
   max-width: 100%;
+}
+
+picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .icon {
@@ -84,43 +76,45 @@ svg {
 
 a {
   color: inherit;
-  text-decoration-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  text-decoration-thickness: 2px;
   text-underline-offset: 3px;
+  text-decoration-color: var(--yellow);
 }
 
 a:hover {
-  color: var(--accent);
+  text-decoration-color: currentColor;
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 6px;
+  outline: 3px solid var(--yellow);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--ink);
 }
 
 h1,
 h2,
 h3 {
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  margin: 0 0 0.5em;
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0;
+  margin: 0 0 0.45em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.25rem, 5.2vw, 3.75rem);
-  font-weight: 700;
+  font-size: clamp(2.9rem, 7.4vw, 5.6rem);
 }
 
 h2 {
-  font-size: clamp(1.75rem, 3.4vw, 2.6rem);
-  font-weight: 650;
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
 }
 
 h3 {
-  font-size: 1.2rem;
-  font-weight: 620;
-  letter-spacing: -0.01em;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 p {
@@ -136,27 +130,49 @@ p {
 }
 
 .section {
-  padding-block: clamp(56px, 9vw, 112px);
+  padding-block: clamp(56px, 8vw, 104px);
 }
 
 .lead {
-  font-size: 1.15rem;
-  color: var(--muted);
-  max-width: 62ch;
+  font-size: 1.2rem;
+  color: var(--steel);
+  max-width: 60ch;
 }
 
-.muted {
-  color: var(--muted);
+.on-dark {
+  background: var(--navy);
+  color: var(--white);
 }
 
-.eyebrow {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+.on-dark .lead,
+.on-dark p {
+  color: var(--steel-light);
+}
+
+.stripe {
+  height: 14px;
+  background: var(--stripe);
+}
+
+/* Etiqueta tipo adesivo de frota (uso pontual, não em todo título) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--yellow);
+  color: var(--on-yellow);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.05rem;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.9rem;
+  letter-spacing: 0.04em;
+  padding: 6px 12px 5px;
+  border-radius: 2px;
+  transform: skewX(-8deg);
+}
+
+.tag > * {
+  transform: skewX(8deg);
 }
 
 .sr-only {
@@ -176,88 +192,122 @@ p {
   left: 16px;
   top: -60px;
   z-index: 100;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--yellow);
+  color: var(--on-yellow);
   padding: 10px 16px;
-  border-radius: var(--pill);
+  font-weight: 700;
 }
 
 .skip:focus {
   top: 12px;
 }
 
-/* Botões: sempre pílula */
+/* Botões: retos, pesados, com sombra sólida que "afunda" ao apertar */
 .btn {
+  --shadow-c: var(--ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  min-height: 52px;
-  padding: 0 1.4rem;
-  border-radius: var(--pill);
-  font-weight: 620;
-  font-size: 1rem;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  border: 1.5px solid transparent;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s, border-color 0.18s;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow-c);
+  transition:
+    transform var(--t-quick) var(--ease),
+    box-shadow var(--t-quick) var(--ease),
+    background-color var(--t-quick) var(--ease);
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--shadow-c);
 }
 
 .btn:active {
-  transform: translateY(1px) scale(0.985);
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--shadow-c);
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: var(--on-accent);
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--on-yellow);
 }
 
-.btn-primary:hover {
-  background: var(--accent-hover);
-  color: var(--on-accent);
+.btn-yellow:hover {
+  background: var(--yellow-2);
 }
 
-.btn-ghost {
-  border-color: var(--line);
-  color: var(--ink);
+.btn-outline {
   background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+  --shadow-c: var(--yellow);
 }
 
-.btn-ghost:hover {
-  border-color: var(--ink);
-  color: var(--ink);
+.btn-dark {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+  --shadow-c: var(--yellow);
 }
 
 .btn-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
 }
 
-/* Entrada suave ao rolar (somente quando o usuário aceita movimento) */
+/* Telefone gigante, peça central da marca */
+.phone-big {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+  line-height: 1;
+  text-decoration: none;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+
+/* Movimento (somente quando o usuário aceita movimento) */
 @media (prefers-reduced-motion: no-preference) {
+  .enter > * {
+    animation: enter var(--t-slow) var(--ease) both;
+  }
+
+  .enter > *:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .enter > *:nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  .enter > *:nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  .enter > *:nth-child(5) {
+    animation-delay: 240ms;
+  }
+
   @supports (animation-timeline: view()) {
     .reveal {
-      animation: reveal linear both;
+      animation: enter linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+      animation-range: entry 0% entry 35%;
     }
-  }
-
-  .hero-in > * {
-    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .hero-in > *:nth-child(2) {
-    animation-delay: 0.06s;
-  }
-
-  .hero-in > *:nth-child(3) {
-    animation-delay: 0.12s;
-  }
-
-  .hero-in > *:nth-child(4) {
-    animation-delay: 0.18s;
   }
 }
 
@@ -265,12 +315,18 @@ p {
   html {
     scroll-behavior: auto;
   }
+
+  .btn,
+  .btn:hover,
+  .btn:active {
+    transition: none;
+  }
 }
 
-@keyframes reveal {
+@keyframes enter {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -278,13 +334,10 @@ p {
   }
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+@media (max-width: 560px) {
+  .btn {
+    font-size: 1.12rem;
+    padding: 0 1rem;
+    max-width: 100%;
   }
 }

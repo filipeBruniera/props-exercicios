@@ -25,6 +25,13 @@ compartilhamento (`public/og.png`).
 > O nome, endereço e telefone (NAP) precisam ser **idênticos** em todo lugar: site, Google
 > Business Profile, Instagram, Facebook e diretórios. Isso é um dos fatores mais fortes de SEO local.
 
+## Fotos
+
+O site já funciona sem fotos, mas elas são o que mais aumenta a confiança. Coloque os arquivos em
+`src/assets/fotos/` com os nomes listados em [`src/assets/fotos/LEIA-ME.md`](src/assets/fotos/LEIA-ME.md)
+(ex.: `hero.jpg`, `caminhao.jpg`, `servico-limpeza-de-fossa.jpg`). Cada foto aparece sozinha no
+lugar certo, otimizada em AVIF/WebP. Prefira fotos reais da equipe, do caminhão e dos serviços.
+
 ## Desenvolvimento
 
 ```bash
@@ -42,6 +49,7 @@ src/
   data/site.ts        dados da empresa (fonte única)
   data/servicos.ts    conteúdo das 8 páginas de serviço
   data/bairros.ts     conteúdo das 13 páginas de bairro
+  assets/fotos/       fotos opcionais (aparecem automaticamente)
   data/schema.ts      Schema.org (Plumber/LocalBusiness, Service, FAQPage, BreadcrumbList)
   pages/              rotas (home, /servicos/*, /bairros/*, /sobre, /contato)
   pages/robots.txt.ts robots.txt gerado (libera buscadores e robôs de IA)
