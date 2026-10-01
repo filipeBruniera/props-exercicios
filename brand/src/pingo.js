@@ -128,7 +128,7 @@
     var eL = eye(94), eR = eye(146);
     var brL = el('path', { d: 'M80,148 Q94,140 108,148', fill: 'none', stroke: C.navy, 'stroke-width': 5, 'stroke-linecap': 'round' }, face);
     var brR = el('path', { d: 'M132,148 Q146,140 160,148', fill: 'none', stroke: C.navy, 'stroke-width': 5, 'stroke-linecap': 'round' }, face);
-    var mouth = el('path', { d: '', fill: C.navy }, face);
+    var mouth = el('path', { d: '', fill: C.navy, stroke: C.navy, 'stroke-width': 4.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, face);
     var tongue = el('ellipse', { cx: 120, cy: 228, rx: 7, ry: 4, fill: '#ff7a6b', opacity: 0 }, face);
 
     // Capacete de obra

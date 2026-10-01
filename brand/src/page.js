@@ -113,6 +113,12 @@
   /* ---------- Sem GSAP ou com menos movimento: para aqui ---------- */
   if (!anim || !ST) { $$('.mt-step').forEach(function (s, i) { s.style.position = 'static'; s.style.marginBottom = '18px'; }); $('#mtDots').style.marginTop = '0'; return; }
 
+  // Entrada fail-safe: estado final explícito e transform limpo ao terminar
+  function rise(targets, trigger, o) {
+    o = o || {};
+    return G.fromTo(targets, { y: o.y == null ? 40 : o.y, x: o.x || 0, autoAlpha: 0 }, { y: 0, x: 0, autoAlpha: 1, duration: o.d || .4, stagger: o.s == null ? .05 : o.s, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: trigger, start: o.start || 'top 85%', once: true, onEnter: o.onEnter } });
+  }
+
   // Progresso de leitura
   G.to('.nav .prog', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
 
@@ -162,7 +168,7 @@
       .from('.anat li', { opacity: .15, x: 20, stagger: .3, duration: .4 }, .2);
     ST.create({ animation: lt, trigger: '#logoStage', start: desk ? 'center center' : 'top 75%', end: desk ? '+=160%' : 'bottom 30%', scrub: .6, pin: desk });
   }
-  G.from('.ver', { y: 40, opacity: 0, stagger: .06, duration: .4, ease: 'power3.out', scrollTrigger: { trigger: '.versions', start: 'top 85%' } });
+  rise('.ver', '.versions', { s: .06 });
 
   // A etiqueta em movimento (morph)
   var shape = $('#shape'), lays = $$('.lay', shape), steps = $$('.mt-step'), dots = $$('#mtDots i');
@@ -191,18 +197,18 @@
     onUpdate: function (self) { var k = Math.round(self.progress * 4); dots.forEach(function (d, j) { d.classList.toggle('on', j <= k); }); } });
 
   // Cor
-  G.from('#swatches .sw', { y: 50, opacity: 0, stagger: .05, duration: .4, ease: 'power3.out', scrollTrigger: { trigger: '#swatches', start: 'top 85%' } });
+  rise('#swatches .sw', '#swatches');
 
   // Tipografia: letras sobem e se espalham
-  G.from('#typeHero span', { yPercent: 110, opacity: 0, stagger: .05, duration: .5, ease: 'power3.out', scrollTrigger: { trigger: '#typeHero', start: 'top 85%' } });
+  G.fromTo('#typeHero span', { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, stagger: .05, duration: .5, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: '#typeHero', start: 'top 85%', once: true } });
   G.fromTo('#typeHero', { letterSpacing: '-0.03em' }, { letterSpacing: '0.01em', ease: 'none', scrollTrigger: { trigger: '#typeHero', start: 'top 90%', end: 'bottom 20%', scrub: .5 } });
 
   // Mascote
-  G.from('#mascStage', { scale: .9, opacity: 0, duration: .5, ease: 'power3.out', scrollTrigger: { trigger: '#mascStage', start: 'top 80%', onEnter: function () { big.jump(); } } });
-  G.from('.pose', { y: 40, opacity: 0, stagger: .05, duration: .4, ease: 'power3.out', scrollTrigger: { trigger: '#poses', start: 'top 85%' } });
+  rise('#mascStage', '#mascStage', { y: 30, s: 0, start: 'top 80%', onEnter: function () { big.jump(); } });
+  rise('.pose', '#poses');
 
   // Componentes
-  G.from('.comp-grid .cp', { y: 40, opacity: 0, stagger: .05, duration: .4, ease: 'power3.out', scrollTrigger: { trigger: '.comp-grid', start: 'top 85%' } });
+  rise('.comp-grid .cp', '.comp-grid');
 
   // Produto: laptop abre, números contam, barras crescem
   G.fromTo('#laptop', { rotateX: 30, scale: .86, y: 40 }, { rotateX: 0, scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: '.laptop-wrap', start: 'top 95%', end: 'top 25%', scrub: .6 } });
@@ -212,7 +218,7 @@
     G.to(o, { v: to, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 90%' }, onUpdate: function () { el.textContent = Math.round(o.v); } });
   }
   $$('[data-count]').forEach(counter);
-  G.from('#bars span', { scaleY: 0, stagger: .08, duration: .6, ease: 'power3.out', scrollTrigger: { trigger: '#bars', start: 'top 90%' } });
+  G.fromTo('#bars span', { scaleY: 0 }, { scaleY: 1, stagger: .08, duration: .6, ease: 'power3.out', scrollTrigger: { trigger: '#bars', start: 'top 90%', once: true } });
   $$('#phones figure').forEach(function (f, k) {
     G.fromTo(f, { y: 60 + k * 30 }, { y: -20 - k * 10, ease: 'none', scrollTrigger: { trigger: '#phones', start: 'top bottom', end: 'bottom top', scrub: .6 } });
   });
@@ -238,9 +244,9 @@
   $('#dPingo').addEventListener('click', function () { mini.celebrate(); });
 
   // Comparativo e CTA
-  G.from('.vs > div', { y: 40, opacity: 0, stagger: .12, duration: .45, ease: 'power3.out', scrollTrigger: { trigger: '.vs', start: 'top 85%' } });
-  G.from('.vs .yes li', { x: 20, opacity: 0, stagger: .08, duration: .3, ease: 'power3.out', scrollTrigger: { trigger: '.vs', start: 'top 70%' } });
-  G.from('.cta h2', { y: 60, opacity: 0, duration: .5, ease: 'power3.out', scrollTrigger: { trigger: '.cta', start: 'top 75%' } });
+  rise('.vs > div', '.vs', { s: .12 });
+  rise('.vs .yes li', '.vs', { y: 0, x: 20, s: .08, d: .3, start: 'top 70%' });
+  rise('.cta h2', '.cta', { y: 60, s: 0, d: .5, start: 'top 75%' });
 
   window.addEventListener('load', function () { ST.refresh(); });
 })();

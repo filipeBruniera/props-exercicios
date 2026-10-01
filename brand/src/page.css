@@ -201,8 +201,8 @@ h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; f
 
 /* COR */
 .sw-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; grid-auto-rows: 170px; gap: 12px; margin-top: 50px; }
-.sw { border-radius: 6px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; border: 1px solid transparent; text-align: left; transition: transform .25s var(--ease); }
-.sw:hover { transform: translateY(-4px); }
+.sw { border-radius: 6px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; border: 1px solid transparent; text-align: left; transition: translate .25s var(--ease); }
+.sw:hover { translate: 0 -4px; }
 .sw b { font-family: var(--display); font-size: 26px; text-transform: uppercase; line-height: 1; }
 .sw small { font-family: var(--mono); font-size: 12px; opacity: .85; display: block; }
 .sw .cp { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
