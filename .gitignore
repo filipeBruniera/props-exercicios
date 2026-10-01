@@ -4,3 +4,4 @@ dist/
 .DS_Store
 *.log
 .env
+brand/site/.preview-nojs.html

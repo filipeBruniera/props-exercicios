@@ -1,0 +1,99 @@
+{
+  "marca": "M&C Desentupidora",
+  "versao": "Fluxo v1",
+  "cores": {
+    "marinho": "#0B2545",
+    "marinho2": "#13315C",
+    "marinho3": "#1D3F6E",
+    "amarelo": "#FFC400",
+    "amareloTexto": "#7A5600",
+    "aguaAzul": "#3B8CFF",
+    "agua2": "#7CC0FF",
+    "asfalto": "#0D1B2A",
+    "textoNoAmarelo": "#141000",
+    "gelo": "#F3F5F7",
+    "aco": "#4A5866",
+    "branco": "#FFFFFF",
+    "whatsapp": "#1D9E52"
+  },
+  "contraste": [
+    {
+      "texto": "branco",
+      "fundo": "marinho",
+      "contraste": 15.39,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "amarelo",
+      "fundo": "marinho",
+      "contraste": 9.63,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "textoNoAmarelo",
+      "fundo": "amarelo",
+      "contraste": 11.91,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "asfalto",
+      "fundo": "gelo",
+      "contraste": 15.92,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "marinho",
+      "fundo": "gelo",
+      "contraste": 14.08,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "aco",
+      "fundo": "gelo",
+      "contraste": 6.67,
+      "nivel": "AA"
+    },
+    {
+      "texto": "amareloTexto",
+      "fundo": "gelo",
+      "contraste": 6.08,
+      "nivel": "AA"
+    },
+    {
+      "texto": "branco",
+      "fundo": "aguaAzul",
+      "contraste": 3.29,
+      "nivel": "AA texto grande"
+    },
+    {
+      "texto": "branco",
+      "fundo": "whatsapp",
+      "contraste": 3.46,
+      "nivel": "AA texto grande"
+    },
+    {
+      "texto": "amarelo",
+      "fundo": "gelo",
+      "contraste": 1.46,
+      "nivel": "reprova"
+    }
+  ],
+  "forma": {
+    "etiqueta": "skewX(-8deg)",
+    "raio": "4px",
+    "faixa": "repeating-linear-gradient(-45deg, #FFC400 0 14px, #0D1B2A 14px 28px)"
+  },
+  "fontes": {
+    "titulos": "Barlow Condensed 700/800, caixa alta",
+    "texto": "Barlow 400/600/700",
+    "dados": "JetBrains Mono 400/600"
+  },
+  "movimento": {
+    "curva": "cubic-bezier(.2, 0, 0, 1)",
+    "duracoes_ms": [
+      150,
+      250,
+      400
+    ]
+  }
+}
