@@ -1,16 +1,18 @@
 ---
-interface Props { invert?: boolean }
-const { invert = false } = Astro.props;
+// Logo oficial (letras em curva) do kit da marca: brand/kit/02-logo
+import escuro from '../assets/marca/logo-mc-horizontal.svg?raw';
+import claro from '../assets/marca/logo-mc-horizontal-fundo-claro.svg?raw';
+import { site } from '../data/site';
+
+interface Props { invert?: boolean; height?: number }
+const { invert = false, height = 40 } = Astro.props;
+const svg = (invert ? claro : escuro)
+  .replace(/<title>.*?<\/title>/, '')
+  .replace(/ width="\d+" height="\d+"/, ` height="${height}" style="width:auto;height:${height}px"`)
+  .replace(/ role="img" aria-label="[^"]*"/, ' aria-hidden="true" focusable="false"');
 ---
-<a href="/" class:list={['logo', { invert }]}>
-  <span class="mark">M&amp;C</span>
-  <span class="word">Desentupidora<small>Ubatuba 24h</small></span>
-</a>
+<a href="/" class="logo" aria-label={`${site.name}, página inicial`}><Fragment set:html={svg} /></a>
 <style>
-  .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); }
-  .logo.invert { color: var(--ink); }
-  .mark { font-family: var(--display); font-weight: 800; font-size: 1.55rem; line-height: 1; background: var(--yellow); color: var(--on-yellow); padding: 7px 9px 5px; border-radius: 2px; transform: skewX(-8deg); letter-spacing: 0.01em; }
-  .word { display: grid; font-family: var(--display); font-weight: 800; font-size: 1.3rem; line-height: 0.95; text-transform: uppercase; }
-  .word small { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: var(--yellow); }
-  .invert .word small { color: var(--steel); }
+  .logo { display: inline-flex; align-items: center; text-decoration: none; }
+  .logo :global(svg) { display: block; max-width: 100%; }
 </style>

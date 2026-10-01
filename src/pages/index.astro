@@ -4,6 +4,9 @@ import Icon from '../components/Icon.astro';
 import Foto from '../components/Foto.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import PhoneChat from '../components/PhoneChat.astro';
+import Pingo from '../components/Pingo.astro';
+import Jornada from '../components/Jornada.astro';
 import { site, telHref, waHref } from '../data/site';
 import { servicos } from '../data/servicos';
 import { bairros, outrasLocalidades } from '../data/bairros';
@@ -42,27 +45,23 @@ const equipamentos = [
 ---
 <Base title={title} description={description} path="/" schema={[faqSchema(faqHome)]}>
   <!-- HERO -->
-  <section class="hero on-dark">
+  <section class="hero on-dark grid-bg">
     <div class="hero-photo"><Foto nome="hero" alt="Técnico da M & C Desentupidora em atendimento em Ubatuba" prioridade sizes="100vw" widths={[800, 1280, 1920]} /></div>
     <div class="wrap hero-grid">
       <div class="hero-copy enter">
         <span class="tag"><span>Plantão 24 horas</span></span>
-        <h1>Desentupidora em Ubatuba</h1>
+        <h1>Desentupidora em Ubatuba<span class="slogan">A gente faz a água <em>correr</em>.</span></h1>
         <p class="lead">Pia, vaso, ralo, esgoto, caixa de gordura e fossa. Chegamos com o equipamento certo e resolvemos sem quebrar a casa.</p>
         <a class="phone-big" href={telHref}><Icon name="phone" weight="fill" size={44} /> {site.phoneDisplay}</a>
         <div class="btn-row">
           <a class="btn btn-yellow" href={waHref()} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={26} /> Chamar no WhatsApp</a>
         </div>
       </div>
-      <aside class="ficha" aria-label="O que a M & C desentope">
-        <p class="ficha-h">Desentupimos</p>
-        <ul>
-          {servicos.map((s) => (
-            <li><a href={`/servicos/${s.slug}`}><Icon name="check" size={20} /> {s.curto}</a></li>
-          ))}
-        </ul>
-        <p class="ficha-foot">Casas, pousadas, restaurantes e condomínios</p>
-      </aside>
+      <div class="hero-stage">
+        <PhoneChat />
+        <Pingo pose="feliz-acenando" width={190} class="hero-pingo" eager alt="Pingo, o mascote da M&C, acenando" />
+        <p class="float-card"><span class="bd res">Resolvido</span><strong>Água correndo de novo</strong><small>Escoamento testado na hora</small></p>
+      </div>
     </div>
   </section>
   <div class="stripe"></div>
@@ -101,10 +100,15 @@ const equipamentos = [
     </div>
   </section>
 
+  <Jornada />
+
   <!-- EMERGÊNCIA -->
   <section class="emerg" aria-labelledby="emerg-t">
     <div class="wrap">
-      <h2 id="emerg-t"><Icon name="warning" weight="fill" size={44} /> Entupiu agora? Faça isso</h2>
+      <div class="emerg-head">
+        <h2 id="emerg-t"><Icon name="warning" weight="fill" size={44} /> Entupiu agora? Faça isso</h2>
+        <Pingo pose="concentrado-mostrando" width={170} class="emerg-pingo" alt="" />
+      </div>
       <ol>
         {emergencia.map((e, i) => (
           <li class="reveal">
@@ -197,18 +201,22 @@ const equipamentos = [
   .hero-photo { position: absolute; inset: 0; }
   .hero-photo :global(picture) { height: 100%; }
   .hero-photo :global(img) { opacity: 0.32; filter: grayscale(0.3); }
-  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--navy) 35%, rgb(11 37 69 / 0.55)); }
-  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.75fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 6vw, 88px); }
+  .hero { background: radial-gradient(70% 60% at 85% 20%, rgba(59, 140, 255, .3), transparent 60%), radial-gradient(50% 50% at 10% 90%, rgba(255, 196, 0, .1), transparent 60%), linear-gradient(180deg, var(--deep), var(--ink-0)); }
+  .hero-photo + .hero-grid { position: relative; }
+  .slogan { display: block; margin-top: .25em; font-size: .46em; line-height: 1; color: var(--water-2); }
+  .slogan em { font-style: normal; color: var(--yellow); }
+  .hero-stage { position: relative; display: grid; place-items: center; min-height: 560px; }
+  .hero-stage :global(.hero-pingo) { position: absolute; left: -6%; bottom: -6px; z-index: 2; filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .35)); }
+  .float-card { position: absolute; left: -12%; top: 29%; z-index: 2; margin: 0; display: grid; gap: 4px; padding: 12px 14px; min-width: 190px; background: rgba(19, 49, 92, .85); border: 1px solid rgba(156, 195, 255, .3); border-radius: var(--radius); backdrop-filter: blur(8px); }
+  .float-card strong { font-family: var(--display); font-size: 1.25rem; text-transform: uppercase; line-height: 1; color: var(--white); }
+  .float-card small { color: var(--steel-light); }
+  .float-card .bd { justify-self: start; }
+  .emerg-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
+  .emerg-head :global(.emerg-pingo) { margin-bottom: -20px; flex: none; }
+  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 6vw, 88px); }
   .hero-copy h1 { margin-top: 18px; color: var(--white); max-width: 11ch; }
   .hero-copy .lead { color: var(--steel-light); margin-bottom: 26px; }
   .hero-copy .phone-big { margin-bottom: 22px; }
-  .ficha { background: var(--white); color: var(--ink); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); padding: 26px 26px 20px; }
-  .ficha .ficha-h { color: var(--ink); font-family: var(--display); font-weight: 800; font-size: 1.9rem; text-transform: uppercase; line-height: 1; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
-  .ficha ul { list-style: none; margin: 0; padding: 0; }
-  .ficha li a { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); text-decoration: none; font-weight: 700; font-size: 1.05rem; }
-  .ficha li a:hover { color: var(--navy-3); }
-  .ficha li :global(.icon) { color: var(--ink); background: var(--yellow); padding: 2px; }
-  .ficha .ficha-foot { margin: 14px 0 0; font-size: 0.92rem; color: var(--steel); font-weight: 600; }
 
   /* GARANTIAS */
   .garantias { background: var(--white); border-bottom: 1px solid var(--line); }
@@ -270,7 +278,8 @@ const equipamentos = [
 
   @media (max-width: 960px) {
     .hero-grid, .what-in { grid-template-columns: 1fr; }
-    .ficha { box-shadow: 6px 6px 0 var(--yellow); }
+    .hero-stage { min-height: 520px; }
+    .float-card { left: 0; }
     .garantias ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .garantias li:nth-child(3) { border-left: 0; padding-left: 0; }
     .svc { grid-template-columns: 1fr; }
@@ -287,6 +296,9 @@ const equipamentos = [
     .svc a { grid-template-columns: auto 1fr; }
     .emerg ol { grid-template-columns: 1fr; }
     .hero .btn { width: 100%; }
+    .hero-stage :global(.hero-pingo) { width: 120px; left: -2%; }
+    .float-card { display: none; }
+    .emerg-head :global(.emerg-pingo) { width: 110px; }
     .phone-big :global(.icon) { width: 34px; height: 34px; }
   }
 </style>

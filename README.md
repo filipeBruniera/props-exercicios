@@ -32,6 +32,14 @@ O site já funciona sem fotos, mas elas são o que mais aumenta a confiança. Co
 (ex.: `hero.jpg`, `caminhao.jpg`, `servico-limpeza-de-fossa.jpg`). Cada foto aparece sozinha no
 lugar certo, otimizada em AVIF/WebP. Prefira fotos reais da equipe, do caminhão e dos serviços.
 
+## Sistema de design
+
+O site usa o sistema **M&C Fluxo**, o mesmo do brand book (`brand/`): tokens em
+`src/styles/global.css`, logo oficial e o mascote Pingo copiados do kit por
+`node scripts/sync-marca.mjs` (rode de novo sempre que o kit for regenerado).
+Componentes da marca: `Logo`, `Pingo`, `PhoneChat` (atendimento no WhatsApp) e
+`Jornada` (os 3 passos com o cano do fluxo).
+
 ## Desenvolvimento
 
 ```bash

@@ -29,7 +29,7 @@ for (const f of files) {
   for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try { JSON.parse(m[1]); } catch (e) { errors.push(`${rel}: JSON-LD inválido (${e.message})`); }
   }
-  for (const m of html.matchAll(/<img [^>]*>/g)) if (!/alt=/.test(m[0])) errors.push(`${rel}: <img> sem alt`);
+  for (const m of html.matchAll(/<img [^>]*>/g)) if (!/\salt(=|[\s>])/.test(m[0])) errors.push(`${rel}: <img> sem alt`);
   titles.set(title, [...(titles.get(title) || []), rel]);
   descs.set(desc, [...(descs.get(desc) || []), rel]);
 }

@@ -1,9 +1,10 @@
 /*
-  M & C Desentupidora - sistema visual "serviço pesado"
-  Marinho de frota + amarelo de sinalização. Cantos retos (4px no máximo),
-  bordas grossas, tipografia condensada em caixa alta nos títulos.
-  Movimento: personalidade "corporativa/rígida" (motion-design skill):
-  curva única cubic-bezier(.2,0,0,1), durações 150 / 250 / 400 ms.
+  M & C Desentupidora · sistema "M&C Fluxo" (mesmos tokens do kit:
+  brand/kit/04-tokens/tokens-mc-fluxo.css e o brand book em brand/site).
+  Marinho de frota + amarelo de sinalização (ação) + azul água (só água/fluxo).
+  Etiqueta inclinada -8°, cantos de no máximo 4 px, faixa zebrada de obra.
+  Barlow Condensed (títulos), Barlow (texto), JetBrains Mono (dados).
+  Movimento: curva única cubic-bezier(.2,0,0,1), 150 / 250 / 400 ms.
 */
 :root {
   --navy: #0b2545;
@@ -19,12 +20,24 @@
   --steel-light: #b7c4d3;
   --line: #d3dae2;
   --wa: #1d9e52;
+  --ink-0: #040d1c;
+  --deep: #061427;
+  --water: #3b8cff;
+  --water-2: #7cc0ff;
+  --water-3: #1257c9;
+  --yellow-text: #7a5600;
+  --ok: #138a50;
+  --ok-bg: #ddf5e8;
+  --warn: #8a4b00;
+  --warn-bg: #ffe7c2;
+  --skew: -8deg;
 
   --radius: 4px;
   --max: 1240px;
   --gutter: clamp(16px, 4vw, 40px);
   --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --t-quick: 150ms;
@@ -342,3 +355,34 @@ p {
     max-width: 100%;
   }
 }
+
+/* ---------- Componentes do sistema M&C Fluxo ---------- */
+.tag.blue { background: var(--water-3); color: var(--white); }
+.tag.dark { background: var(--navy-3); color: var(--yellow); }
+
+.mono { font-family: var(--mono); }
+.ex { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--yellow-text); border: 1px solid currentColor; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
+.on-dark .ex { color: var(--yellow); }
+
+/* Status do atendimento */
+.bd { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 4px 9px; border-radius: 3px; }
+.bd::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.bd.rec { color: #0b5cad; background: #e3f0ff; }
+.bd.cam { color: var(--yellow-text); background: #fff3c4; }
+.bd.ate { color: var(--warn); background: var(--warn-bg); }
+.bd.res { color: var(--ok); background: var(--ok-bg); }
+
+/* Fluxo: cano com água correndo (só se o usuário aceita movimento) */
+.flow-pipe { height: 10px; border-radius: 5px; background: var(--navy-3); overflow: hidden; position: relative; }
+.flow-pipe i { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--water) 0 30px, var(--water-2) 30px 46px); background-size: 46px 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .flow-pipe i { animation: flow 1.2s linear infinite; }
+}
+@keyframes flow { to { background-position: 46px 0; } }
+
+/* Fundo de grade discreto das seções escuras (como no brand book) */
+.grid-bg { position: relative; }
+.grid-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(156, 195, 255, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(156, 195, 255, .1) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(80% 70% at 60% 30%, #000 20%, transparent 80%); }
+.grid-bg > * { position: relative; }
+
+.pingo { display: block; height: auto; max-width: 100%; }
