@@ -4,7 +4,7 @@
 Desentupir é fazer a água voltar a correr. A marca inteira se organiza em torno do **fluxo**: uma linha de cano que atravessa as seções e, quando algo é resolvido, se enche de água azul correndo. O amarelo é o sinal de ação, como a sinalização de obra; o marinho é a frota e a confiança.
 
 ## Três elementos
-1. **A etiqueta**: paralelogramo amarelo inclinado -8°, herdado do adesivo do caminhão. Vira selo, botão, card de orçamento, aviso de status e, no fim, a faixa zebrada.
+1. **A etiqueta**: paralelogramo amarelo inclinado -8°, pensado como o adesivo do caminhão (conceito: a frota ainda não tem adesivo). Vira selo, botão, card de orçamento, aviso de status e, no fim, a faixa zebrada.
 2. **O fluxo**: linha de cano marinho com tracejado azul que corre (stroke-dashoffset). Liga seções, mostra progresso e marca o "resolvido".
 3. **O Pingo**: a gota d'água de capacete. Leveza para dicas e comemorações, nunca para preço ou prazo.
 

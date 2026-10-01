@@ -2,8 +2,9 @@
 // Uso: node brand/scripts/make-logo.mjs
 import opentype from 'opentype.js';
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const fontPath = (w) => new URL(`../../node_modules/@fontsource/barlow-condensed/files/barlow-condensed-latin-${w}-normal.woff`, import.meta.url).pathname;
+const fontPath = (w) => fileURLToPath(new URL(`../../node_modules/@fontsource/barlow-condensed/files/barlow-condensed-latin-${w}-normal.woff`, import.meta.url));
 const load = (w) => { const b = readFileSync(fontPath(w)); return opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)); };
 const f800 = load(800);
 const f700 = load(700);
@@ -25,28 +26,35 @@ const path = (font, text, x, y, size, letterSpacing = 0) => {
 function symbol({ sticker = C.yellow, letters = C.ink, drop = C.water, x = 0, y = 0 } = {}) {
   const W = 132, H = 84, skew = Math.tan((8 * Math.PI) / 180) * H; // ~11.8
   const p = `M${x + skew},${y} H${x + W} L${x + W - skew},${y + H} H${x} Z`;
-  const t = path(f800, 'M&C', 0, 0, 68);
-  const tx = x + (W - t.width) / 2 + 1, ty = y + 64;
-  const txt = path(f800, 'M&C', tx, ty, 68);
+  const T = Math.tan((8 * Math.PI) / 180);
+  // Caixa real das letras (sem inclinação), com origem no ponto 0,0 da linha de base
+  const bb = f800.getPath('M&C', 0, 0, 68).getBoundingBox();
+  const midY = y + H / 2;                      // centro vertical da etiqueta
+  const base = midY - (bb.y1 + bb.y2) / 2;     // linha de base que centraliza na vertical
+  // skewX(-8) com translate(base*T) desloca cada ponto em +(base - py)*T; na altura do centro: +(base - midY)*T
+  const tx = x + W / 2 - (bb.x1 + bb.x2) / 2 - (base - midY) * T;
+  const txt = path(f800, 'M&C', tx, base, 68);
   const dropD = `M${x + W + 6},${y - 22} c0,0 -9,11 -9,17 a9,9 0 0 0 18,0 c0,-6 -9,-17 -9,-17z`;
   return {
-    svg: `<path d="${p}" fill="${sticker}" rx="4"/><path d="${txt.d}" fill="${letters}" transform="skewX(-8) translate(${(y + 64) * Math.tan((8 * Math.PI) / 180)} 0)"/>${drop ? `<path d="${dropD}" fill="${drop}"/>` : ''}`,
+    svg: `<path d="${p}" fill="${sticker}"/><path d="${txt.d}" fill="${letters}" transform="skewX(-8) translate(${(base * T).toFixed(3)} 0)"/>${drop ? `<path d="${dropD}" fill="${drop}"/>` : ''}`,
     W, H,
   };
 }
 
 function horizontal({ word = C.white, sub = C.yellow, sticker = C.yellow, letters = C.ink, drop = C.water } = {}) {
-  const s = symbol({ sticker, letters, drop, x: 0, y: 26 });
-  const w1 = path(f800, 'DESENTUPIDORA', 156, 76, 58, 0.5);
-  const w2 = path(f700, 'UBATUBA  24 HORAS', 158, 104, 24, 4.2);
-  const width = Math.ceil(156 + Math.max(w1.width, w2.width) + 4);
+  const M = 6; // margem
+  const s = symbol({ sticker, letters, drop, x: M, y: 26 });
+  const w1 = path(f800, 'DESENTUPIDORA', 156 + M, 76, 58, 0.5);
+  const w2 = path(f700, 'UBATUBA  24 HORAS', 158 + M, 104, 24, 4.2);
+  const width = Math.ceil(156 + M + Math.max(w1.width, w2.width) + M);
   return { svg: `${s.svg}<path d="${w1.d}" fill="${word}"/><path d="${w2.d}" fill="${sub}"/>`, width, height: 118 };
 }
 
+const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const wrap = (inner, w, h, title, vb = `0 0 ${w} ${h}`) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}" role="img" aria-label="${title}"><title>${title}</title>${inner}</svg>\n`;
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}" role="img" aria-label="${esc(title)}"><title>${esc(title)}</title>${inner}</svg>\n`;
 
-const out = new URL('../kit/02-logo/', import.meta.url).pathname;
+const out = fileURLToPath(new URL('../kit/02-logo/', import.meta.url));
 mkdirSync(out, { recursive: true });
 
 const sym = symbol({ x: 4, y: 30 });

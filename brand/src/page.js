@@ -9,8 +9,6 @@
   var anim = G && !reduce;
   var desk = window.matchMedia('(min-width: 961px)').matches;
   if (G && ST) G.registerPlugin(ST);
-  var EASE = 'cubic-bezier(.2,0,0,1)';
-  if (G && window.CustomEase) EASE = 'power3.out';
 
   /* ---------- Toast ---------- */
   var toast = $('#toast'), tt;
@@ -22,7 +20,7 @@
   var big = P.create($('#mascStage'), { expr: 'feliz', pose: 'parado', follow: true });
   P.create($('#pingoCta'), { expr: 'comemorando', pose: 'comemorando' });
   P.create($('#jrPingo'), { expr: 'sorriso', pose: 'pronto', idle: false });
-  var mini = P.create($('#dPingo'), { expr: 'sorriso', pose: 'parado', follow: true });
+  var mini = P.create($('#dPingo'), { expr: 'sorriso', pose: 'parado', follow: true, clickable: false });
   mini.svg.style.height = '110px';
   [['.pg-s', 'feliz', 'acenando'], ['.pg-c', 'comemorando', 'comemorando'], ['.pg-d', 'concentrado', 'apontando'], ['.pg-s2', 'surpreso', 'mostrando'], ['.pg-c2', 'feliz', 'comemorando']].forEach(function (c) {
     $$(c[0]).forEach(function (n) { P.create(n, { expr: c[1], pose: c[2], idle: false, clickable: false }); });
@@ -72,11 +70,13 @@
   /* ---------- Componentes ---------- */
   var tel = $('#fTel');
   tel.addEventListener('input', function () {
-    var d = tel.value.replace(/\D/g, '').slice(0, 11), o = '';
+    var d = tel.value.replace(/\D/g, '');
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2); // +55 colado
+    d = d.slice(0, 11);
+    var mid = d.length === 11 ? 5 : 4, o = ''; // celular (12) 90000-0000 · fixo (12) 3800-0000
     if (d.length > 0) o = '(' + d.slice(0, 2);
-    if (d.length >= 3) o += ') ' + d.slice(2, 3);
-    if (d.length >= 4) o += ' ' + d.slice(3, 7);
-    if (d.length >= 8) o += '-' + d.slice(7, 11);
+    if (d.length > 2) o += ') ' + d.slice(2, 2 + mid);
+    if (d.length > 2 + mid) o += '-' + d.slice(2 + mid);
     tel.value = o;
   });
   var cep = $('#fCep'), cepF = $('#cepF'), cepM = $('#cepMsg');
@@ -94,7 +94,7 @@
     var on = tg.getAttribute('aria-pressed') !== 'true';
     tg.setAttribute('aria-pressed', on); tgT.textContent = on ? 'Urgente: esgoto voltando' : 'Atendimento normal';
   });
-  $$('a[href="#componentes"], a[href="#movimento"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+  $$('.comp-grid a[href="#componentes"], .mv a[href="#movimento"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
 
   /* ---------- Nav: capítulo atual ---------- */
   var chapN = $('#chapN'), chapT = $('#chapT');
@@ -180,11 +180,12 @@
     { width: 360, height: 80, backgroundColor: '#1d3f6e', skewX: -8, borderRadius: 3 },
     { width: 560, height: 44, backgroundColor: '#ffc400', skewX: 0, borderRadius: 0 }
   ];
-  if (!desk) stagesS.forEach(function (s) { s.width = Math.min(s.width, 300); });
+  if (!desk) stagesS.forEach(function (s) { s.width = Math.min(s.width, 300); if (s.height > 200) s.height = 210; });
   var m = G.timeline({ defaults: { duration: 1, ease: 'power2.inOut' } });
   for (var i = 1; i < stagesS.length; i++) {
     (function (i) {
       m.to(shape, stagesS[i], i)
+        .to(lays, { skewX: -stagesS[i].skewX }, i)
         .to(lays[i - 1], { opacity: 0, duration: .4 }, i)
         .to(lays[i], { opacity: 1, duration: .5 }, i + .4)
         .to(steps[i - 1], { opacity: 0, y: -20, duration: .4 }, i)
@@ -238,8 +239,12 @@
   $$('.post', hs).forEach(function (p, k) { G.fromTo(p, { rotate: k % 2 ? 2.5 : -2.5 }, { rotate: k % 2 ? -1.5 : 1.5, ease: 'none', scrollTrigger: { trigger: '#comunicacao', start: 'top top', end: function () { return '+=' + dist(); }, scrub: 1 } }); });
 
   // Movimento: demos ao vivo
-  G.to('#dEase .ball', { x: function () { return $('#dEase').clientWidth - 54; }, duration: .4, ease: 'power3.out', repeat: -1, yoyo: true, repeatDelay: .8 });
-  $$('#dDur span').forEach(function (s, k) { G.to(s, { scaleX: 1, duration: [.15, .25, .4][k] * 3, ease: 'power3.out', repeat: -1, repeatDelay: 1.2, yoyo: true }); });
+  var dE = $('#dEase');
+  function runW() { dE.style.setProperty('--run', (dE.clientWidth - 54) + 'px'); }
+  runW(); window.addEventListener('resize', runW);
+  setInterval(function () { dE.classList.toggle('go'); }, 1300); // transição CSS com a curva da marca, 400 ms
+  var durs = $$('#dDur span');
+  setInterval(function () { durs.forEach(function (s) { s.parentNode.classList.toggle('go'); }); }, 1300); // 150 / 250 / 400 ms
   G.to('#dFlow', { strokeDashoffset: -72, duration: 1.2, ease: 'none', repeat: -1 });
   $('#dPingo').addEventListener('click', function () { mini.celebrate(); });
 

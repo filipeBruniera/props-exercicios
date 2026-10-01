@@ -23,12 +23,12 @@ Resolver na hora, **sem quebra-quebra**, com **valor combinado antes** de começ
 ## Contato (PROVISÓRIO)
 - Telefone e WhatsApp: (12) 90000-0000. **Placeholder: confirme o número real antes de publicar qualquer peça.**
 - E-mail: contato@mcdesentupidoraubatuba.com.br (provisório)
-- Site: https://www.mcdesentupidoraubatuba.com.br (domínio ainda não registrado) · publicado hoje em https://mc-desentupidora-ubatuba.vercel.app
+- Site: https://www.mcdesentupidoraubatuba.com.br (domínio ainda não registrado). Versão de teste na Vercel: https://mc-desentupidora-ubatuba.vercel.app
 
 ## Identidade
 - Marinho frota #0B2545 · marinho 2 #13315C · amarelo sinal #FFC400 · azul água #3B8CFF · asfalto #0D1B2A · gelo #F3F5F7 · aço #4A5866.
 - Amarelo é ação (telefone, botão, etiqueta). Nunca é texto em fundo claro.
-- Etiqueta inclinada -8° (vem do adesivo da frota) e faixa zebrada amarelo/asfalto de obra.
+- Etiqueta inclinada -8° (conceito de adesivo de frota; ainda não existe adesivo real) e faixa zebrada amarelo/asfalto de obra.
 - Barlow Condensed 800 em caixa alta para títulos, Barlow para texto, JetBrains Mono para números.
 - Mascote **Pingo**: gota d'água de capacete amarelo e macacão marinho com a etiqueta M&C.
 

@@ -17,11 +17,11 @@ Este kit traz todos os elementos do brand book vivo da M&C Desentupidora, pronto
 |---|---|
 | `01-brand-book/` | O brand book completo em um único HTML. |
 | `02-logo/` | Logo em SVG com letras em curva: horizontal (fundo escuro e claro), vertical, branco, preto, símbolo, símbolo branco, favicon. `png/` traz tudo em PNG transparente de alta resolução, mais ícones de app. |
-| `03-mascote-pingo/` | O Pingo em 9 combinações de expressão e pose, em SVG e PNG transparente, a folha de personagem e o `pingo-animado.js` (rig: piscar, olhar, pular, comemorar). |
+| `03-mascote-pingo/` | O Pingo em 9 combinações de expressão e pose, em SVG e PNG transparente (alta resolução), a folha de personagem e o `pingo-animado.js` (rig: piscar, olhar, pular, comemorar). O rig desenha o Pingo sozinho, mas para animar precisa do GSAP 3 carregado na página (`gsap.min.js`); sem ele, o mascote aparece parado. |
 | `04-tokens/` | `tokens-mc-fluxo.css` (cores, forma, fontes, movimento) e `tokens-base-contraste-testado.json` (paleta com contraste WCAG calculado). |
 | `05-fotos/` | Imagem de compartilhamento. Fotos reais da equipe ainda precisam ser feitas. |
 | `06-prints-de-referencia/` | Prints de cada seção, em desktop e celular, e folhas de contato. |
-| `07-codigo-fonte/` | Fontes da página e scripts de geração (logo, kit, prints). |
+| `07-codigo-fonte/` | Fontes da página e scripts de geração (logo, kit, prints, verificação de layout). Os scripts rodam a partir do repositório do site. |
 | `08-textos-da-marca/` | Brief da marca e direção criativa. |
 
 ## Regras da marca (resumo)

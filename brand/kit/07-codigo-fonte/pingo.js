@@ -44,6 +44,9 @@
       ' Q120,' + bot + ' ' + L + ',' + (cy - m.tilt) + ' Z';
   }
 
+  // "M&C" do selo do macacão, em curva (Barlow Condensed 800, 16 px, centralizado em 0,0)
+  var BADGE = 'M-7.49 -5.49Q-7.42 -5.62 -7.25 -5.62L-7.25 -5.62L-5.02 -5.62Q-4.94 -5.62 -4.89 -5.56Q-4.83 -5.5 -4.83 -5.42L-4.83 -5.42L-4.83 5.39Q-4.83 5.47 -4.89 5.53Q-4.94 5.58 -5.02 5.58L-5.02 5.58L-7.3 5.58Q-7.38 5.58 -7.43 5.53Q-7.49 5.47 -7.49 5.39L-7.49 5.39L-7.49 -1.47Q-7.49 -1.54 -7.52 -1.54Q-7.55 -1.55 -7.58 -1.5L-7.58 -1.5L-8.7 0.45Q-8.77 0.58 -8.8 0.58L-8.8 0.58Q-8.83 0.58 -8.91 0.45L-8.91 0.45L-10.03 -1.5Q-10.06 -1.55 -10.1 -1.55Q-10.13 -1.55 -10.13 -1.49L-10.13 -1.49L-10.13 5.39Q-10.13 5.47 -10.18 5.53Q-10.24 5.58 -10.32 5.58L-10.32 5.58L-12.59 5.58Q-12.67 5.58 -12.73 5.53Q-12.78 5.47 -12.78 5.39L-12.78 5.39L-12.78 -5.42Q-12.78 -5.5 -12.73 -5.56Q-12.67 -5.62 -12.59 -5.62L-12.59 -5.62L-10.35 -5.62Q-10.19 -5.62 -10.11 -5.49L-10.11 -5.49L-8.83 -3.17Q-8.78 -3.1 -8.74 -3.17L-8.74 -3.17L-7.49 -5.49M5.15 5.34Q5.22 5.44 5.22 5.47L5.22 5.47Q5.22 5.58 5.04 5.58L5.04 5.58L2.58 5.58Q2.43 5.58 2.34 5.47L2.34 5.47L2.03 5.1Q2 5.04 1.92 5.07L1.92 5.07Q0.72 5.74 -0.7 5.74L-0.7 5.74Q-2.22 5.74 -3.1 5Q-3.98 4.26 -3.98 2.83L-3.98 2.83Q-3.98 1.81 -3.55 1.1Q-3.12 0.4 -2.37 -0.16L-2.37 -0.16Q-2.3 -0.21 -2.35 -0.27L-2.35 -0.27Q-3.04 -1.18 -3.25 -1.66Q-3.46 -2.13 -3.46 -2.72L-3.46 -2.72Q-3.46 -4.08 -2.58 -4.91Q-1.71 -5.74 -0.29 -5.74L-0.29 -5.74Q0.67 -5.74 1.43 -5.35Q2.19 -4.96 2.62 -4.26Q3.06 -3.55 3.06 -2.64L3.06 -2.64Q3.06 -1.63 2.57 -0.94Q2.08 -0.24 1.25 0.34L1.25 0.34Q1.18 0.38 1.23 0.45L1.23 0.45Q1.3 0.54 1.46 0.74L1.46 0.74L2.13 1.58Q2.19 1.65 2.24 1.57L2.24 1.57Q2.7 0.99 2.98 0.38L2.98 0.38Q3.06 0.21 3.23 0.3L3.23 0.3L4.91 1.26Q5.07 1.38 4.99 1.52L4.99 1.52Q4.38 2.72 3.76 3.47L3.76 3.47Q3.71 3.54 3.74 3.58L3.74 3.58Q4.26 4.18 5.15 5.34L5.15 5.34M-0.21 -3.34Q-0.48 -3.34 -0.64 -3.14Q-0.8 -2.94 -0.8 -2.62L-0.8 -2.62Q-0.8 -2.38 -0.73 -2.19Q-0.66 -2 -0.35 -1.57L-0.35 -1.57Q-0.3 -1.52 -0.24 -1.55L-0.24 -1.55Q0.4 -2.06 0.4 -2.62L0.4 -2.62Q0.4 -2.94 0.22 -3.14Q0.05 -3.34 -0.21 -3.34L-0.21 -3.34M-0.29 3.47Q0.02 3.42 0.4 3.25L0.4 3.25Q0.5 3.18 0.42 3.14L0.42 3.14L0.13 2.78L-0.74 1.74Q-0.78 1.7 -0.85 1.73L-0.85 1.73Q-1.31 2.14 -1.31 2.59L-1.31 2.59Q-1.31 2.96 -1.06 3.24Q-0.8 3.52 -0.29 3.47L-0.29 3.47M9.42 5.71Q7.9 5.71 6.99 4.82Q6.08 3.92 6.08 2.43L6.08 2.43L6.08 -2.48Q6.08 -3.98 6.99 -4.86Q7.9 -5.74 9.42 -5.74L9.42 -5.74Q10.94 -5.74 11.86 -4.86Q12.78 -3.98 12.78 -2.48L12.78 -2.48L12.78 -2.34Q12.78 -2.26 12.73 -2.2Q12.67 -2.14 12.59 -2.14L12.59 -2.14L10.32 -2.05Q10.13 -2.05 10.13 -2.24L10.13 -2.24L10.13 -2.67Q10.13 -3.04 9.94 -3.26Q9.74 -3.47 9.42 -3.47L9.42 -3.47Q9.12 -3.47 8.93 -3.26Q8.74 -3.04 8.74 -2.67L8.74 -2.67L8.74 2.66Q8.74 3.01 8.93 3.22Q9.12 3.44 9.42 3.44L9.42 3.44Q9.74 3.44 9.94 3.22Q10.13 3.01 10.13 2.66L10.13 2.66L10.13 2.19Q10.13 2.11 10.18 2.06Q10.24 2 10.32 2L10.32 2L12.59 2.1Q12.67 2.1 12.73 2.15Q12.78 2.21 12.78 2.29L12.78 2.29L12.78 2.43Q12.78 3.92 11.86 4.82Q10.94 5.71 9.42 5.71L9.42 5.71';
+
   var DROP = 'M120,14 C150,64 222,112 222,192 A102,102 0 0 1 18,192 C18,112 90,64 120,14 Z';
 
   function create(container, opts) {
@@ -104,7 +107,7 @@
     // Etiqueta M&C no peito
     var tag = el('g', { transform: 'translate(120,262)' }, bodyClip);
     el('path', { d: 'M-20,-11 H24 L20,11 H-24 Z', fill: C.yellow }, tag);
-    el('text', { x: 0, y: 6, 'text-anchor': 'middle', 'font-family': 'Barlow Condensed, Arial Narrow, sans-serif', 'font-weight': 800, 'font-size': 15, fill: C.ink }, tag).textContent = 'M&C';
+    el('path', { d: BADGE, fill: C.ink }, tag); // "M&C" em Barlow Condensed 800 convertido em curva
     // Brilho e reflexo
     el('path', { d: DROP, fill: 'url(#' + id + 'h)' }, bodyG);
     el('path', { d: 'M62,150 Q70,112 98,86', fill: 'none', stroke: '#fff', 'stroke-opacity': .55, 'stroke-width': 7, 'stroke-linecap': 'round' }, bodyG);
@@ -118,18 +121,21 @@
     function eye(cx) {
       var g = el('g', { class: 'pg-eye', transform: 'translate(' + cx + ',176)' }, face);
       var open = el('g', {}, g);
-      el('ellipse', { cx: 0, cy: 0, rx: 15, ry: 18, fill: '#fff' }, open);
-      var pupil = el('g', {}, open);
+      var lid = el('g', {}, open); // só o piscar mexe aqui; o tamanho da expressão fica em "open"
+      el('ellipse', { cx: 0, cy: 0, rx: 15, ry: 18, fill: '#fff' }, lid);
+      var pupil = el('g', {}, lid);
       el('circle', { cx: 0, cy: 3, r: 9, fill: C.navy }, pupil);
       el('circle', { cx: 3.5, cy: -1, r: 3.2, fill: '#fff' }, pupil);
       var closed = el('path', { d: 'M-13,2 Q0,-10 13,2', fill: 'none', stroke: C.navy, 'stroke-width': 4.5, 'stroke-linecap': 'round', opacity: 0 }, g);
-      return { g: g, open: open, pupil: pupil, closed: closed };
+      return { g: g, open: open, lid: lid, pupil: pupil, closed: closed };
     }
     var eL = eye(94), eR = eye(146);
     var brL = el('path', { d: 'M80,148 Q94,140 108,148', fill: 'none', stroke: C.navy, 'stroke-width': 5, 'stroke-linecap': 'round' }, face);
     var brR = el('path', { d: 'M132,148 Q146,140 160,148', fill: 'none', stroke: C.navy, 'stroke-width': 5, 'stroke-linecap': 'round' }, face);
-    var mouth = el('path', { d: '', fill: C.navy }, face);
-    var tongue = el('ellipse', { cx: 120, cy: 228, rx: 7, ry: 4, fill: '#ff7a6b', opacity: 0 }, face);
+    var mouth = el('path', { d: '', fill: C.navy, stroke: C.navy, 'stroke-width': 4.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, face);
+    var mClip = el('clipPath', { id: id + 'm' }, defs);
+    var mClipPath = el('path', { d: '' }, mClip);
+    var tongue = el('ellipse', { cx: 120, cy: 228, rx: 9, ry: 6, fill: '#ff7a6b', opacity: 0, 'clip-path': 'url(#' + id + 'm)' }, face);
 
     // Capacete de obra
     var helmet = el('g', { class: 'pg-helmet', transform: 'rotate(-6 120 52)' }, bodyG);
@@ -152,9 +158,11 @@
     function applyExpr(name, instant) {
       var e = EXPR[name] || EXPR.feliz;
       state.expr = name;
-      mouth.setAttribute('d', mouthPath(e));
+      var md = mouthPath(e);
+      mouth.setAttribute('d', md);
+      mClipPath.setAttribute('d', md);
       tongue.setAttribute('opacity', e.open > 6 ? .9 : 0);
-      tongue.setAttribute('cy', 214 + e.smile + e.open * 1.2);
+      tongue.setAttribute('cy', 214 + (e.smile + e.open * 2) / 2 - 2); // fundo real da curva da boca; o clip mantém dentro
       brL.setAttribute('transform', 'translate(0,' + e.browY + ') rotate(' + e.browL + ' 94 146)');
       brR.setAttribute('transform', 'translate(0,' + e.browY + ') rotate(' + e.browR + ' 146 146)');
       [blushL, blushR].forEach(function (b) { b.setAttribute('opacity', e.blush); });
@@ -165,13 +173,15 @@
       });
     }
 
+    function drawArm(a) { a.g.setAttribute('transform', 'translate(' + a.sx + ',198) rotate(' + a.p.r + ')'); }
     function setRot(a, deg, instant) {
-      var t = 'translate(' + a.sx + ',198) rotate(' + deg + ')';
+      if (!a.p) a.p = { r: deg };
       if (G && !instant && !reduce) {
-        var o = { r: a.r || 0 };
-        G.to(o, { r: deg, duration: .45, ease: 'back.out(1.6)', onUpdate: function () { a.g.setAttribute('transform', 'translate(' + a.sx + ',198) rotate(' + o.r + ')'); } });
-      } else a.g.setAttribute('transform', t);
-      a.r = deg;
+        G.to(a.p, { r: deg, duration: .45, ease: 'back.out(1.6)', overwrite: true, onUpdate: function () { drawArm(a); } });
+      } else {
+        if (G) G.killTweensOf(a.p);
+        a.p.r = deg; drawArm(a);
+      }
     }
 
     function applyPose(name, instant) {
@@ -186,18 +196,21 @@
     applyExpr(opts.expr || 'feliz', true);
     applyPose(opts.pose || 'parado', true);
 
+    var party = null; // { timer, e, p } enquanto comemora
+    function stopParty() { if (party) { clearTimeout(party.timer); party = null; } }
+
     var api = {
       svg: svg,
-      setExpr: function (n) { applyExpr(n); return api; },
-      setPose: function (n) { applyPose(n); return api; },
-      set: function (expr, pose) { applyExpr(expr); applyPose(pose); return api; },
+      setExpr: function (n) { stopParty(); applyExpr(n); return api; },
+      setPose: function (n) { stopParty(); applyPose(n); return api; },
+      set: function (expr, pose) { stopParty(); applyExpr(expr); applyPose(pose); return api; },
       lookAt: function (dx, dy) {
         var x = Math.max(-1, Math.min(1, dx)) * 5, y = Math.max(-1, Math.min(1, dy)) * 4;
         [eL, eR].forEach(function (E) { E.pupil.setAttribute('transform', 'translate(' + x + ',' + y + ')'); });
       },
       blink: function () {
         if (!G || reduce || EXPR[state.expr].closed) return;
-        G.fromTo([eL.open, eR.open], { scaleY: 1, transformOrigin: '50% 50%' }, { scaleY: .1, duration: .07, yoyo: true, repeat: 1, ease: 'power1.in' });
+        G.fromTo([eL.lid, eR.lid], { scaleY: 1, transformOrigin: '50% 50%' }, { scaleY: .1, duration: .07, yoyo: true, repeat: 1, ease: 'power1.in', overwrite: true });
       },
       jump: function () {
         if (!G || reduce) return;
@@ -209,10 +222,12 @@
           .to(shadow, { scale: 1, opacity: .22, duration: .32 }, '<');
       },
       celebrate: function () {
-        var prev = { e: state.expr, p: state.pose };
+        // Guarda o estado de antes só na primeira chamada; cliques seguidos só estendem a festa
+        var prev = party ? { e: party.e, p: party.p } : { e: state.expr, p: state.pose };
+        if (party) clearTimeout(party.timer);
         applyExpr('comemorando'); applyPose('comemorando'); api.jump();
-        if (G && !reduce) G.fromTo(spark, { scale: 1, transformOrigin: '50% 50%' }, { scale: 1.9, rotate: 90, duration: .35, yoyo: true, repeat: 1, ease: 'back.out(2)' });
-        setTimeout(function () { applyExpr(prev.e); applyPose(prev.p); }, 1500);
+        if (G && !reduce) G.fromTo(spark, { scale: 1, rotate: 0, transformOrigin: '50% 50%' }, { scale: 1.9, rotate: 90, duration: .35, yoyo: true, repeat: 1, ease: 'back.out(2)' });
+        party = { e: prev.e, p: prev.p, timer: setTimeout(function () { party = null; applyExpr(prev.e); applyPose(prev.p); }, 1500) };
       }
     };
 

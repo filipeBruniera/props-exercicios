@@ -1,8 +1,9 @@
 // Monta brand/site/index.html: página única e independente (fontes, GSAP, logos e ícones embutidos).
 // Uso: node brand/scripts/build.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const R = (p) => new URL(p, import.meta.url).pathname;
+const R = (p) => fileURLToPath(new URL(p, import.meta.url));
 const read = (p) => readFileSync(R(p), 'utf8');
 const nm = (p) => R(`../../node_modules/${p}`);
 

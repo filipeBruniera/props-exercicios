@@ -1,9 +1,10 @@
 // Prints do brand book em várias posições de rolagem (desktop e mobile).
 // Uso: node brand/scripts/shots.mjs <pasta-de-saida>
 import { chromium } from 'playwright';
+import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 const out = process.argv[2]; mkdirSync(out, { recursive: true });
-const url = 'file://' + new URL('../site/index.html', import.meta.url).pathname;
+const url = new URL('../site/index.html', import.meta.url).href;
 const b = await chromium.launch();
 for (const [w, h, tag] of [[1440, 900, 'desk'], [390, 844, 'mob']]) {
   const p = await b.newPage({ viewport: { width: w, height: h } });

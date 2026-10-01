@@ -1,12 +1,18 @@
 // Gera os arquivos do kit da marca (PNG dos logos, poses do Pingo, tokens, prints e zip).
 // Uso: node brand/scripts/make-logo.mjs && node brand/scripts/build.mjs && node brand/scripts/make-kit.mjs
+// Também gera os prints (06) e as folhas de contato chamando shots.mjs e sheet.mjs.
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, cpSync, rmSync } from 'node:fs';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { tmpdir } from 'node:os';
 
-const R = (p) => new URL(p, import.meta.url).pathname;
+const R = (p) => fileURLToPath(new URL(p, import.meta.url));
 const KIT = R('../kit/');
 const dir = (p) => { mkdirSync(KIT + p, { recursive: true }); return KIT + p; };
+
+// Pastas geradas: limpas a cada execução para não sobrar arquivo antigo no zip
+for (const p of ['01-brand-book', '02-logo/png', '03-mascote-pingo', '06-prints-de-referencia', '07-codigo-fonte']) rmSync(KIT + p, { recursive: true, force: true });
 
 const browser = await chromium.launch();
 
@@ -15,7 +21,9 @@ const logoDir = KIT + '02-logo/';
 const pngDir = dir('02-logo/png');
 for (const f of readdirSync(logoDir).filter((f) => f.endsWith('.svg'))) {
   const svg = readFileSync(logoDir + f, 'utf8');
-  const [, w, h] = svg.match(/viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/);
+  const vb = svg.match(/viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/);
+  if (!vb) throw new Error(`${f}: viewBox precisa ser "0 0 largura altura"`);
+  const [, w, h] = vb;
   const scale = Math.min(2400 / w, 1600 / h);
   const page = await browser.newPage({ viewport: { width: Math.round(w * scale), height: Math.round(h * scale) } });
   await page.setContent(`<body style="margin:0;background:transparent">${svg.replace(/width="\d+" height="\d+"/, 'width="100%" height="100%"')}</body>`);
@@ -35,14 +43,16 @@ const mDir = dir('03-mascote-pingo');
 const pDir = dir('03-mascote-pingo/png');
 const combos = [['feliz', 'parado'], ['feliz', 'acenando'], ['sorriso', 'apontando'], ['sorriso', 'mostrando'], ['sorriso', 'pronto'], ['concentrado', 'mostrando'], ['duvida', 'pensando'], ['surpreso', 'parado'], ['comemorando', 'comemorando']];
 {
-  const page = await browser.newPage({ viewport: { width: 760, height: 800 } });
+  const page = await browser.newPage({ viewport: { width: 760, height: 800 }, deviceScaleFactor: 3 });
   await page.setContent(`<body style="margin:0;background:transparent"><div id="m" style="width:760px"></div><script>${pingoJs}</script></body>`);
   for (const [e, p] of combos) {
     const svg = await page.evaluate(([e, p]) => {
       const m = document.getElementById('m'); m.innerHTML = '';
       const api = window.Pingo.create(m, { expr: e, pose: p, idle: false, clickable: false });
-      api.svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      return api.svg.outerHTML;
+      const s = api.svg, bb = s.querySelector('.pg-rig').getBBox(), pad = 10;
+      s.setAttribute('viewBox', [bb.x - pad, bb.y - pad, bb.width + pad * 2, bb.height + pad * 2].map((v) => +v.toFixed(1)).join(' '));
+      s.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      return s.outerHTML;
     }, [e, p]);
     writeFileSync(`${mDir}/pingo-${e}-${p}.svg`, svg);
     await (await page.$('#m svg')).screenshot({ path: `${pDir}/pingo-${e}-${p}.png`, omitBackground: true });
@@ -51,7 +61,9 @@ const combos = [['feliz', 'parado'], ['feliz', 'acenando'], ['sorriso', 'apontan
 }
 {
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
-  await page.setContent(`<body style="margin:0;padding:40px;background:radial-gradient(80% 90% at 30% 20%,#13315c,#040d1c);font:16px/1.2 sans-serif;color:#9fb3cc"><h1 style="margin:0 0 20px;color:#fff;font:800 44px 'Arial Narrow',sans-serif;text-transform:uppercase">Pingo · folha de personagem</h1><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">${combos.map((c, i) => `<div style="text-align:center"><div id="c${i}"></div>${c[0]} · ${c[1]}</div>`).join('')}</div><script>${pingoJs}</script><script>${JSON.stringify(combos)}.forEach((c,i)=>Pingo.create(document.getElementById('c'+i),{expr:c[0],pose:c[1],idle:false}))</script></body>`);
+  const bc = readFileSync(R('../../node_modules/@fontsource/barlow-condensed/files/barlow-condensed-latin-800-normal.woff2')).toString('base64');
+  await page.setContent(`<style>@font-face{font-family:BC;font-weight:800;src:url(data:font/woff2;base64,${bc}) format('woff2')}</style><body style="margin:0;padding:40px;background:radial-gradient(80% 90% at 30% 20%,#13315c,#040d1c);font:16px/1.2 sans-serif;color:#9fb3cc"><h1 style="margin:0 0 20px;color:#fff;font:800 44px BC,'Arial Narrow',sans-serif;text-transform:uppercase">Pingo · folha de personagem</h1><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">${combos.map((c, i) => `<div style="text-align:center"><div id="c${i}"></div>${c[0]} · ${c[1]}</div>`).join('')}</div><script>${pingoJs}</script><script>${JSON.stringify(combos)}.forEach((c,i)=>Pingo.create(document.getElementById('c'+i),{expr:c[0],pose:c[1],idle:false}))</script></body>`);
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: `${mDir}/folha-de-personagem.png`, fullPage: true });
   await page.close();
 }
@@ -76,13 +88,30 @@ writeFileSync(`${fDir}/LEIA-ME.md`, '# Fotos\n\nAinda não há fotos reais da M&
 await browser.close();
 
 // 5. Brand book, código-fonte e prints
-cpSync(R('../site/index.html'), KIT + '01-brand-book/mc-fluxo-brand-book.html');
+copyFileSync(R('../site/index.html'), dir('01-brand-book') + '/mc-fluxo-brand-book.html');
 const cDir = dir('07-codigo-fonte');
 for (const f of ['page.html', 'page.css', 'page.js', 'pingo.js']) copyFileSync(R('../src/' + f), `${cDir}/${f}`);
-for (const f of ['build.mjs', 'make-logo.mjs', 'make-kit.mjs', 'shots.mjs', 'sheet.mjs']) copyFileSync(R('./' + f), `${cDir}/${f}`);
+for (const f of ['build.mjs', 'make-logo.mjs', 'make-kit.mjs', 'shots.mjs', 'sheet.mjs', 'check-layout.mjs']) copyFileSync(R('./' + f), `${cDir}/${f}`);
+writeFileSync(`${cDir}/LEIA-ME.md`, '# Código-fonte\n\nOs scripts rodam a partir do repositório do site (pasta `brand/scripts/`), onde estão `node_modules`, `brand/src` e `src/data/site.ts`. Aqui ficam só como referência.\n\nOrdem: `make-logo.mjs` → `build.mjs` → `make-kit.mjs` (gera prints, PNGs, tokens e o zip). `check-layout.mjs` confere sobreposições e overflow.\n');
+
+// Prints de referência (15 seções, desktop e celular) e folhas de contato
+const shotsTmp = tmpdir() + '/mc-fluxo-prints';
+rmSync(shotsTmp, { recursive: true, force: true });
+execFileSync('node', [R('./shots.mjs'), shotsTmp], { stdio: 'inherit' });
+const prDir = dir('06-prints-de-referencia');
+for (const f of readdirSync(shotsTmp).filter((f) => f.endsWith('.png'))) copyFileSync(`${shotsTmp}/${f}`, `${prDir}/${f}`);
+execFileSync('node', [R('./sheet.mjs'), shotsTmp, 'desk', `${prDir}/folha-desktop.jpg`, '3', '1600']);
+execFileSync('node', [R('./sheet.mjs'), shotsTmp, 'mob', `${prDir}/folha-celular.jpg`, '8', '1600']);
 
 // 6. Zip
 const zip = R('../site/downloads/kit-marca-mc-desentupidora.zip');
 rmSync(zip, { force: true });
-execSync(`cd "${R('../')}" && rm -rf .zipstage && mkdir .zipstage && cp -r kit .zipstage/MC-Desentupidora-Fluxo-Kit-da-Marca && cd .zipstage && zip -qr "${zip}" MC-Desentupidora-Fluxo-Kit-da-Marca && cd .. && rm -rf .zipstage`);
+const stage = tmpdir() + '/mc-fluxo-zip';
+rmSync(stage, { recursive: true, force: true });
+cpSync(KIT, `${stage}/MC-Desentupidora-Fluxo-Kit-da-Marca`, { recursive: true });
+try {
+  execFileSync('zip', ['-qr', zip, 'MC-Desentupidora-Fluxo-Kit-da-Marca'], { cwd: stage });
+} finally {
+  rmSync(stage, { recursive: true, force: true });
+}
 console.log('kit ok');

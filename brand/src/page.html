@@ -11,7 +11,7 @@
     <li><a href="#comunicacao">Comunicação</a></li>
     <li><a href="#movimento">Movimento</a></li>
   </ul>
-  <a class="btn" href="{{WA}}" target="_blank" rel="noopener"><!--I:whatsapp-logo--><span>Chamar agora</span></a>
+  <a class="btn" href="{{WA}}" target="_blank" rel="noopener" aria-label="Chamar agora no WhatsApp"><!--I:whatsapp-logo--><span>Chamar agora</span></a>
   <i class="prog"></i>
 </header>
 <a class="fab" href="{{WA}}" target="_blank" rel="noopener" aria-label="Chamar a M&C no WhatsApp"><!--IF:whatsapp-logo--></a>
@@ -68,7 +68,7 @@
   <div class="wrap">
     <p class="kicker"><b>02</b> Marca</p>
     <h2 class="big">Uma etiqueta<span class="dot">,</span> três letras<span class="dot">,</span> uma gota<span class="dot">.</span></h2>
-    <p class="lead">O símbolo nasce do adesivo da frota: uma etiqueta amarela inclinada, como quem já está em movimento. Dentro dela, M&amp;C em letra condensada e pesada. Por cima, a gota: a água que volta a correr.</p>
+    <p class="lead">O símbolo nasce da ideia de adesivo de frota: uma etiqueta amarela inclinada, como quem já está em movimento. Dentro dela, M&amp;C em letra condensada e pesada. Por cima, a gota: a água que volta a correr.</p>
     <div class="logo-stage" id="logoStage">
       <div class="logo-box" id="logoBox"><!--SYM_ANIM--></div>
       <ol class="anat">
@@ -173,7 +173,7 @@
     </div>
     <div class="card play">
       <label>Teste a letra <input type="range" id="tSize" min="32" max="140" value="84"> <span id="tSizeV">84 px</span></label>
-      <div class="pv" id="tPrev" contenteditable="true" spellcheck="false" style="font-size:84px">Desentupidora em Ubatuba</div>
+      <div class="pv" id="tPrev" contenteditable="true" role="textbox" aria-label="Prévia da fonte: digite um texto" spellcheck="false" style="font-size:84px">Desentupidora em Ubatuba</div>
     </div>
   </div>
 </section>
@@ -323,7 +323,7 @@
     <p class="lead">A marca se mexe como água saindo de um cano desentupido: firme, direta, sem enfeite. Uma curva só, três durações, e tudo para quem prefere menos movimento.</p>
     <div class="mov-grid">
       <div class="card mv"><div class="demo" id="dEase"><span class="ball"></span></div><b>Uma curva só</b><code>cubic-bezier(.2, 0, 0, 1)</code><p>Saída rápida, chegada firme. Vale para 80% de tudo o que se mexe.</p></div>
-      <div class="card mv"><div class="demo"><div class="durs" id="dDur"><div><span></span></div><div><span></span></div><div><span></span></div></div></div><b>Três durações</b><code>150 · 250 · 400 ms</code><p>Toque, troca de estado e entrada de seção. Nada passa de 400 ms.</p></div>
+      <div class="card mv"><div class="demo"><div class="durs" id="dDur"><div><span></span></div><div><span></span></div><div><span></span></div></div></div><b>Três durações</b><code>150 · 250 · 400 ms</code><p>Toque, troca de estado e entrada de bloco. Só as cenas presas à rolagem duram mais.</p></div>
       <div class="card mv"><div class="demo"><a class="btn" href="#movimento">Aperte</a></div><b>Botão que afunda</b><code>translate(4px, 4px)</code><p>A sombra sólida some quando apertado. É a resposta física da marca.</p></div>
       <div class="card mv"><div class="demo flow-demo"><svg viewBox="0 0 300 80" aria-hidden="true"><path d="M0,60 H120 Q140,60 140,40 V30 Q140,14 156,14 H300" fill="none" stroke="#1d3f6e" stroke-width="16" stroke-linecap="round"/><path id="dFlow" d="M0,60 H120 Q140,60 140,40 V30 Q140,14 156,14 H300" fill="none" stroke="#3b8cff" stroke-width="7" stroke-linecap="round" stroke-dasharray="22 14"/></svg></div><b>O fluxo</b><code>stroke-dashoffset</code><p>A linha de cano que liga as seções. A água corre nela quando algo foi resolvido.</p></div>
       <div class="card mv"><div class="demo" id="dPingo" style="cursor:pointer"></div><b>O Pingo reage</b><code>pular · piscar · olhar</code><p>Pisca sozinho, segue o cursor e comemora no toque. Nunca em loop frenético.</p></div>
