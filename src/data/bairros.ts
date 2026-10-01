@@ -187,4 +187,7 @@ export const outrasLocalidades = [
 
 export const noBairro = (b: Bairro) => `${b.prep} ${b.nome}`;
 
+/** "do Centro", "da Enseada", "das Toninhas", "de Picinguaba" */
+export const doBairro = (b: Bairro) => `${{ no: 'do', na: 'da', nas: 'das', em: 'de' }[b.prep]} ${b.nome}`;
+
 export const getBairro = (slug: string) => bairros.find((b) => b.slug === slug);

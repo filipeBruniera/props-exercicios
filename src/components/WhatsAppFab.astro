@@ -11,7 +11,7 @@ import { waHref } from '../data/site';
   .fab:active { transform: scale(0.94); }
   /* Chamada de atenção: um único "toque" 3 s após carregar, sem loop infinito */
   @media (prefers-reduced-motion: no-preference) {
-    .fab { animation: nudge 600ms var(--ease) 3s 2 both; }
+    .fab { animation: nudge 600ms var(--ease) 3s 2 backwards; }
   }
   @keyframes nudge {
     0%, 100% { transform: none; }

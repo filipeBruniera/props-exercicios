@@ -56,7 +56,12 @@ export function businessSchema(): JsonLd {
       contactType: 'customer service',
       areaServed: 'BR',
       availableLanguage: 'Portuguese',
-      hoursAvailable: 'Mo-Su 00:00-23:59',
+      hoursAvailable: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59',
+      },
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',

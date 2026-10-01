@@ -4,7 +4,7 @@ import Icon from '../../components/Icon.astro';
 import PageHero from '../../components/PageHero.astro';
 import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { bairros, getBairro, noBairro, type Bairro } from '../../data/bairros';
+import { bairros, getBairro, noBairro, doBairro, type Bairro } from '../../data/bairros';
 import { servicos, getServico } from '../../data/servicos';
 import { breadcrumbSchema, faqSchema } from '../../data/schema';
 
@@ -28,7 +28,7 @@ const demais = servicos.filter((s) => !b.servicos.includes(s.slug));
 const vizinhos = b.vizinhos.map((slug) => getBairro(slug)).filter((v) => v !== undefined);
 const faqs = [
   { q: `A M & C atende ${em} de madrugada e em feriados?`, a: `Sim. O atendimento ${em} e em toda Ubatuba é 24 horas, todos os dias. Chame pelo WhatsApp informando o endereço e o tipo de problema.` },
-  { q: `Quais serviços são mais pedidos ${em}?`, a: `${destaque.map((s) => s.nome).join(', ')}. Também fazemos ${demais.map((s) => s.nome.toLowerCase()).join(', ')}.` },
+  { q: `Quais serviços são mais pedidos ${em}?`, a: `${destaque.map((s, i) => (i === 0 ? s.nome : s.nome.toLowerCase())).join(', ')}. Também fazemos ${demais.map((s) => s.nome.toLowerCase()).join(', ')}.` },
   { q: 'O valor é combinado antes?', a: 'Sim. Depois do diagnóstico informamos o valor e só começamos com a sua aprovação.' },
 ];
 ---
@@ -66,7 +66,7 @@ const faqs = [
 
   <section class="section near" aria-labelledby="viz-t">
     <div class="wrap">
-      <h2 id="viz-t" class="h-sm">Bairros perto de {b.nome}</h2>
+      <h2 id="viz-t" class="h-sm">Bairros perto {doBairro(b)}</h2>
       <ul class="chips">
         {vizinhos.map((v) => <li><a href={`/bairros/${v.slug}`}>Desentupidora {noBairro(v)}</a></li>)}
         <li><a href="/bairros">Todos os bairros</a></li>

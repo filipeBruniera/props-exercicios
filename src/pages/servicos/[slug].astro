@@ -55,7 +55,7 @@ const outros = servicos.filter((o) => o.slug !== s.slug);
       </div>
       <div class="areas reveal">
         <h2 class="h-sm">Onde atendemos</h2>
-        <p>{s.nome} em todos os bairros de Ubatuba. Mais pedido:</p>
+        <p>{s.nome} em todos os bairros de Ubatuba. {atendidoEm.length ? 'Mais pedido em:' : 'Atendemos em:'}</p>
         <ul class="chips">
           {(atendidoEm.length ? atendidoEm : bairros).map((b) => <li><a href={`/bairros/${b.slug}`}>{b.nome}</a></li>)}
         </ul>

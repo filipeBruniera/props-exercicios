@@ -21,9 +21,19 @@ interface Props {
 const { title, description, path, schema = [], noindex = false } = Astro.props;
 const canonical = absUrl(path);
 const ogImage = absUrl('/og.png');
+// Liga breadcrumb e FAQ à WebPage da página (ids estáveis por URL)
+const page = webPageSchema(path, title, description);
+const extras = schema.map((n) => {
+  if (n['@type'] === 'BreadcrumbList') {
+    page.breadcrumb = { '@id': `${canonical}#breadcrumb` };
+    return { '@id': `${canonical}#breadcrumb`, ...n };
+  }
+  if (n['@type'] === 'FAQPage') return { '@id': `${canonical}#faq`, url: canonical, mainEntityOfPage: { '@id': page['@id'] }, ...n };
+  return n;
+});
 const graph = {
   '@context': 'https://schema.org',
-  '@graph': [businessSchema(), websiteSchema(), webPageSchema(path, title, description), ...schema],
+  '@graph': [businessSchema(), websiteSchema(), page, ...extras],
 };
 ---
 <!doctype html>
@@ -33,7 +43,7 @@ const graph = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
     <meta name="theme-color" content="#0b2545" />
     <meta name="geo.region" content="BR-SP" />
@@ -60,12 +70,12 @@ const graph = {
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(graph)} />}
   </head>
   <body>
     <a class="skip" href="#conteudo">Pular para o conteúdo</a>
     <Header />
-    <main id="conteudo">
+    <main id="conteudo" tabindex="-1">
       <slot />
     </main>
     <Footer />

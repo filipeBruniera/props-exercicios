@@ -50,3 +50,17 @@ acontece fora do site. Siga a ordem abaixo.
 - Não criar dezenas de páginas de bairro com texto copiado trocando só o nome (penalização por conteúdo em massa).
 - Não usar um telefone no site e outro no Google: o NAP precisa bater.
 - Não inventar avaliações, números ou selos. O Google e as IAs penalizam informação falsa.
+
+## Confirmar com o dono antes de divulgar
+
+O site afirma estas coisas como fato. Se alguma não for verdade, ajuste o texto (arquivos indicados):
+
+- [ ] A M&C tem (ou terceiriza) **caminhão de sucção** para fossa e caixa de gordura (`src/pages/index.astro`, `src/data/servicos.ts`).
+- [ ] O resíduo de fossa e caixa de gordura vai para **local licenciado** (`src/data/servicos.ts`, `src/pages/sobre.astro`). É exigência legal: tenha o comprovante.
+- [ ] Existe **contrato de manutenção** para comércios, pousadas e condomínios (`src/data/servicos.ts`).
+- [ ] A equipe leva **o equipamento adequado na primeira visita**, inclusive cabo longo (`src/data/bairros.ts`, Sertão da Quina).
+- [ ] O **atendimento é 24 horas** de verdade, todos os dias.
+
+## Próximo passo de conteúdo
+
+As 13 páginas de bairro têm cerca de 70 palavras exclusivas cada (o resto é modelo). Para ranquear melhor, acrescente 1 ou 2 parágrafos realmente locais por bairro: se tem rede de esgoto ou fossa, tipo de imóvel, ruas e praias atendidas, casos reais (sem dados de clientes).

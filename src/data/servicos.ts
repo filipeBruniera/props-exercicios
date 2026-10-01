@@ -73,7 +73,7 @@ export const servicos: Servico[] = [
     ],
     processo: [
       { titulo: 'Identificação', texto: 'Descobrimos se a obstrução está no vaso, no ramal ou na caixa de inspeção.' },
-      { titulo: 'Desobstrução do vaso', texto: 'Usamos sonda específica para louça, que não risca nem trinca o vaso.' },
+      { titulo: 'Desobstrução do vaso', texto: 'Usamos sonda própria para louça, com cuidado para não danificar o vaso.' },
       { titulo: 'Rede e caixa', texto: 'Se o problema é na rede, desobstruímos o trecho até a caixa de inspeção ou a fossa.' },
       { titulo: 'Teste de descarga', texto: 'Damos várias descargas seguidas para confirmar que o fluxo está normal.' },
     ],

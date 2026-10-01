@@ -44,5 +44,11 @@ const locs = (sitemap.match(/<loc>/g) || []).length;
 if (locs !== files.length) errors.push(`sitemap tem ${locs} URLs, mas há ${files.length} páginas`);
 
 console.log(`${files.length} páginas verificadas, ${locs} URLs no sitemap.`);
+const siteSrc = readFileSync(new URL('../src/data/site.ts', import.meta.url), 'utf8');
+if (/90000-0000|5512900000000/.test(siteSrc)) {
+  const msg = 'Telefone/WhatsApp ainda são PLACEHOLDER em src/data/site.ts. Troque antes de divulgar o site.';
+  if (process.env.STRICT_PLACEHOLDER) errors.push(msg);
+  else console.warn('\x1b[33mAVISO: ' + msg + '\x1b[0m');
+}
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log('SEO on-page: OK');
