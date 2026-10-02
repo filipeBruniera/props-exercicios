@@ -1,12 +1,15 @@
 ---
 // Logo oficial (letras em curva) do kit da marca: brand/kit/02-logo
+// horizontal (padrão) para cabeçalho; circular (branca) para rodapé e fundos escuros.
 import escuro from '../assets/marca/logo-mc-horizontal.svg?raw';
 import claro from '../assets/marca/logo-mc-horizontal-fundo-claro.svg?raw';
+import circularBranca from '../assets/marca/logo-mc-circular-branco.svg?raw';
 import { site } from '../data/site';
 
-interface Props { invert?: boolean; height?: number }
-const { invert = false, height = 40 } = Astro.props;
-const svg = (invert ? claro : escuro)
+interface Props { invert?: boolean; height?: number; variant?: 'horizontal' | 'circular' }
+const { invert = false, height = 40, variant = 'horizontal' } = Astro.props;
+const src = variant === 'circular' ? circularBranca : invert ? claro : escuro;
+const svg = src
   .replace(/<title>.*?<\/title>/, '')
   .replace(/ width="\d+" height="\d+"/, ` height="${height}" style="width:auto;height:${height}px"`)
   .replace(/ role="img" aria-label="[^"]*"/, ' aria-hidden="true" focusable="false"');

@@ -5,3 +5,4 @@ dist/
 *.log
 .env
 brand/site/.preview-nojs.html
+.tmp/

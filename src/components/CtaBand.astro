@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import Pingo from './Pingo.astro';
+import Mascote from './Mascote.astro';
 import { site, telHref, waHref } from '../data/site';
 interface Props { title?: string; message?: string }
 const { title = 'Entupiu? A gente resolve hoje.', message } = Astro.props;
@@ -8,7 +8,7 @@ const { title = 'Entupiu? A gente resolve hoje.', message } = Astro.props;
 <section class="cta" aria-label="Chamar a desentupidora">
   <div class="stripe"></div>
   <div class="wrap cta-in">
-    <Pingo pose="comemorando-comemorando" width={150} class="cta-pingo" alt="" />
+    <Mascote pose="comemorando-comemorando" width={150} class="cta-mola" alt="" />
     <div class="cta-txt">
       <h2>{title}</h2>
       <p>Plantão 24 horas em toda Ubatuba. Valor combinado antes de começar.</p>
@@ -26,7 +26,7 @@ const { title = 'Entupiu? A gente resolve hoje.', message } = Astro.props;
   p { margin: 0; font-weight: 600; font-size: 1.1rem; }
   .cta-act { display: grid; gap: 14px; justify-items: start; }
   .cta-txt { flex: 1 1 320px; }
-  .cta-in :global(.cta-pingo) { flex: none; margin-block: -24px -40px; }
-  @media (max-width: 700px) { .cta-in :global(.cta-pingo) { width: 110px; margin: 0; } }
-  .phone { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; text-decoration: none; color: var(--ink); white-space: nowrap; }
+  .cta-in :global(.cta-mola) { flex: none; margin-block: -24px -40px; }
+  @media (max-width: 700px) { .cta-in :global(.cta-mola) { width: 110px; margin: 0; } }
+  .phone { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; text-decoration: none; color: var(--ink); white-space: nowrap; }
 </style>

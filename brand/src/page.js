@@ -1,4 +1,4 @@
-/* M&C Fluxo — movimento e interações do brand book.
+/* M&C — movimento e interações do brand book.
    Regra: sem JS ou com prefers-reduced-motion, a página fica completa e parada.
    Estados ocultos só são aplicados aqui, via gsap.set. */
 (function () {
@@ -15,12 +15,12 @@
   function say(t) { toast.textContent = t; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('on'); }, 1800); }
 
   /* ---------- Mascotes ---------- */
-  var P = window.Pingo;
-  var hero = P.create($('#pingoHero'), { expr: 'feliz', pose: 'acenando', follow: true });
+  var P = window.Mola;
+  var hero = P.create($('#molaHero'), { expr: 'feliz', pose: 'acenando', follow: true });
   var big = P.create($('#mascStage'), { expr: 'feliz', pose: 'parado', follow: true });
-  P.create($('#pingoCta'), { expr: 'comemorando', pose: 'comemorando' });
-  P.create($('#jrPingo'), { expr: 'sorriso', pose: 'pronto', idle: false });
-  var mini = P.create($('#dPingo'), { expr: 'sorriso', pose: 'parado', follow: true, clickable: false });
+  P.create($('#molaCta'), { expr: 'comemorando', pose: 'comemorando' });
+  P.create($('#jrMola'), { expr: 'sorriso', pose: 'pronto', idle: false });
+  var mini = P.create($('#dMola'), { expr: 'sorriso', pose: 'parado', follow: true, clickable: false });
   mini.svg.style.height = '110px';
   [['.pg-s', 'feliz', 'acenando'], ['.pg-c', 'comemorando', 'comemorando'], ['.pg-d', 'concentrado', 'apontando'], ['.pg-s2', 'surpreso', 'mostrando'], ['.pg-c2', 'feliz', 'comemorando']].forEach(function (c) {
     $$(c[0]).forEach(function (n) { P.create(n, { expr: c[1], pose: c[2], idle: false, clickable: false }); });
@@ -129,7 +129,7 @@
     .from('.hero .lead, .hero .btn-row, .hero-facts', { y: 18, opacity: 0, duration: .4, stagger: .06, ease: 'power3.out' }, '-=.3')
     .from('#heroPhone', { y: 80, rotate: 4, opacity: 0, duration: .6, ease: 'power3.out' }, '-=.6')
     .from('.hero-tag', { scale: 0, rotate: -20, duration: .35, ease: 'back.out(2)' }, '-=.2')
-    .from('#pingoHero', { x: -80, opacity: 0, duration: .45, ease: 'back.out(1.6)' }, '-=.2')
+    .from('#molaHero', { x: -80, opacity: 0, duration: .45, ease: 'back.out(1.6)' }, '-=.2')
     .from('.float-card', { y: 20, opacity: 0, stagger: .1, duration: .35, ease: 'power3.out' }, '-=.2')
     .add(function () { hero.jump(); });
   var chat = $$('#chat > *');
@@ -155,16 +155,18 @@
   })(mt);
   G.fromTo('#manText .mw', { opacity: .12 }, { opacity: 1, stagger: .5, ease: 'none', scrollTrigger: desk ? { trigger: '#manifesto', start: 'top top', end: '+=150%', scrub: .6, pin: true } : { trigger: '#manText', start: 'top 80%', end: 'bottom 40%', scrub: .6 } });
 
-  // Construção do logo
+  // Construção do logo: círculo-guia, máquina, nome em arco, traços e slogan
   var st = $('#symStroke'), lt = G.timeline({ defaults: { ease: 'none' } });
   if (st) {
     var len = st.getTotalLength();
     G.set(st, { strokeDasharray: len, strokeDashoffset: len });
-    G.set('#symFill', { opacity: 0 }); G.set('#symLetters', { opacity: 0, y: 20 }); G.set('#symDrop', { y: -120, opacity: 0 });
+    G.set('#symMachine', { opacity: 0, scale: .6, transformOrigin: '50% 50%' }); G.set(['#symTop', '#symSlogan'], { opacity: 0 }); G.set('#symTicks', { opacity: 0 });
     lt.to(st, { strokeDashoffset: 0, duration: 1 })
-      .to('#symFill', { opacity: 1, duration: .5 })
-      .to('#symLetters', { opacity: 1, y: 0, duration: .6 })
-      .to('#symDrop', { y: 0, opacity: 1, duration: .6, ease: 'bounce.out' })
+      .to('#symMachine', { opacity: 1, scale: 1, duration: .6, ease: 'back.out(1.4)' })
+      .fromTo('#symTop', { opacity: 0, rotation: -30, svgOrigin: '200 200' }, { opacity: 1, rotation: 0, svgOrigin: '200 200', duration: .6 })
+      .to('#symTicks', { opacity: 1, duration: .3 })
+      .fromTo('#symSlogan', { opacity: 0, rotation: 30, svgOrigin: '200 200' }, { opacity: 1, rotation: 0, svgOrigin: '200 200', duration: .6 })
+      .to(st, { opacity: 0, duration: .3 })
       .from('.anat li', { opacity: .15, x: 20, stagger: .3, duration: .4 }, .2);
     ST.create({ animation: lt, trigger: '#logoStage', start: desk ? 'center center' : 'top 75%', end: desk ? '+=160%' : 'bottom 30%', scrub: .6, pin: desk });
   }
@@ -174,11 +176,11 @@
   var shape = $('#shape'), lays = $$('.lay', shape), steps = $$('.mt-step'), dots = $$('#mtDots i');
   G.set(lays.slice(1), { opacity: 0 }); G.set(steps.slice(1), { opacity: 0, y: 20 });
   var stagesS = [
-    { width: 300, height: 74, backgroundColor: '#ffc400', skewX: -8, borderRadius: 3 },
-    { width: 380, height: 70, backgroundColor: '#ffc400', skewX: 0, borderRadius: 4, boxShadow: '6px 6px 0 #0d1b2a' },
-    { width: 400, height: 250, backgroundColor: '#13315c', skewX: 0, borderRadius: 6, boxShadow: '0 30px 60px rgba(0,0,0,.35)' },
-    { width: 360, height: 80, backgroundColor: '#1d3f6e', skewX: -8, borderRadius: 3 },
-    { width: 560, height: 44, backgroundColor: '#ffc400', skewX: 0, borderRadius: 0 }
+    { width: 300, height: 74, backgroundColor: '#f2680c', skewX: 0, borderRadius: 3 },
+    { width: 380, height: 70, backgroundColor: '#f2680c', skewX: 0, borderRadius: 4, boxShadow: '6px 6px 0 #0b1f3f' },
+    { width: 400, height: 250, backgroundColor: '#004ba9', skewX: 0, borderRadius: 6, boxShadow: '0 30px 60px rgba(0,0,0,.35)' },
+    { width: 360, height: 80, backgroundColor: '#1e5db3', skewX: 0, borderRadius: 3 },
+    { width: 560, height: 44, backgroundColor: '#f2680c', skewX: 0, borderRadius: 0 }
   ];
   if (!desk) stagesS.forEach(function (s) { s.width = Math.min(s.width, 300); if (s.height > 200) s.height = 210; });
   var m = G.timeline({ defaults: { duration: 1, ease: 'power2.inOut' } });
@@ -224,12 +226,14 @@
     G.fromTo(f, { y: 60 + k * 30 }, { y: -20 - k * 10, ease: 'none', scrollTrigger: { trigger: '#phones', start: 'top bottom', end: 'bottom top', scrub: .6 } });
   });
 
-  // Jornada: cano enche, Pingo caminha
+  // Jornada: cano enche, Mola anda
   G.set('#jrWater', { scaleX: 0 });
   var jt = G.timeline({ defaults: { ease: 'none' } });
   jt.to('#jrWater', { scaleX: 1, duration: 1 })
-    .fromTo('#jrPingo', { left: '0%' }, { left: 'calc(100% - 110px)', duration: 1 }, 0)
+    .fromTo('#jrMola', { left: '0%' }, { left: 'calc(100% - 110px)', duration: 1 }, 0)
     .from('.jr-step', { opacity: .2, y: 30, stagger: .33, duration: .3 }, 0);
+  var jrWheels = $$('#jrMola .ml-wheel > g');
+  jt.eventCallback('onUpdate', function () { G.set(jrWheels, { rotation: jt.progress() * 900, svgOrigin: '0 0' }); }); // roda gira enquanto anda
   ST.create({ animation: jt, trigger: '#jornada', start: desk ? 'top top' : 'top 70%', end: desk ? '+=200%' : 'bottom 40%', pin: desk, scrub: .6 });
 
   // Comunicação: galeria horizontal
@@ -246,7 +250,7 @@
   var durs = $$('#dDur span');
   setInterval(function () { durs.forEach(function (s) { s.parentNode.classList.toggle('go'); }); }, 1300); // 150 / 250 / 400 ms
   G.to('#dFlow', { strokeDashoffset: -72, duration: 1.2, ease: 'none', repeat: -1 });
-  $('#dPingo').addEventListener('click', function () { mini.celebrate(); });
+  $('#dMola').addEventListener('click', function () { mini.celebrate(); });
 
   // Comparativo e CTA
   rise('.vs > div', '.vs', { s: .12 });

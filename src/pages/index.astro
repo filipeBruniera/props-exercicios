@@ -5,7 +5,7 @@ import Foto from '../components/Foto.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PhoneChat from '../components/PhoneChat.astro';
-import Pingo from '../components/Pingo.astro';
+import Mascote from '../components/Mascote.astro';
 import Jornada from '../components/Jornada.astro';
 import { site, telHref, waHref } from '../data/site';
 import { servicos } from '../data/servicos';
@@ -59,7 +59,7 @@ const equipamentos = [
       </div>
       <div class="hero-stage">
         <PhoneChat />
-        <Pingo pose="feliz-acenando" width={190} class="hero-pingo" eager alt="Pingo, o mascote da M&C, acenando" />
+        <Mascote pose="feliz-acenando" width={230} class="hero-mola" eager alt="Mola, a mascote da M&C, acenando" />
         <p class="float-card"><span class="bd res">Resolvido</span><strong>Água correndo de novo</strong><small>Escoamento testado na hora</small></p>
       </div>
     </div>
@@ -107,7 +107,7 @@ const equipamentos = [
     <div class="wrap">
       <div class="emerg-head">
         <h2 id="emerg-t"><Icon name="warning" weight="fill" size={44} /> Entupiu agora? Faça isso</h2>
-        <Pingo pose="concentrado-mostrando" width={170} class="emerg-pingo" alt="" />
+        <Mascote pose="concentrado-mostrando" width={170} class="emerg-mola" alt="" />
       </div>
       <ol>
         {emergencia.map((e, i) => (
@@ -201,20 +201,20 @@ const equipamentos = [
   .hero-photo { position: absolute; inset: 0; }
   .hero-photo :global(picture) { height: 100%; }
   .hero-photo :global(img) { opacity: 0.32; filter: grayscale(0.3); }
-  .hero { background: radial-gradient(70% 60% at 85% 20%, rgba(59, 140, 255, .3), transparent 60%), radial-gradient(50% 50% at 10% 90%, rgba(255, 196, 0, .1), transparent 60%), linear-gradient(180deg, var(--deep), var(--ink-0)); }
+  .hero { background: radial-gradient(70% 60% at 85% 20%, rgba(30, 110, 220, .3), transparent 60%), radial-gradient(50% 50% at 10% 90%, rgba(242, 104, 12, .1), transparent 60%), linear-gradient(180deg, var(--deep), var(--ink-0)); }
   .hero-photo + .hero-grid { position: relative; }
   .slogan { display: block; margin-top: .25em; font-size: .46em; line-height: 1; color: var(--water-2); }
   .slogan em { font-style: normal; color: var(--yellow); }
   .hero-stage { position: relative; display: grid; place-items: center; min-height: 560px; }
-  .hero-stage :global(.hero-pingo) { position: absolute; left: -6%; bottom: -6px; z-index: 2; filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .35)); }
-  .float-card { position: absolute; left: -12%; top: 29%; z-index: 2; margin: 0; display: grid; gap: 4px; padding: 12px 14px; min-width: 190px; background: rgba(19, 49, 92, .85); border: 1px solid rgba(156, 195, 255, .3); border-radius: var(--radius); backdrop-filter: blur(8px); }
+  .hero-stage :global(.hero-mola) { position: absolute; left: -6%; bottom: -6px; z-index: 2; filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .35)); }
+  .float-card { position: absolute; left: -12%; top: 29%; z-index: 2; margin: 0; display: grid; gap: 4px; padding: 12px 14px; min-width: 190px; background: rgba(0, 58, 133, .85); border: 1px solid rgba(170, 200, 245, .3); border-radius: var(--radius); backdrop-filter: blur(8px); }
   .float-card strong { font-family: var(--display); font-size: 1.25rem; text-transform: uppercase; line-height: 1; color: var(--white); }
   .float-card small { color: var(--steel-light); }
   .float-card .bd { justify-self: start; }
   .emerg-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
-  .emerg-head :global(.emerg-pingo) { margin-bottom: -20px; flex: none; }
+  .emerg-head :global(.emerg-mola) { margin-bottom: -20px; flex: none; }
   .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 6vw, 88px); }
-  .hero-copy h1 { margin-top: 18px; color: var(--white); max-width: 11ch; }
+  .hero-copy h1 { margin-top: 18px; color: var(--white); max-width: 14ch; }
   .hero-copy .lead { color: var(--steel-light); margin-bottom: 26px; }
   .hero-copy .phone-big { margin-bottom: 22px; }
 
@@ -224,15 +224,15 @@ const equipamentos = [
   .garantias li { display: flex; gap: 14px; align-items: flex-start; padding: 26px 20px; border-left: 1px solid var(--line); }
   .garantias li:first-child { border-left: 0; padding-left: 0; }
   .garantias :global(.icon) { color: var(--navy); }
-  .garantias strong { display: block; font-family: var(--display); font-weight: 800; font-size: 1.35rem; text-transform: uppercase; line-height: 1.1; }
+  .garantias strong { display: block; font-family: var(--display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; line-height: 1.1; }
   .garantias span { color: var(--steel); font-size: 0.96rem; }
 
   /* SERVIÇOS */
   .svc { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; border-top: 3px solid var(--ink); }
   .svc a { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
-  .svc-ic { display: grid; place-items: center; width: 58px; height: 58px; background: var(--navy); color: var(--yellow); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), background-color var(--t-std) var(--ease); }
+  .svc-ic { display: grid; place-items: center; width: 58px; height: 58px; background: var(--navy); color: var(--white); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), background-color var(--t-std) var(--ease); }
   .svc a:hover .svc-ic { background: var(--yellow); color: var(--ink); transform: rotate(-6deg); }
-  .svc-txt strong { display: block; font-family: var(--display); font-weight: 800; font-size: 1.5rem; text-transform: uppercase; line-height: 1.05; }
+  .svc-txt strong { display: block; font-family: var(--display); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; line-height: 1.05; }
   .svc-txt span { color: var(--steel); font-size: 0.97rem; }
   .svc-go { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.95rem; white-space: nowrap; transition: transform var(--t-std) var(--ease); }
   .svc a:hover .svc-go { transform: translateX(4px); }
@@ -241,7 +241,7 @@ const equipamentos = [
   .emerg { background: var(--yellow); color: var(--on-yellow); padding-block: clamp(56px, 8vw, 96px); border-block: 6px solid var(--ink); }
   .emerg h2 { display: flex; align-items: center; gap: 14px; }
   .emerg ol { list-style: none; margin: 32px 0 36px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
-  .num { display: block; font-family: var(--display); font-weight: 800; font-size: 4.6rem; line-height: 0.8; color: var(--ink); margin-bottom: 10px; -webkit-text-stroke: 0; }
+  .num { display: block; font-family: var(--display); font-weight: 700; font-size: 4.6rem; line-height: 0.8; color: var(--ink); margin-bottom: 10px; -webkit-text-stroke: 0; }
   .emerg h3 { margin-bottom: 6px; }
   .emerg p { margin: 0; font-weight: 600; }
 
@@ -296,9 +296,9 @@ const equipamentos = [
     .svc a { grid-template-columns: auto 1fr; }
     .emerg ol { grid-template-columns: 1fr; }
     .hero .btn { width: 100%; }
-    .hero-stage :global(.hero-pingo) { width: 120px; left: -2%; }
+    .hero-stage :global(.hero-mola) { width: 140px; left: -2%; }
     .float-card { display: none; }
-    .emerg-head :global(.emerg-pingo) { width: 110px; }
+    .emerg-head :global(.emerg-mola) { width: 110px; }
     .phone-big :global(.icon) { width: 34px; height: 34px; }
   }
 </style>

@@ -9,15 +9,16 @@ const KIT = R('../brand/kit/');
 const logos = R('../src/assets/marca/');
 rmSync(logos, { recursive: true, force: true });
 mkdirSync(logos, { recursive: true });
-for (const f of ['logo-mc-horizontal.svg', 'logo-mc-horizontal-fundo-claro.svg', 'simbolo-mc.svg']) copyFileSync(KIT + '02-logo/' + f, logos + f);
+for (const f of ['logo-mc-horizontal.svg', 'logo-mc-horizontal-fundo-claro.svg', 'logo-mc-circular.svg', 'logo-mc-circular-branco.svg', 'simbolo-mc.svg']) copyFileSync(KIT + '02-logo/' + f, logos + f);
 
-const pingo = R('../src/assets/pingo/');
-rmSync(pingo, { recursive: true, force: true });
-mkdirSync(pingo, { recursive: true });
-for (const f of readdirSync(KIT + '03-mascote-pingo').filter((f) => f.endsWith('.svg'))) copyFileSync(KIT + '03-mascote-pingo/' + f, pingo + f.replace(/^pingo-/, ''));
+rmSync(R('../src/assets/pingo/'), { recursive: true, force: true }); // mascote antigo
+const mascote = R('../src/assets/mascote/');
+rmSync(mascote, { recursive: true, force: true });
+mkdirSync(mascote, { recursive: true });
+for (const f of readdirSync(KIT + '03-mascote-mola').filter((f) => f.endsWith('.svg'))) copyFileSync(KIT + '03-mascote-mola/' + f, mascote + f.replace(/^mola-/, ''));
 
 // Ícones da aba e de app
 copyFileSync(KIT + '02-logo/favicon.svg', R('../public/favicon.svg'));
 copyFileSync(KIT + '02-logo/apple-touch-icon.png', R('../public/apple-touch-icon.png'));
-copyFileSync(KIT + '02-logo/icon-512.png', R('../public/logo.png'));
+// public/logo.png (logo circular para o schema) e public/og.png saem de scripts/make-images.mjs
 console.log('marca sincronizada');

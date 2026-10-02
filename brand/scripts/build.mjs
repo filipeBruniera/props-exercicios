@@ -15,25 +15,23 @@ const wa = `https://wa.me/${pick('whatsappDigits')}?text=${encodeURIComponent(pi
 const email = pick('email');
 const siteUrl = pick('url');
 
-// Logos
-const logo = (f) => read(`../kit/02-logo/${f}`).replace(/<title>.*?<\/title>/, '').replace(/ width="\d+" height="\d+"/, '').replace('<svg ', '<svg aria-hidden="true" focusable="false" ').trim();
+// Logos (ids de máscara renomeados por cópia, para não repetir id na página)
+let copy = 0;
+const logo = (f) => { const k = ++copy; return read(`../kit/02-logo/${f}`).replace(/<title>.*?<\/title>/, '').replace(/ width="\d+" height="\d+"/, '').replace('<svg ', '<svg aria-hidden="true" focusable="false" ').replace(/(id="|url\(#)(mq\d+)/g, `$1$2c${k}`).trim(); };
 const L = {
+  LOGO_C: logo('logo-mc-circular.svg'),
+  LOGO_CW: logo('logo-mc-circular-branco.svg'),
   LOGO_H: logo('logo-mc-horizontal.svg'),
   LOGO_HL: logo('logo-mc-horizontal-fundo-claro.svg'),
   LOGO_W: logo('logo-mc-branco.svg'),
   LOGO_K: logo('logo-mc-preto.svg'),
-  LOGO_V: logo('logo-mc-vertical.svg'),
   SYM: logo('simbolo-mc.svg'),
 };
-// Símbolo animado (construção): etiqueta em traço, preenchimento, letras e gota separados
-const symSrc = read('../kit/02-logo/simbolo-mc.svg');
-const paths = [...symSrc.matchAll(/<path d="([^"]+)"([^>]*)\/>/g)];
-const [sticker, letters, drop] = paths;
-L.SYM_ANIM = `<svg viewBox="0 0 160 120" aria-label="Construção do símbolo M&C" role="img">
-<path id="symStroke" d="${sticker[1]}" fill="none" stroke="#ffc400" stroke-width="2"/>
-<path id="symFill" d="${sticker[1]}" fill="#ffc400"/>
-<g id="symLetters"><path d="${letters[1]}"${letters[2]}/></g>
-<path id="symDrop" d="${drop[1]}"${drop[2]}/></svg>`;
+// Logo animado (construção): círculo-guia em traço, máquina, nome em arco, traços e slogan
+L.SYM_ANIM = logo('logo-mc-circular.svg')
+  .replace('<svg aria-hidden="true" focusable="false" ', '<svg role="img" aria-label="Construção da logo M&amp;C" ')
+  .replace(/data-p="(\w+)"/g, (_, p) => `id="sym${p[0].toUpperCase()}${p.slice(1)}"`)
+  .replace(/(<svg[^>]*>)/, '$1<circle id="symStroke" cx="200" cy="200" r="190" fill="none" stroke="#f2680c" stroke-width="2" stroke-dasharray="4 6"/>');
 
 // Ícones Phosphor
 const icon = (w, n) => {
@@ -42,7 +40,7 @@ const icon = (w, n) => {
 };
 
 let html = read('../src/page.html')
-  .replace(/<!--(LOGO_H|LOGO_HL|LOGO_W|LOGO_K|LOGO_V|SYM_ANIM|SYM)-->/g, (_, k) => L[k])
+  .replace(/<!--(LOGO_CW|LOGO_C|LOGO_HL|LOGO_H|LOGO_W|LOGO_K|SYM_ANIM|SYM)-->/g, (_, k) => L[k])
   .replace(/<!--I:([a-z-]+)-->/g, (_, n) => icon('bold', n))
   .replace(/<!--IF:([a-z-]+)-->/g, (_, n) => icon('fill', n))
   .replaceAll('{{PHONE}}', phone)
@@ -56,13 +54,10 @@ let html = read('../src/page.html')
 const ff = (family, pkg, file, weight) =>
   `@font-face{font-family:'${family}';font-style:normal;font-weight:${weight};font-display:swap;src:url(data:font/woff2;base64,${readFileSync(nm(`@fontsource/${pkg}/files/${file}`)).toString('base64')}) format('woff2')}`;
 const fonts = [
-  ff('Barlow Condensed', 'barlow-condensed', 'barlow-condensed-latin-700-normal.woff2', 700),
-  ff('Barlow Condensed', 'barlow-condensed', 'barlow-condensed-latin-800-normal.woff2', 800),
-  ff('Barlow', 'barlow', 'barlow-latin-400-normal.woff2', 400),
-  ff('Barlow', 'barlow', 'barlow-latin-600-normal.woff2', 600),
-  ff('Barlow', 'barlow', 'barlow-latin-700-normal.woff2', 700),
-  ff('JetBrains Mono', 'jetbrains-mono', 'jetbrains-mono-latin-400-normal.woff2', 400),
-  ff('JetBrains Mono', 'jetbrains-mono', 'jetbrains-mono-latin-600-normal.woff2', 600),
+  ff('Cormorant Garamond', 'cormorant-garamond', 'cormorant-garamond-latin-600-normal.woff2', 600),
+  ff('Cormorant Garamond', 'cormorant-garamond', 'cormorant-garamond-latin-700-normal.woff2', 700),
+  ff('Questrial', 'questrial', 'questrial-latin-400-normal.woff2', 400),
+  ff('Julius Sans One', 'julius-sans-one', 'julius-sans-one-latin-400-normal.woff2', 400),
 ].join('\n');
 
 const gsap = readFileSync(nm('gsap/dist/gsap.min.js'), 'utf8');
@@ -74,10 +69,10 @@ const doc = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>M&amp;C Fluxo · Brand book</title>
-<meta name="description" content="Brand book vivo da M&C Desentupidora, Ubatuba-SP: marca, cor, tipografia, mascote Pingo, componentes, produto, comunicação e movimento.">
+<title>M&amp;C · Brand book</title>
+<meta name="description" content="Brand book vivo da M&C Desentupidora, Ubatuba-SP: marca, cor, tipografia, mascote Mola, componentes, produto, comunicação e movimento.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#040d1c">
+<meta name="theme-color" content="#001a3d">
 <link rel="icon" href="${fav}">
 <style>
 ${fonts}
@@ -89,7 +84,7 @@ ${html}
 <script>${gsap}</script>
 <script>${st}</script>
 <script>
-${read('../src/pingo.js')}
+${read('../src/mola.js')}
 </script>
 <script>
 ${read('../src/page.js')}

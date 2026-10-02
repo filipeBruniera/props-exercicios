@@ -1,50 +1,50 @@
 /*
-  M & C Desentupidora · sistema "M&C Fluxo" (mesmos tokens do kit:
-  brand/kit/04-tokens/tokens-mc-fluxo.css e o brand book em brand/site).
-  Marinho de frota + amarelo de sinalização (ação) + azul água (só água/fluxo).
-  Etiqueta inclinada -8°, cantos de no máximo 4 px, faixa zebrada de obra.
-  Barlow Condensed (títulos), Barlow (texto), JetBrains Mono (dados).
+  M & C Desentupidora · identidade oficial do cliente (mesmos tokens do kit:
+  brand/kit/04-tokens/tokens-mc.css e o brand book em brand/site).
+  Azul #004BA9 (marca) + laranja #F2680C (ação) + cinza #E3E3E3 (fundo claro).
+  Fontes oficiais Koela / Century Gothic / Julius Sans One; na web, as similares
+  gratuitas Cormorant Garamond e Questrial + Julius Sans One.
   Movimento: curva única cubic-bezier(.2,0,0,1), 150 / 250 / 400 ms.
 */
 :root {
-  --navy: #0b2545;
-  --navy-2: #13315c;
-  --navy-3: #1d3f6e;
-  --ink: #0d1b2a;
-  --yellow: #ffc400;
-  --yellow-2: #ffd54a;
-  --on-yellow: #141000;
-  --paper: #f3f5f7;
+  --navy: #004ba9;
+  --navy-2: #003a85;
+  --navy-3: #1e5db3;
+  --ink: #0b1f3f;
+  --yellow: #f2680c;
+  --yellow-2: #ff8a3d;
+  --on-yellow: #0b1f3f;
+  --paper: #e3e3e3;
   --white: #ffffff;
   --steel: #4a5866;
   --steel-light: #b7c4d3;
-  --line: #d3dae2;
+  --line: #c9ced6;
   --wa: #1d9e52;
-  --ink-0: #040d1c;
-  --deep: #061427;
-  --water: #3b8cff;
-  --water-2: #7cc0ff;
-  --water-3: #1257c9;
-  --yellow-text: #7a5600;
+  --ink-0: #001a3d;
+  --deep: #002252;
+  --water: #4f8fe6;
+  --water-2: #9cc3f5;
+  --water-3: #004ba9;
+  --yellow-text: #9a3d00;
   --ok: #138a50;
   --ok-bg: #ddf5e8;
   --warn: #8a4b00;
   --warn-bg: #ffe7c2;
-  --skew: -8deg;
+  --skew: 0deg;
 
-  --radius: 4px;
+  --radius: 6px;
   --max: 1240px;
   --gutter: clamp(16px, 4vw, 40px);
-  --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Questrial', 'Century Gothic', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'Julius Sans One', 'Questrial', sans-serif;
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --t-quick: 150ms;
   --t-std: 250ms;
   --t-slow: 400ms;
 
-  --stripe: repeating-linear-gradient(-45deg, var(--yellow) 0 16px, var(--ink) 16px 32px);
+  --stripe: repeating-linear-gradient(90deg, var(--yellow) 0 22px, transparent 22px 36px);
   color-scheme: light;
 }
 
@@ -61,6 +61,7 @@ html {
 }
 
 body {
+  font-variant-numeric: lining-nums; /* números alinhados (telefone legível na serifa) */
   margin: 0;
   background: var(--paper);
   color: var(--ink);
@@ -109,7 +110,7 @@ h1,
 h2,
 h3 {
   font-family: var(--display);
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   line-height: 0.95;
   letter-spacing: 0;
@@ -118,7 +119,7 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2.9rem, 7.4vw, 5.6rem);
+  font-size: clamp(2.3rem, 9.4vw, 5.6rem);
 }
 
 h2 {
@@ -154,7 +155,8 @@ p {
 }
 
 .on-dark {
-  background: var(--navy);
+  /* fundo escuro: azul-escuro de apoio, onde o laranja passa no contraste (o laranja sobre o azul #004BA9 não passa) */
+  background: var(--deep);
   color: var(--white);
 }
 
@@ -164,7 +166,7 @@ p {
 }
 
 .stripe {
-  height: 14px;
+  height: 4px;
   background: var(--stripe);
 }
 
@@ -176,17 +178,12 @@ p {
   background: var(--yellow);
   color: var(--on-yellow);
   font-family: var(--display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.05rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 6px 12px 5px;
-  border-radius: 2px;
-  transform: skewX(-8deg);
-}
-
-.tag > * {
-  transform: skewX(8deg);
+  border-radius: 999px;
 }
 
 .sr-only {
@@ -227,7 +224,7 @@ p {
   padding: 0 1.5rem;
   border-radius: var(--radius);
   font-family: var(--display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.3rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -286,7 +283,7 @@ p {
   align-items: center;
   gap: 12px;
   font-family: var(--display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(2.2rem, 5.4vw, 3.6rem);
   line-height: 1;
   text-decoration: none;
@@ -368,21 +365,21 @@ p {
 .bd { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 4px 9px; border-radius: 3px; }
 .bd::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .bd.rec { color: #0b5cad; background: #e3f0ff; }
-.bd.cam { color: var(--yellow-text); background: #fff3c4; }
+.bd.cam { color: var(--yellow-text); background: #fde3d1; }
 .bd.ate { color: var(--warn); background: var(--warn-bg); }
 .bd.res { color: var(--ok); background: var(--ok-bg); }
 
 /* Fluxo: cano com água correndo (só se o usuário aceita movimento) */
 .flow-pipe { height: 10px; border-radius: 5px; background: var(--navy-3); overflow: hidden; position: relative; }
-.flow-pipe i { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--water) 0 30px, var(--water-2) 30px 46px); background-size: 46px 100%; }
+.flow-pipe i { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--yellow) 0 7px, #c4530a 7px 10px); background-size: 10px 100%; } /* cabo-mola da máquina girando */
 @media (prefers-reduced-motion: no-preference) {
-  .flow-pipe i { animation: flow 1.2s linear infinite; }
+  .flow-pipe i { animation: flow .5s linear infinite; }
 }
-@keyframes flow { to { background-position: 46px 0; } }
+@keyframes flow { to { background-position: 10px 0; } }
 
 /* Fundo de grade discreto das seções escuras (como no brand book) */
 .grid-bg { position: relative; }
-.grid-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(156, 195, 255, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(156, 195, 255, .1) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(80% 70% at 60% 30%, #000 20%, transparent 80%); }
+.grid-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(170, 200, 245, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(170, 200, 245, .1) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(80% 70% at 60% 30%, #000 20%, transparent 80%); }
 .grid-bg > * { position: relative; }
 
-.pingo { display: block; height: auto; max-width: 100%; }
+.mascote { display: block; height: auto; max-width: 100%; }

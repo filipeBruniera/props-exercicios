@@ -25,12 +25,13 @@ Resolver na hora, **sem quebra-quebra**, com **valor combinado antes** de começ
 - E-mail: contato@mcdesentupidoraubatuba.com.br (provisório)
 - Site: https://www.mcdesentupidoraubatuba.com.br (domínio ainda não registrado). Versão de teste na Vercel: https://mc-desentupidora-ubatuba.vercel.app
 
-## Identidade
-- Marinho frota #0B2545 · marinho 2 #13315C · amarelo sinal #FFC400 · azul água #3B8CFF · asfalto #0D1B2A · gelo #F3F5F7 · aço #4A5866.
-- Amarelo é ação (telefone, botão, etiqueta). Nunca é texto em fundo claro.
-- Etiqueta inclinada -8° (conceito de adesivo de frota; ainda não existe adesivo real) e faixa zebrada amarelo/asfalto de obra.
-- Barlow Condensed 800 em caixa alta para títulos, Barlow para texto, JetBrains Mono para números.
-- Mascote **Pingo**: gota d'água de capacete amarelo e macacão marinho com a etiqueta M&C.
+## Identidade (oficial do cliente)
+- Cores: azul #004BA9, laranja #F2680C e cinza #E3E3E3. Apoio: azul-escuro #002B63, tinta #0B1F3F, laranja texto #9A3D00.
+- Laranja é ação (telefone, botão, selo). Nunca como texto sobre o azul.
+- Logo circular com a máquina desentupidora rotativa no centro e o slogan "Solução em desentupimento para residências e comércios".
+- Fontes oficiais: Koela (títulos), Century Gothic (texto), Julius Sans One (apoio). Na web: Cormorant Garamond, Questrial e Julius Sans One.
+- Mascote **Mola**: a máquina da logo com rosto no tambor, braços de cabo-mola e luvas laranja.
+- Detalhes em `IDENTIDADE.md`.
 
 ## Tom de voz
 Direto, prático e tranquilizador. Fala como o técnico experiente que chega e resolve: frases curtas, verbos concretos, sem termos técnicos sem explicação, sem exagero. Nunca promete prazo exato nem preço em anúncio. Números de painel e orçamento são sempre marcados como **exemplo**.

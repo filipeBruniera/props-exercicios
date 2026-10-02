@@ -1,11 +1,8 @@
 ---
-import '@fontsource/barlow/400.css';
-import '@fontsource/barlow/600.css';
-import '@fontsource/barlow/700.css';
-import '@fontsource/barlow-condensed/700.css';
-import '@fontsource/barlow-condensed/800.css';
-import '@fontsource/jetbrains-mono/latin-400.css';
-import '@fontsource/jetbrains-mono/latin-600.css';
+import '@fontsource/questrial/latin-400.css';
+import '@fontsource/cormorant-garamond/latin-600.css';
+import '@fontsource/cormorant-garamond/latin-700.css';
+import '@fontsource/julius-sans-one/latin-400.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -47,7 +44,7 @@ const graph = {
     <meta name="description" content={description} />
     {!noindex && <link rel="canonical" href={canonical} />}
     {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
-    <meta name="theme-color" content="#0b2545" />
+    <meta name="theme-color" content="#002252" />
     <meta name="geo.region" content="BR-SP" />
     <meta name="geo.placename" content="Ubatuba" />
     <meta name="geo.position" content={`${site.geo.lat};${site.geo.lng}`} />

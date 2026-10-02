@@ -22,9 +22,9 @@ const r = await p.evaluate(() => {
     const ox = Math.min(A.right, C.right) - Math.max(A.left, C.left), oy = Math.min(A.bottom, C.bottom) - Math.max(A.top, C.top);
     if (ox > 4 && oy > 4) over.push(a.className + ' x ' + c.className + ' (' + Math.round(ox) + 'x' + Math.round(oy) + ')');
   }
-  const stuck = [...document.querySelectorAll('main *')].filter((e) => { const t = e.style.transform; return t && /translate\(0px, [1-9]/.test(t) && !e.closest('.pingo') && !e.closest('#hs'); }).map((e) => e.className + ' ' + e.style.transform).slice(0, 10);
+  const stuck = [...document.querySelectorAll('main *')].filter((e) => { const t = e.style.transform; return t && /translate\(0px, [1-9]/.test(t) && !e.closest('.mola') && !e.closest('#hs'); }).map((e) => e.className + ' ' + e.style.transform).slice(0, 10);
   const hidden = [...document.querySelectorAll(SEL)].filter((e) => getComputedStyle(e).visibility === 'hidden' || +getComputedStyle(e).opacity < .5).map((e) => e.className).slice(0, 10);
-  const mouths = [...document.querySelectorAll('.pg-face > path:nth-of-type(3)')].filter((m) => m.getAttribute('stroke') !== '#0b2545').length;
+  const mouths = [...document.querySelectorAll('.ml-face > path:nth-of-type(3)')].filter((m) => m.getAttribute('stroke') !== '#002B63').length;
   const ovx = document.documentElement.scrollWidth > innerWidth + 1;
   return { over: over.slice(0, 15), overCount: over.length, stuck, hidden, mouthsSemTraco: mouths, overflowX: ovx };
 });

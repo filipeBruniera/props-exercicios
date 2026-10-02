@@ -34,11 +34,14 @@ lugar certo, otimizada em AVIF/WebP. Prefira fotos reais da equipe, do caminhão
 
 ## Sistema de design
 
-O site usa o sistema **M&C Fluxo**, o mesmo do brand book (`brand/`): tokens em
-`src/styles/global.css`, logo oficial e o mascote Pingo copiados do kit por
-`node scripts/sync-marca.mjs` (rode de novo sempre que o kit for regenerado).
-Componentes da marca: `Logo`, `Pingo`, `PhoneChat` (atendimento no WhatsApp) e
-`Jornada` (os 3 passos com o cano do fluxo).
+O site usa a **identidade oficial do cliente**, a mesma do brand book (`brand/`): azul #004BA9,
+laranja #F2680C e cinza #E3E3E3; fontes Koela, Century Gothic e Julius Sans One (na web, as
+similares gratuitas Cormorant Garamond e Questrial + Julius Sans One). Tokens em
+`src/styles/global.css`. A logo (redesenhada em SVG) e a mascote Mola (a máquina desentupidora
+da logo, com rosto) vêm do kit por `node scripts/sync-marca.mjs`; a imagem de compartilhamento e o
+`logo.png` do schema por `node scripts/make-images.mjs`. Rode os dois de novo sempre que o kit for
+regenerado. Componentes da marca: `Logo`, `Mascote`, `PhoneChat` (atendimento no WhatsApp) e
+`Jornada` (os 3 passos com o cabo-mola).
 
 ## Desenvolvimento
 

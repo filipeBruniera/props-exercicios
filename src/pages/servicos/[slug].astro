@@ -82,13 +82,13 @@ const outros = servicos.filter((o) => o.slug !== s.slug);
 
 <style>
   .signs { background: var(--white); color: var(--ink); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); padding: 24px; }
-  .signs .signs-h { display: flex; align-items: center; gap: 10px; color: var(--ink); font-family: var(--display); font-weight: 800; font-size: 1.6rem; text-transform: uppercase; line-height: 1; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
+  .signs .signs-h { display: flex; align-items: center; gap: 10px; color: var(--ink); font-family: var(--display); font-weight: 700; font-size: 1.6rem; text-transform: uppercase; line-height: 1; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
   .signs-h :global(.icon) { color: #b45309; }
   .signs ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 8px; font-weight: 600; }
   .proc { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 3px solid var(--ink); background: var(--white); }
   .proc li { padding: 26px 22px; }
   .proc li + li { border-left: 3px solid var(--ink); }
-  .num { display: inline-grid; place-items: center; width: 48px; height: 48px; background: var(--yellow); font-family: var(--display); font-weight: 800; font-size: 1.8rem; border: 2px solid var(--ink); margin-bottom: 14px; }
+  .num { display: inline-grid; place-items: center; width: 48px; height: 48px; background: var(--yellow); font-family: var(--display); font-weight: 700; font-size: 1.8rem; border: 2px solid var(--ink); margin-bottom: 14px; }
   .proc p { margin: 0; color: var(--steel); }
   .prev-sec { background: var(--yellow); border-block: 6px solid var(--ink); padding-block: clamp(48px, 7vw, 88px); }
   .prev { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
@@ -105,7 +105,7 @@ const outros = servicos.filter((o) => o.slug !== s.slug);
   .other { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
   .other a { display: flex; align-items: center; gap: 12px; padding: 12px; border: 2px solid var(--ink); background: var(--white); text-decoration: none; font-weight: 700; border-radius: var(--radius); transition: transform var(--t-quick) var(--ease), box-shadow var(--t-quick) var(--ease); }
   .other a:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--yellow); }
-  .o-ic { display: grid; place-items: center; width: 40px; height: 40px; background: var(--navy); color: var(--yellow); flex: none; }
+  .o-ic { display: grid; place-items: center; width: 40px; height: 40px; background: var(--navy); color: var(--white); flex: none; }
   @media (max-width: 900px) {
     .prev { grid-template-columns: 1fr; }
     .proc { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -1,17 +1,20 @@
 {
   "marca": "M&C Desentupidora",
-  "versao": "Fluxo v1",
+  "versao": "Identidade oficial v2",
+  "oficiais": [
+    "#004BA9",
+    "#F2680C",
+    "#E3E3E3"
+  ],
   "cores": {
-    "marinho": "#0B2545",
-    "marinho2": "#13315C",
-    "marinho3": "#1D3F6E",
-    "amarelo": "#FFC400",
-    "amareloTexto": "#7A5600",
-    "aguaAzul": "#3B8CFF",
-    "agua2": "#7CC0FF",
-    "asfalto": "#0D1B2A",
-    "textoNoAmarelo": "#141000",
-    "gelo": "#F3F5F7",
+    "azul": "#004BA9",
+    "laranja": "#F2680C",
+    "cinza": "#E3E3E3",
+    "azulEscuro": "#002B63",
+    "fundoEscuro": "#001A3D",
+    "tinta": "#0B1F3F",
+    "laranjaTexto": "#9A3D00",
+    "laranjaClaro": "#FF8A3D",
     "aco": "#4A5866",
     "branco": "#FFFFFF",
     "whatsapp": "#1D9E52"
@@ -19,51 +22,57 @@
   "contraste": [
     {
       "texto": "branco",
-      "fundo": "marinho",
-      "contraste": 15.39,
+      "fundo": "azul",
+      "contraste": 8.14,
       "nivel": "AAA"
-    },
-    {
-      "texto": "amarelo",
-      "fundo": "marinho",
-      "contraste": 9.63,
-      "nivel": "AAA"
-    },
-    {
-      "texto": "textoNoAmarelo",
-      "fundo": "amarelo",
-      "contraste": 11.91,
-      "nivel": "AAA"
-    },
-    {
-      "texto": "asfalto",
-      "fundo": "gelo",
-      "contraste": 15.92,
-      "nivel": "AAA"
-    },
-    {
-      "texto": "marinho",
-      "fundo": "gelo",
-      "contraste": 14.08,
-      "nivel": "AAA"
-    },
-    {
-      "texto": "aco",
-      "fundo": "gelo",
-      "contraste": 6.67,
-      "nivel": "AA"
-    },
-    {
-      "texto": "amareloTexto",
-      "fundo": "gelo",
-      "contraste": 6.08,
-      "nivel": "AA"
     },
     {
       "texto": "branco",
-      "fundo": "aguaAzul",
-      "contraste": 3.29,
-      "nivel": "AA texto grande"
+      "fundo": "azulEscuro",
+      "contraste": 13.76,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "laranja",
+      "fundo": "fundoEscuro",
+      "contraste": 5.56,
+      "nivel": "AA"
+    },
+    {
+      "texto": "laranjaClaro",
+      "fundo": "azulEscuro",
+      "contraste": 5.87,
+      "nivel": "AA"
+    },
+    {
+      "texto": "tinta",
+      "fundo": "laranja",
+      "contraste": 5.27,
+      "nivel": "AA"
+    },
+    {
+      "texto": "tinta",
+      "fundo": "cinza",
+      "contraste": 12.76,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "azul",
+      "fundo": "cinza",
+      "contraste": 6.34,
+      "nivel": "AA"
+    },
+    {
+      "texto": "aco",
+      "fundo": "cinza",
+      "contraste": 5.68,
+      "nivel": "AA"
+    },
+    {
+      "texto": "laranjaTexto",
+      "fundo": "cinza",
+      "contraste": 5.38,
+      "nivel": "AA"
     },
     {
       "texto": "branco",
@@ -72,21 +81,26 @@
       "nivel": "AA texto grande"
     },
     {
-      "texto": "amarelo",
-      "fundo": "gelo",
-      "contraste": 1.46,
+      "texto": "branco",
+      "fundo": "laranja",
+      "contraste": 3.11,
+      "nivel": "AA texto grande"
+    },
+    {
+      "texto": "laranja",
+      "fundo": "azul",
+      "contraste": 2.62,
       "nivel": "reprova"
     }
   ],
   "forma": {
-    "etiqueta": "skewX(-8deg)",
-    "raio": "4px",
-    "faixa": "repeating-linear-gradient(-45deg, #FFC400 0 14px, #0D1B2A 14px 28px)"
+    "raio": "6px",
+    "divisor": "traço laranja tracejado #F2680C"
   },
   "fontes": {
-    "titulos": "Barlow Condensed 700/800, caixa alta",
-    "texto": "Barlow 400/600/700",
-    "dados": "JetBrains Mono 400/600"
+    "titulos": "Koela (oficial) / Cormorant Garamond 600/700 na web, caixa alta",
+    "texto": "Century Gothic (oficial) / Questrial 400 na web",
+    "apoio": "Julius Sans One 400"
   },
   "movimento": {
     "curva": "cubic-bezier(.2, 0, 0, 1)",
