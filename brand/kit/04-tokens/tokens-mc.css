@@ -1,0 +1,37 @@
+/* M&C Desentupidora · identidade oficial · tokens de cor, forma, fonte e movimento */
+:root {
+  /* Cores oficiais do cliente: azul #004BA9, laranja #F2680C, cinza #E3E3E3 */
+  --ink-0: #001a3d;
+  --deep: #002252;
+  --navy: #003577;
+  --navy-2: #004ba9;
+  --navy-3: #1e5db3;
+  --line: rgba(170, 200, 245, .14);
+  --line-2: rgba(170, 200, 245, .28);
+  --text: #f4f7fc;
+  --muted: #c9d7ea;
+  --dim: #a9bedb;
+  --yellow: #f2680c;        /* laranja oficial: ação (nome da variável mantido) */
+  --yellow-2: #ff8a3d;      /* laranja claro: hover e texto pequeno sobre azul-escuro */
+  --yellow-shade: #c4530a;
+  --yellow-text: #9a3d00;   /* laranja para texto sobre fundo claro */
+  --on-yellow: #0b1f3f;     /* texto sobre laranja (5,3:1) */
+  --water: #4f8fe6;
+  --water-2: #9cc3f5;
+  --water-3: #004ba9;
+  --paper: #e3e3e3;         /* cinza oficial */
+  --ink: #0b1f3f;
+  --wa: #1d9e52;
+  --ok: #2ec27e;
+  --warn: #ffb020;
+  --danger: #ff6b6b;
+  --r: 6px;
+  --skew: 0deg;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  --display: 'Cormorant Garamond', Georgia, serif;   /* similar grátis da Koela */
+  --body: 'Questrial', 'Century Gothic', system-ui, sans-serif; /* similar grátis da Century Gothic */
+  --mono: 'Julius Sans One', 'Questrial', sans-serif; /* oficial: rótulos e apoio (mín. 12px) */
+  --ui: 'Questrial', 'Century Gothic', system-ui, sans-serif; /* interface: botões, selos, títulos de card (a Cormorant só de 28px para cima) */
+  --max: 1280px;
+  --gut: clamp(18px, 4vw, 48px);
+}

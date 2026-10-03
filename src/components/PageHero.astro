@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+import Foto from './Foto.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import { site, telHref, waHref } from '../data/site';
+
+interface Props {
+  crumbs: { name: string; path: string }[];
+  title: string;
+  lead: string;
+  tag?: string;
+  foto?: string;
+  fotoAlt?: string;
+  message?: string;
+  cta?: boolean;
+}
+const { crumbs, title, lead, tag, foto, fotoAlt = '', message, cta = true } = Astro.props;
+const hasAside = Astro.slots.has('default');
+---
+<section class="ph on-dark">
+  {foto && <div class="ph-photo"><Foto nome={foto} alt={fotoAlt} prioridade sizes="100vw" widths={[800, 1280, 1920]} /></div>}
+  <div class:list={['wrap', 'ph-grid', { 'has-aside': hasAside }]}>
+    <div class="enter">
+      <Breadcrumbs items={crumbs} />
+      {tag && <span class="tag"><span>{tag}</span></span>}
+      <h1>{title}</h1>
+      <p class="lead">{lead}</p>
+      {cta && (
+        <div class="ph-cta">
+          <a class="phone-big" href={telHref}><Icon name="phone" weight="fill" size={38} /> {site.phoneDisplay}</a>
+          <a class="btn btn-yellow" href={waHref(message)} rel="noopener" target="_blank"><Icon name="whatsapp-logo" size={24} /> Chamar no WhatsApp</a>
+        </div>
+      )}
+    </div>
+    {hasAside && <div class="ph-aside"><slot /></div>}
+  </div>
+</section>
+<div class="stripe"></div>
+<style>
+  .ph { position: relative; overflow: hidden; }
+  .ph-photo { position: absolute; inset: 0; }
+  .ph-photo :global(picture) { height: 100%; }
+  .ph-photo :global(img) { opacity: 0.3; }
+  .ph-photo + .ph-grid::before { content: ''; position: absolute; inset: 0; z-index: -1; }
+  .ph-grid { position: relative; display: grid; gap: clamp(28px, 5vw, 64px); align-items: end; padding-block: clamp(32px, 5vw, 72px); }
+  .ph-grid.has-aside { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr); }
+  .tag { margin-bottom: 14px; }
+  h1 { font-size: clamp(2.5rem, 5.8vw, 4.4rem); color: var(--white); max-width: 16ch; }
+  .lead { max-width: 62ch; }
+  .ph-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 26px; }
+  .phone-big { font-size: clamp(2rem, 4.4vw, 3rem); }
+  @media (max-width: 900px) { .ph-grid.has-aside { grid-template-columns: 1fr; } }
+</style>

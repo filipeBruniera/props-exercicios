@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site, telHref, waHref } from '../data/site';
+
+const nav = [
+  { href: '/servicos', label: 'Serviços' },
+  { href: '/bairros', label: 'Bairros' },
+  { href: '/sobre', label: 'A empresa' },
+  { href: '/contato', label: 'Contato' },
+];
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+---
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span><Icon name="siren" weight="fill" size={18} /> Plantão 24 horas em toda Ubatuba, inclusive feriados</span>
+    <a href={telHref}>Ligue: <strong>{site.phoneDisplay}</strong></a>
+  </div>
+</div>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <Logo height={44} />
+    <nav aria-label="Principal" class="nav-desk">
+      <ul>
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="hdr-cta">
+      <a class="btn btn-yellow btn-sm" href={waHref()} rel="noopener" target="_blank" aria-label="WhatsApp">
+        <Icon name="whatsapp-logo" size={22} /> <span class="wa-l">WhatsApp</span>
+      </a>
+      <details class="nav-mob">
+        <summary aria-label="Abrir menu"><Icon name="list" size={28} /></summary>
+        <nav aria-label="Menu móvel">
+          <ul>
+            {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            <li><a href={telHref}>Ligar {site.phoneDisplay}</a></li>
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<style>
+  .topbar { background: var(--yellow); color: var(--on-yellow); font-size: 0.92rem; font-weight: 600; }
+  .topbar-in { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 38px; }
+  .topbar span { display: inline-flex; align-items: center; gap: 8px; }
+  .topbar a { text-decoration: none; white-space: nowrap; }
+  .topbar strong { font-weight: 700; }
+  .hdr { position: sticky; top: 0; z-index: 40; background: var(--deep); border-bottom: 3px solid var(--yellow); }
+  .hdr-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 74px; }
+  .nav-desk ul, .nav-mob ul { list-style: none; margin: 0; padding: 0; }
+  .nav-desk ul { display: flex; gap: 32px; }
+  .nav-desk a { font-family: var(--ui); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--steel-light); padding: 6px 0; border-bottom: 3px solid transparent; transition: color var(--t-quick) var(--ease), border-color var(--t-quick) var(--ease); }
+  .nav-desk a:hover, .nav-desk a[aria-current='page'] { color: var(--white); border-bottom-color: var(--yellow); }
+  .hdr-cta { display: flex; align-items: center; gap: 12px; }
+  .btn-sm { min-height: 44px; font-size: 1.1rem; padding: 0 1rem; box-shadow: 3px 3px 0 var(--ink); border-color: var(--yellow); }
+  .nav-mob { display: none; position: relative; color: var(--white); }
+  .nav-mob summary { list-style: none; cursor: pointer; padding: 6px; }
+  .nav-mob summary::-webkit-details-marker { display: none; }
+  .nav-mob nav { position: absolute; right: 0; top: calc(100% + 14px); background: var(--white); color: var(--ink); border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--yellow); min-width: 240px; }
+  .nav-mob a { display: block; padding: 14px 18px; text-decoration: none; font-family: var(--ui); font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid var(--line); }
+  .nav-mob li:last-child a { border-bottom: 0; background: var(--yellow); }
+  @media (max-width: 960px) { .nav-desk { display: none; } .nav-mob { display: block; } }
+  @media (max-width: 640px) { .topbar span { display: none; } .topbar-in { justify-content: center; } .wa-l { display: none; } .btn-sm { padding: 0 0.7rem; } .hdr-in { gap: 10px; } }
+</style>

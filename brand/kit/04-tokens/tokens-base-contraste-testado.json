@@ -1,0 +1,113 @@
+{
+  "marca": "M&C Desentupidora",
+  "versao": "Identidade oficial v2",
+  "oficiais": [
+    "#004BA9",
+    "#F2680C",
+    "#E3E3E3"
+  ],
+  "cores": {
+    "azul": "#004BA9",
+    "laranja": "#F2680C",
+    "cinza": "#E3E3E3",
+    "azulEscuro": "#002B63",
+    "fundoEscuro": "#001A3D",
+    "tinta": "#0B1F3F",
+    "laranjaTexto": "#9A3D00",
+    "laranjaClaro": "#FF8A3D",
+    "aco": "#4A5866",
+    "branco": "#FFFFFF",
+    "whatsapp": "#1D9E52"
+  },
+  "contraste": [
+    {
+      "texto": "branco",
+      "fundo": "azul",
+      "contraste": 8.14,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "branco",
+      "fundo": "azulEscuro",
+      "contraste": 13.76,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "laranja",
+      "fundo": "fundoEscuro",
+      "contraste": 5.56,
+      "nivel": "AA"
+    },
+    {
+      "texto": "laranjaClaro",
+      "fundo": "azulEscuro",
+      "contraste": 5.87,
+      "nivel": "AA"
+    },
+    {
+      "texto": "tinta",
+      "fundo": "laranja",
+      "contraste": 5.27,
+      "nivel": "AA"
+    },
+    {
+      "texto": "tinta",
+      "fundo": "cinza",
+      "contraste": 12.76,
+      "nivel": "AAA"
+    },
+    {
+      "texto": "azul",
+      "fundo": "cinza",
+      "contraste": 6.34,
+      "nivel": "AA"
+    },
+    {
+      "texto": "aco",
+      "fundo": "cinza",
+      "contraste": 5.68,
+      "nivel": "AA"
+    },
+    {
+      "texto": "laranjaTexto",
+      "fundo": "cinza",
+      "contraste": 5.38,
+      "nivel": "AA"
+    },
+    {
+      "texto": "branco",
+      "fundo": "whatsapp",
+      "contraste": 3.46,
+      "nivel": "AA texto grande"
+    },
+    {
+      "texto": "branco",
+      "fundo": "laranja",
+      "contraste": 3.11,
+      "nivel": "AA texto grande"
+    },
+    {
+      "texto": "laranja",
+      "fundo": "azul",
+      "contraste": 2.62,
+      "nivel": "reprova"
+    }
+  ],
+  "forma": {
+    "raio": "6px",
+    "divisor": "traço laranja tracejado #F2680C"
+  },
+  "fontes": {
+    "titulos": "Koela (oficial) / Cormorant Garamond 600/700 na web, caixa alta",
+    "texto": "Century Gothic (oficial) / Questrial 400 na web",
+    "apoio": "Julius Sans One 400"
+  },
+  "movimento": {
+    "curva": "cubic-bezier(.2, 0, 0, 1)",
+    "duracoes_ms": [
+      150,
+      250,
+      400
+    ]
+  }
+}

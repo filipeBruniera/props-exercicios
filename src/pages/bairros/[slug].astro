@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { bairros, getBairro, noBairro, doBairro, type Bairro } from '../../data/bairros';
+import { servicos, getServico } from '../../data/servicos';
+import { breadcrumbSchema, faqSchema } from '../../data/schema';
+
+export function getStaticPaths() {
+  return bairros.map((b) => ({ params: { slug: b.slug }, props: { b } }));
+}
+interface Props { b: Bairro }
+const { b } = Astro.props;
+const path = `/bairros/${b.slug}`;
+const em = noBairro(b);
+const title = `Desentupidora ${em}, Ubatuba 24h | M & C`;
+const description = `Desentupidora ${em}, em Ubatuba-SP, 24 horas. Pia, vaso, esgoto, caixa de gordura e fossa sem quebra desnecessária. Chame a M & C no WhatsApp.`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Bairros atendidos', path: '/bairros' },
+  { name: b.nome, path },
+];
+const msg = `Olá, M & C! Preciso de desentupimento ${em}, em Ubatuba.`;
+const destaque = b.servicos.map((slug) => getServico(slug)).filter((s) => s !== undefined);
+const demais = servicos.filter((s) => !b.servicos.includes(s.slug));
+const vizinhos = b.vizinhos.map((slug) => getBairro(slug)).filter((v) => v !== undefined);
+const faqs = [
+  { q: `A M & C atende ${em} de madrugada e em feriados?`, a: `Sim. O atendimento ${em} e em toda Ubatuba é 24 horas, todos os dias. Chame pelo WhatsApp informando o endereço e o tipo de problema.` },
+  { q: `Quais serviços são mais pedidos ${em}?`, a: `${destaque.map((s, i) => (i === 0 ? s.nome : s.nome.toLowerCase())).join(', ')}. Também fazemos ${demais.map((s) => s.nome.toLowerCase()).join(', ')}.` },
+  { q: 'O valor é combinado antes?', a: 'Sim. Depois do diagnóstico informamos o valor e só começamos com a sua aprovação.' },
+];
+---
+<Base title={title} description={description} path={path} schema={[breadcrumbSchema(crumbs), faqSchema(faqs)]}>
+  <PageHero crumbs={crumbs} title={`Desentupidora ${em}`} lead={b.intro} tag={`${b.regiao} de Ubatuba`} message={msg}>
+    <div class="ctx">
+      <p class="ctx-h"><Icon name="map-pin" weight="fill" size={24} /> {b.nome} na prática</p>
+      <p>{b.contexto}</p>
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="dest-t">
+    <div class="wrap">
+      <h2 id="dest-t">Mais pedidos {em}</h2>
+      <ul class="dest">
+        {destaque.map((s) => (
+          <li class="reveal">
+            <a href={`/servicos/${s.slug}`}>
+              <span class="d-ic"><Icon name={s.icon} size={30} /></span>
+              <h3>{s.nome}</h3>
+              <p>{s.resumo}</p>
+              <span class="d-go">Ver serviço <Icon name="arrow-right" size={18} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="also">
+        Também {em}:{' '}
+        {demais.map((s, i) => <>{i > 0 && ', '}<a href={`/servicos/${s.slug}`}>{s.nome.toLowerCase()}</a></>)}.
+      </p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title={`Desentupidora ${em}: dúvidas`} />
+
+  <section class="section near" aria-labelledby="viz-t">
+    <div class="wrap">
+      <h2 id="viz-t" class="h-sm">Bairros perto {doBairro(b)}</h2>
+      <ul class="chips">
+        {vizinhos.map((v) => <li><a href={`/bairros/${v.slug}`}>Desentupidora {noBairro(v)}</a></li>)}
+        <li><a href="/bairros">Todos os bairros</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title={`Entupiu ${em}? Chame agora.`} message={msg} />
+</Base>
+
+<style>
+  .ctx { background: var(--white); color: var(--ink); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); padding: 24px; }
+  .ctx p { color: var(--steel); margin: 0; }
+  .ctx .ctx-h { display: flex; align-items: center; gap: 8px; color: var(--ink); font-family: var(--ui); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 3px solid var(--ink); }
+  .dest { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .dest a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 24px; border: 3px solid var(--ink); background: var(--white); text-decoration: none; color: var(--ink); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease); }
+  .dest a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--yellow); }
+  .d-ic { display: grid; place-items: center; width: 56px; height: 56px; background: var(--navy); color: var(--white); margin-bottom: 8px; }
+  .dest h3 { margin: 0; }
+  .dest p { color: var(--steel); margin: 0; }
+  .d-go { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+  .also { margin-top: 24px; max-width: 85ch; color: var(--steel); }
+  .near { padding-top: 0; }
+  .h-sm { font-size: 1.9rem; }
+  .chips { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chips a { display: inline-block; padding: 9px 14px; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--white); text-decoration: none; font-weight: 700; transition: background-color var(--t-quick) var(--ease); }
+  .chips a:hover { background: var(--yellow); }
+  @media (max-width: 900px) { .dest { grid-template-columns: 1fr; } }
+</style>

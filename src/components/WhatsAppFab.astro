@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import { waHref } from '../data/site';
+---
+<a class="fab" href={waHref()} rel="noopener" target="_blank" aria-label="Chamar a M & C no WhatsApp">
+  <Icon name="whatsapp-logo" weight="fill" size={34} />
+</a>
+<style>
+  .fab { position: fixed; right: 18px; bottom: 18px; z-index: 50; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--wa); color: var(--white); border: 3px solid var(--white); box-shadow: 0 6px 18px rgb(13 27 42 / 0.35); transition: transform var(--t-quick) var(--ease); }
+  .fab:hover { transform: scale(1.06); }
+  .fab:active { transform: scale(0.94); }
+  /* Chamada de atenção: um único "toque" 3 s após carregar, sem loop infinito */
+  @media (prefers-reduced-motion: no-preference) {
+    .fab { animation: nudge 600ms var(--ease) 3s 2 backwards; }
+  }
+  @keyframes nudge {
+    0%, 100% { transform: none; }
+    30% { transform: translateY(-8px) rotate(-8deg); }
+    60% { transform: translateY(0) rotate(6deg); }
+  }
+</style>

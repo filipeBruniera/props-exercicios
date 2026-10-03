@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, telHref, waHref } from '../data/site';
+import { breadcrumbSchema } from '../data/schema';
+
+const title = 'Contato | Desentupidora em Ubatuba 24h | M & C';
+const description = `Fale com a M & C Desentupidora em Ubatuba pelo WhatsApp ou telefone ${site.phoneDisplay}. Atendimento 24 horas, todos os dias.`;
+const crumbs = [{ name: 'Início', path: '/' }, { name: 'Contato', path: '/contato' }];
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent('Ubatuba, SP')}&output=embed`;
+---
+<Base title={title} description={description} path="/contato" schema={[breadcrumbSchema(crumbs)]}>
+  <PageHero crumbs={crumbs} title="Fale com a M & C" lead="O WhatsApp é o canal mais rápido. Mande o bairro, o problema e uma foto, se puder." cta={false} />
+  <section class="section">
+    <div class="wrap ct">
+      <div>
+        <ul class="ch">
+          <li><a href={waHref()} rel="noopener" target="_blank"><span class="ic"><Icon name="whatsapp-logo" size={30} /></span><span><strong>WhatsApp</strong>{site.phoneDisplay}</span></a></li>
+          <li><a href={telHref}><span class="ic"><Icon name="phone" size={30} /></span><span><strong>Telefone</strong>{site.phoneDisplay}</span></a></li>
+          <li><a href={`mailto:${site.email}`}><span class="ic"><Icon name="envelope" size={30} /></span><span><strong>E-mail</strong>{site.email}</span></a></li>
+        </ul>
+        <p class="note">{site.hours}. Atendemos todos os bairros de {site.city} - {site.state}.</p>
+      </div>
+      <div class="map">
+        <iframe title="Mapa da área de atendimento em Ubatuba" src={mapSrc} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .ct { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+  .ch { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 16px; }
+  .ch a { display: flex; gap: 16px; align-items: center; padding: 16px; border: 3px solid var(--ink); background: var(--white); text-decoration: none; color: var(--ink); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease); }
+  .ch a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--yellow); }
+  .ic { display: grid; place-items: center; width: 56px; height: 56px; background: var(--navy); color: var(--white); flex: none; }
+  .ch strong { display: block; font-family: var(--ui); font-size: 1.05rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.2; }
+  .ch span { word-break: break-word; }
+  .note { color: var(--steel); }
+  .map { border: 3px solid var(--ink); aspect-ratio: 4 / 5; background: var(--white); }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+  @media (max-width: 860px) { .ct { grid-template-columns: 1fr; } .map { aspect-ratio: 4 / 3; } }
+</style>

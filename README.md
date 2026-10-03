@@ -1,33 +1,81 @@
-# Props
+# M & C Desentupidora - Ubatuba/SP
 
-Caso não lembre como funciona o processo de entrega, clique [**aqui**](https://github.com/labenuexercicios/instrucoes-entrega)
+Site institucional e de captação da **M & C Desentupidora**, desentupidora 24h em Ubatuba-SP.
+Construído com [Astro](https://astro.build) (HTML estático, zero JavaScript no cliente), focado em
+SEO local e conversão por WhatsApp e telefone.
 
-## O que você precisa saber e praticar desta aula?
-1. Enviar props para componentes filhos;
-2. Receber props do componente pai;
-3. Acessar props
+## Antes de publicar: troque os placeholders
 
+Todos os dados da empresa ficam em **um único arquivo**: [`src/data/site.ts`](src/data/site.ts).
+Procure por `PLACEHOLDER` e preencha:
 
-## Como eu vou executar os exercícios?
+| Campo | O que colocar |
+| --- | --- |
+| `phoneDigits` / `phoneDisplay` | Telefone real (ex.: `5512991234567` / `(12) 99123-4567`) |
+| `whatsappDigits` | Número do WhatsApp com DDI 55 + DDD 12 |
+| `url` | Domínio final (também usado no sitemap, canonical, robots e llms.txt) |
+| `email`, `legalName`, `cnpj` | Dados reais da empresa |
+| `address.street` | Endereço comercial, se houver (pode ficar vazio para empresa de área de atendimento) |
+| `geo` | Coordenadas da base da empresa |
+| `googleBusinessUrl`, `sameAs` | Link do Perfil da Empresa no Google e redes sociais |
 
-Vamos utilizar o LabeTube, da aula anterior. Nesse exercício vamos tornar nosso projeto mais dinâmico, alterando os vídeos para que deixem de ser o mesmo vídeo, e seus valores sejam criados e passados por props.
+Depois de trocar o telefone, rode `node scripts/make-images.mjs` para atualizar a imagem de
+compartilhamento (`public/og.png`).
 
+> O nome, endereço e telefone (NAP) precisam ser **idênticos** em todo lugar: site, Google
+> Business Profile, Instagram, Facebook e diretórios. Isso é um dos fatores mais fortes de SEO local.
 
-Para executar este exercício, você pode criar uma nova aplicação React, como foi visto na aula passada, ou utilizar o link abaixo para ir ao template no **CodeSandbox**. Este template para exatamente onde o exercício da última aula acaba.
+## Fotos
 
-[**Template do CodeSandbox**](https://codesandbox.io/s/template-exercicio-props-b6037t?file=/src/App.js)
+O site já funciona sem fotos, mas elas são o que mais aumenta a confiança. Coloque os arquivos em
+`src/assets/fotos/` com os nomes listados em [`src/assets/fotos/LEIA-ME.md`](src/assets/fotos/LEIA-ME.md)
+(ex.: `hero.jpg`, `caminhao.jpg`, `servico-limpeza-de-fossa.jpg`). Cada foto aparece sozinha no
+lugar certo, otimizada em AVIF/WebP. Prefira fotos reais da equipe, do caminhão e dos serviços.
 
-Caso queira usar uma aplicação React, rode `npm install` neste projeto, para baixar as dependências e poder executá-lo.
+## Sistema de design
 
-# Exercício 1
+O site usa a **identidade oficial do cliente**, a mesma do brand book (`brand/`): azul #004BA9,
+laranja #F2680C e cinza #E3E3E3; fontes Koela, Century Gothic e Julius Sans One (na web, as
+similares gratuitas Cormorant Garamond e Questrial + Julius Sans One). Tokens em
+`src/styles/global.css`. A logo (redesenhada em SVG) e a mascote Mola (a máquina desentupidora
+da logo, com rosto) vêm do kit por `node scripts/sync-marca.mjs`; a imagem de compartilhamento e o
+`logo.png` do schema por `node scripts/make-images.mjs`. Rode os dois de novo sempre que o kit for
+regenerado. Componentes da marca: `Logo`, `Mascote`, `PhoneChat` (atendimento no WhatsApp) e
+`Jornada` (os 3 passos com o cabo-mola).
 
-No App.js, crie um objeto com as informações do seu vídeo que são mostradas na tela (imagem e título).
-Passe essas informações por props para o seu componente CardVideo, criado na aula passada.
+## Desenvolvimento
 
-# Exercício 2
-Agora, no componente pai de InfosUsuario, componente também criado na aula passada. Passe as informações do usuário por props.
+```bash
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # gera ./dist
+npm run preview    # serve ./dist
+npm run check:seo  # valida titles, descriptions, H1, canonical, JSON-LD e sitemap (após o build)
+```
 
-## Informações úteis sobre o assunto
-[Props | Documentação do React](https://www.geeksforgeeks.org/reactjs-components/)
-[Componentes e Props | Labenu](https://www.loom.com/share/f2a991fc9d4d49f8aeb068bee05b46b9)
+## Estrutura
 
+```
+src/
+  data/site.ts        dados da empresa (fonte única)
+  data/servicos.ts    conteúdo das 8 páginas de serviço
+  data/bairros.ts     conteúdo das 13 páginas de bairro
+  assets/fotos/       fotos opcionais (aparecem automaticamente)
+  data/schema.ts      Schema.org (Plumber/LocalBusiness, Service, FAQPage, BreadcrumbList)
+  pages/              rotas (home, /servicos/*, /bairros/*, /sobre, /contato)
+  pages/robots.txt.ts robots.txt gerado (libera buscadores e robôs de IA)
+  pages/llms.txt.ts   llms.txt e llms-full.txt para assistentes de IA
+public/               favicon, logo e imagem OG
+```
+
+Para adicionar um serviço ou bairro, acrescente um item em `servicos.ts` ou `bairros.ts`: a página,
+o sitemap, os links internos, o Schema e o llms.txt são gerados automaticamente. Escreva um texto
+**único** para cada bairro (conteúdo duplicado em massa é penalizado pelo Google).
+
+## Deploy
+
+Pronto para Vercel (`vercel.json` com URLs limpas e headers de segurança) ou Netlify / Cloudflare
+Pages (build `npm run build`, pasta `dist`).
+
+Veja o [**SEO-CHECKLIST.md**](SEO-CHECKLIST.md) com os passos fora do código para chegar ao
+primeiro lugar no Google.

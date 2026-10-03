@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { servicos } from '../../data/servicos';
+import { breadcrumbSchema } from '../../data/schema';
+
+const title = 'Serviços de Desentupimento em Ubatuba | M & C Desentupidora';
+const description = 'Todos os serviços da M & C em Ubatuba: desentupimento de pia, vaso, ralo e esgoto, limpeza de caixa de gordura e fossa, hidrojateamento e caça vazamento.';
+const crumbs = [{ name: 'Início', path: '/' }, { name: 'Serviços', path: '/servicos' }];
+---
+<Base title={title} description={description} path="/servicos" schema={[breadcrumbSchema(crumbs)]}>
+  <PageHero crumbs={crumbs} title="Serviços de desentupimento em Ubatuba" lead="Do ralo do box à rede do condomínio. Atendimento 24 horas em todos os bairros." />
+  <section class="section">
+    <div class="wrap">
+      <ul class="list">
+        {servicos.map((s) => (
+          <li class="reveal">
+            <a href={`/servicos/${s.slug}`}>
+              <span class="ic"><Icon name={s.icon} size={30} /></span>
+              <div>
+                <h2>{s.nome}</h2>
+                <p>{s.description}</p>
+              </div>
+              <Icon name="arrow-right" size={24} class="go" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .list a { display: flex; gap: 18px; align-items: flex-start; height: 100%; padding: 24px; border: 3px solid var(--ink); background: var(--white); text-decoration: none; color: var(--ink); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease); }
+  .list a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--yellow); }
+  .ic { display: grid; place-items: center; width: 56px; height: 56px; background: var(--navy); color: var(--white); flex: none; }
+  .list a > div { min-width: 0; }
+  .list h2 { font-size: 1.7rem; margin-bottom: 6px; overflow-wrap: anywhere; hyphens: auto; }
+  .list p { color: var(--steel); margin: 0; font-size: 0.98rem; }
+  .list :global(.go) { margin-left: auto; align-self: center; }
+  @media (max-width: 800px) { .list { grid-template-columns: minmax(0, 1fr); } }
+</style>

@@ -1,0 +1,50 @@
+---
+import Logo from './Logo.astro';
+import { site, telHref, waHref } from '../data/site';
+import { servicos } from '../data/servicos';
+import { bairros } from '../data/bairros';
+const year = new Date().getFullYear();
+---
+<footer class="ftr">
+  <div class="wrap ftr-grid">
+    <div>
+      <Logo variant="circular" height={132} />
+      <p>Desentupidora em Ubatuba-SP. {site.hours}.</p>
+      <address>
+        <a class="ftr-phone" href={telHref}>{site.phoneDisplay}</a>
+        <a href={waHref()} rel="noopener" target="_blank">WhatsApp</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <span>{site.address.street && `${site.address.street}, `}{site.address.locality} - {site.address.region}, {site.address.postalCode}</span>
+      </address>
+    </div>
+    <nav aria-label="Serviços">
+      <h2 class="ftr-h">Serviços</h2>
+      <ul>{servicos.map((s) => <li><a href={`/servicos/${s.slug}`}>{s.nome}</a></li>)}</ul>
+    </nav>
+    <nav aria-label="Bairros atendidos">
+      <h2 class="ftr-h">Bairros</h2>
+      <ul class="cols">{bairros.map((b) => <li><a href={`/bairros/${b.slug}`}>{b.nome}</a></li>)}</ul>
+    </nav>
+  </div>
+  <div class="wrap ftr-bottom">
+    <p>&copy; {year} {site.legalName}{site.cnpj && ` - CNPJ ${site.cnpj}`}. Desentupidora em Ubatuba, Litoral Norte de SP.</p>
+    <p><a href="/sobre">A empresa</a> <a href="/contato">Contato</a></p>
+  </div>
+</footer>
+<style>
+  .ftr { background: var(--ink); color: var(--steel-light); padding-top: 64px; padding-bottom: 104px; font-size: 0.97rem; }
+  .ftr-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 40px; }
+  .ftr-grid > div > p { margin-top: 18px; max-width: 34ch; }
+  address { font-style: normal; display: grid; gap: 6px; }
+  address a { color: var(--white); text-decoration: none; }
+  .ftr-phone { font-family: var(--display); font-weight: 700; font-size: 2rem; color: var(--yellow) !important; line-height: 1; }
+  .ftr-h { font-size: 1.3rem; color: var(--white); margin-bottom: 14px; }
+  ul { list-style: none; margin: 0; padding: 0; line-height: 2.05; }
+  ul a, .ftr-bottom a { color: var(--steel-light); text-decoration: none; }
+  ul a:hover, .ftr-bottom a:hover { color: var(--yellow); }
+  .cols { columns: 2; column-gap: 24px; }
+  .ftr-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--navy-3); font-size: 0.88rem; }
+  .ftr-bottom p { margin: 0; }
+  .ftr-bottom a + a { margin-left: 16px; }
+  @media (max-width: 860px) { .ftr-grid { grid-template-columns: 1fr; gap: 32px; } }
+</style>

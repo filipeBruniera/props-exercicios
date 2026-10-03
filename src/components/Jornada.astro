@@ -1,0 +1,47 @@
+---
+// Jornada do cliente em 3 passos, com o cabo-mola e a Mola (brand book M&C).
+import Mascote from './Mascote.astro';
+interface Props { title?: string }
+const { title = 'Do entupido ao resolvido em 3 passos' } = Astro.props;
+const passos = [
+  { t: 'Chama no WhatsApp', d: 'Manda o bairro, o problema e uma foto. A gente responde na hora, de dia ou de madrugada.', b: ['rec', 'Recebido'] },
+  { t: 'Diagnóstico e preço', d: 'O técnico chega, acha o ponto da obstrução e combina o valor antes de começar.', b: ['cam', 'A caminho'] },
+  { t: 'Resolvido e testado', d: 'Desobstrução sem quebra, teste de escoamento na sua frente e dica para não voltar.', b: ['res', 'Resolvido'] },
+];
+---
+<section class="section on-dark grid-bg jornada" aria-labelledby="jr-t">
+  <div class="wrap">
+    <h2 id="jr-t">{title}</h2>
+    <div class="jr">
+      <div class="flow-pipe jr-pipe" aria-hidden="true"><i></i></div>
+      <Mascote pose="sorriso-pronto" width={104} class="jr-mola" alt="" />
+      <ol>
+        {passos.map((p, i) => (
+          <li class="reveal">
+            <span class="n" aria-hidden="true"><span>{i + 1}</span></span>
+            <h3>{p.t}</h3>
+            <p>{p.d}</p>
+            <span class={`bd ${p.b[0]}`}>{p.b[1]}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+<style>
+  .jornada { background: radial-gradient(70% 60% at 20% 30%, #0b55b8, var(--deep) 55%, var(--ink-0)); }
+  .jornada h2 { color: var(--white); max-width: 18ch; }
+  .jr { position: relative; margin-top: 110px; }
+  .jr-pipe { position: absolute; left: 0; right: 0; top: 23px; }
+  .jr :global(.jr-mola) { position: absolute; top: -96px; left: 6px; }
+  ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  li { position: relative; padding-top: 72px; }
+  .n { position: absolute; top: 0; left: 0; width: 56px; height: 56px; display: grid; place-items: center; background: var(--yellow); color: var(--on-yellow); font-family: var(--display); font-weight: 700; font-size: 28px; border-radius: 50%; box-shadow: 0 0 0 6px var(--deep); }
+  h3 { color: var(--white); font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+  p { color: var(--steel-light); }
+  @media (max-width: 860px) {
+    .jr { margin-top: 40px; }
+    .jr-pipe, .jr :global(.jr-mola) { display: none; }
+    ol { grid-template-columns: 1fr; gap: 34px; }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { bairros, outrasLocalidades } from '../../data/bairros';
+import { breadcrumbSchema } from '../../data/schema';
+
+const title = 'Bairros Atendidos em Ubatuba | Desentupidora 24h M & C';
+const description = 'A M & C Desentupidora atende todos os bairros de Ubatuba-SP: Centro, Itaguá, Praia Grande, Enseada, Maranduba, Lázaro, Itamambuca, Picinguaba e mais.';
+const crumbs = [{ name: 'Início', path: '/' }, { name: 'Bairros atendidos', path: '/bairros' }];
+const regioes = ['Região Norte', 'Região Central', 'Região Sul'] as const;
+---
+<Base title={title} description={description} path="/bairros" schema={[breadcrumbSchema(crumbs)]}>
+  <PageHero crumbs={crumbs} title="Bairros atendidos em Ubatuba" lead="Atendemos o município inteiro, 24 horas. Escolha o seu bairro para ver os serviços mais pedidos na região." />
+  <section class="section">
+    <div class="wrap">
+      <div class="regs">
+        {regioes.map((r) => (
+          <section class="reg reveal" aria-label={r}>
+            <h2>{r}</h2>
+            <ul>
+              {bairros.filter((b) => b.regiao === r).map((b) => (
+                <li><a href={`/bairros/${b.slug}`}><strong>{b.nome}</strong><span>{b.intro}</span></a></li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+      <p class="more">Também atendemos {outrasLocalidades.join(', ')} e todas as demais localidades de Ubatuba.</p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .regs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 3px solid var(--ink); background: var(--white); align-items: stretch; }
+  .reg { padding: 24px; }
+  .reg + .reg { border-left: 3px solid var(--ink); }
+  .reg h2 { font-size: 2rem; padding-bottom: 10px; border-bottom: 3px solid var(--yellow); }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li a { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+  li a strong { font-family: var(--ui); font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  li a:hover strong { text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; }
+  li span { color: var(--steel); font-size: 0.92rem; }
+  .more { margin-top: 28px; max-width: 85ch; color: var(--steel); }
+  @media (max-width: 900px) { .regs { grid-template-columns: 1fr; } .reg + .reg { border-left: 0; border-top: 3px solid var(--ink); } }
+</style>

@@ -1,0 +1,36 @@
+---
+/**
+ * Foto opcional. Coloque um arquivo em src/assets/fotos/<nome>.(jpg|jpeg|png|webp)
+ * e ela aparece automaticamente, otimizada (AVIF/WebP, tamanhos responsivos).
+ * Sem o arquivo, o componente não renderiza nada e o layout continua completo.
+ * Nomes esperados estão em src/assets/fotos/LEIA-ME.md.
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const fotos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*.{jpg,jpeg,png,webp}', { eager: true });
+
+interface Props {
+  nome: string;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  prioridade?: boolean;
+  class?: string;
+}
+const { nome, alt, widths = [480, 800, 1200], sizes = '(max-width: 900px) 100vw, 50vw', prioridade = false, class: className } = Astro.props;
+const key = Object.keys(fotos).find((k) => /\/([^/]+)\.\w+$/.exec(k)?.[1] === nome);
+const img = key ? fotos[key].default : undefined;
+---
+{img && (
+  <Picture
+    src={img}
+    alt={alt}
+    widths={widths}
+    sizes={sizes}
+    formats={['avif', 'webp']}
+    loading={prioridade ? 'eager' : 'lazy'}
+    fetchpriority={prioridade ? 'high' : 'auto'}
+    class={className}
+  />
+)}
