@@ -9,8 +9,8 @@
   --line: rgba(170, 200, 245, .14);
   --line-2: rgba(170, 200, 245, .28);
   --text: #f4f7fc;
-  --muted: #b4c6e0;
-  --dim: #8aa3c6;
+  --muted: #c9d7ea;
+  --dim: #a9bedb;
   --yellow: #f2680c;        /* laranja oficial: ação (nome da variável mantido) */
   --yellow-2: #ff8a3d;      /* laranja claro: hover e texto pequeno sobre azul-escuro */
   --yellow-shade: #c4530a;
@@ -30,7 +30,8 @@
   --ease: cubic-bezier(.2, 0, 0, 1);
   --display: 'Cormorant Garamond', Georgia, serif;   /* similar grátis da Koela */
   --body: 'Questrial', 'Century Gothic', system-ui, sans-serif; /* similar grátis da Century Gothic */
-  --mono: 'Julius Sans One', 'Questrial', sans-serif; /* oficial: rótulos e apoio */
+  --mono: 'Julius Sans One', 'Questrial', sans-serif; /* oficial: rótulos e apoio (mín. 12px) */
+  --ui: 'Questrial', 'Century Gothic', system-ui, sans-serif; /* interface: botões, selos, títulos de card (a Cormorant só de 28px para cima) */
   --max: 1280px;
   --gut: clamp(18px, 4vw, 48px);
 }

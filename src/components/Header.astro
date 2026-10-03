@@ -54,7 +54,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   .hdr-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 74px; }
   .nav-desk ul, .nav-mob ul { list-style: none; margin: 0; padding: 0; }
   .nav-desk ul { display: flex; gap: 32px; }
-  .nav-desk a { font-family: var(--display); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; text-decoration: none; color: var(--steel-light); padding: 6px 0; border-bottom: 3px solid transparent; transition: color var(--t-quick) var(--ease), border-color var(--t-quick) var(--ease); }
+  .nav-desk a { font-family: var(--ui); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--steel-light); padding: 6px 0; border-bottom: 3px solid transparent; transition: color var(--t-quick) var(--ease), border-color var(--t-quick) var(--ease); }
   .nav-desk a:hover, .nav-desk a[aria-current='page'] { color: var(--white); border-bottom-color: var(--yellow); }
   .hdr-cta { display: flex; align-items: center; gap: 12px; }
   .btn-sm { min-height: 44px; font-size: 1.1rem; padding: 0 1rem; box-shadow: 3px 3px 0 var(--ink); border-color: var(--yellow); }
@@ -62,7 +62,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
   .nav-mob summary { list-style: none; cursor: pointer; padding: 6px; }
   .nav-mob summary::-webkit-details-marker { display: none; }
   .nav-mob nav { position: absolute; right: 0; top: calc(100% + 14px); background: var(--white); color: var(--ink); border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--yellow); min-width: 240px; }
-  .nav-mob a { display: block; padding: 14px 18px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--line); }
+  .nav-mob a { display: block; padding: 14px 18px; text-decoration: none; font-family: var(--ui); font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid var(--line); }
   .nav-mob li:last-child a { border-bottom: 0; background: var(--yellow); }
   @media (max-width: 960px) { .nav-desk { display: none; } .nav-mob { display: block; } }
   @media (max-width: 640px) { .topbar span { display: none; } .topbar-in { justify-content: center; } .wa-l { display: none; } .btn-sm { padding: 0 0.7rem; } .hdr-in { gap: 10px; } }

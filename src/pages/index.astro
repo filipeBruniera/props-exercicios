@@ -59,7 +59,7 @@ const equipamentos = [
       </div>
       <div class="hero-stage">
         <PhoneChat />
-        <Mascote pose="feliz-acenando" width={230} class="hero-mola" eager alt="Mola, a mascote da M&C, acenando" />
+        <Mascote pose="feliz-acenando" width={210} class="hero-mola" eager alt="Mola, a mascote da M&C, acenando" />
         <p class="float-card"><span class="bd res">Resolvido</span><strong>Água correndo de novo</strong><small>Escoamento testado na hora</small></p>
       </div>
     </div>
@@ -206,9 +206,9 @@ const equipamentos = [
   .slogan { display: block; margin-top: .25em; font-size: .46em; line-height: 1; color: var(--water-2); }
   .slogan em { font-style: normal; color: var(--yellow); }
   .hero-stage { position: relative; display: grid; place-items: center; min-height: 560px; }
-  .hero-stage :global(.hero-mola) { position: absolute; left: -6%; bottom: -6px; z-index: 2; filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .35)); }
+  .hero-stage :global(.hero-mola) { position: absolute; left: -16%; bottom: -10px; z-index: 2; filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .35)); }
   .float-card { position: absolute; left: -12%; top: 29%; z-index: 2; margin: 0; display: grid; gap: 4px; padding: 12px 14px; min-width: 190px; background: rgba(0, 58, 133, .85); border: 1px solid rgba(170, 200, 245, .3); border-radius: var(--radius); backdrop-filter: blur(8px); }
-  .float-card strong { font-family: var(--display); font-size: 1.25rem; text-transform: uppercase; line-height: 1; color: var(--white); }
+  .float-card strong { font-family: var(--ui); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.2; color: var(--white); }
   .float-card small { color: var(--steel-light); }
   .float-card .bd { justify-self: start; }
   .emerg-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
@@ -224,7 +224,7 @@ const equipamentos = [
   .garantias li { display: flex; gap: 14px; align-items: flex-start; padding: 26px 20px; border-left: 1px solid var(--line); }
   .garantias li:first-child { border-left: 0; padding-left: 0; }
   .garantias :global(.icon) { color: var(--navy); }
-  .garantias strong { display: block; font-family: var(--display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; line-height: 1.1; }
+  .garantias strong { display: block; font-family: var(--ui); font-weight: 700; font-size: 0.98rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.25; }
   .garantias span { color: var(--steel); font-size: 0.96rem; }
 
   /* SERVIÇOS */
@@ -232,7 +232,7 @@ const equipamentos = [
   .svc a { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
   .svc-ic { display: grid; place-items: center; width: 58px; height: 58px; background: var(--navy); color: var(--white); border-radius: var(--radius); transition: transform var(--t-std) var(--ease), background-color var(--t-std) var(--ease); }
   .svc a:hover .svc-ic { background: var(--yellow); color: var(--ink); transform: rotate(-6deg); }
-  .svc-txt strong { display: block; font-family: var(--display); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; line-height: 1.05; }
+  .svc-txt strong { display: block; font-family: var(--ui); font-weight: 700; font-size: 1.02rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.25; }
   .svc-txt span { color: var(--steel); font-size: 0.97rem; }
   .svc-go { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.95rem; white-space: nowrap; transition: transform var(--t-std) var(--ease); }
   .svc a:hover .svc-go { transform: translateX(4px); }

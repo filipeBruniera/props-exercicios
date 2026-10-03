@@ -34,6 +34,10 @@
     P.create(box, { expr: p[0], pose: p[1], idle: false });
     var s = document.createElement('small'); s.textContent = p[0] + ' · ' + p[1]; f.appendChild(s);
   });
+  P.create($('#silBlack'), { idle: false, clickable: false });
+  P.create($('#silColor'), { pose: 'acenando', idle: false, clickable: false });
+  P.create($('#sz96'), { idle: false, clickable: false });
+  P.create($('#sz48'), { pose: 'rosto', idle: false, clickable: false });
   function chips(host, list, cur, fn) {
     list.forEach(function (n) {
       var b = document.createElement('button'); b.className = 'chip' + (n === cur ? ' on' : ''); b.type = 'button'; b.textContent = n;

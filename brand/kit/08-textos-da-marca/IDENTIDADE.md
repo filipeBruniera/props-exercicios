@@ -30,10 +30,22 @@ Regras de contraste: laranja nunca como texto sobre o azul #004BA9 (2,6:1). Sobr
 
 Koela e Century Gothic são pagas. Se o cliente tiver a licença para web, troque nos tokens (`--display` e `--body`).
 
+**Regra de legibilidade:** a serifa de título (Koela/Cormorant) só de 28 px para cima (h1, h2, números grandes): abaixo disso os traços finos somem. Botões, menu, selos, h3 e títulos de card usam a Questrial em caixa alta, com espaçamento de 0,05 em (token `--ui`). Julius Sans One nunca abaixo de 12 px.
+
 ## Mascote: Mola
-A máquina desentupidora da logo, com vida. A face do tambor é o rosto (aro laranja em volta), o cabo-mola faz os braços, as luvas são laranja, o motor azul tem tampa laranja e a roda do carrinho gira quando ela anda. Nome provisório: "Mola", por causa do cabo da máquina.
+A máquina desentupidora da logo, com vida. A face do tambor é o rosto (aro laranja em volta), o cabo-mola faz os braços, as luvas são laranja, o motor azul tem tampa laranja com uma molinha em espiral no topo (o "topete") e a roda do carrinho gira quando ela anda. Nome provisório: "Mola", por causa do cabo da máquina.
+
+### Regras de desenho (v2, a partir de boas práticas de mascote)
+1. **Silhueta primeiro.** Pintada de preto, a Mola tem de continuar reconhecível: tambor redondo, molinha no topo, alça e braços para fora do corpo. Teste sempre em uma cor só.
+2. **Contorno branco de adesivo.** Todas as poses têm contorno branco grosso, que separa a Mola de qualquer fundo (branco, cinza, azul ou laranja). Não remover.
+3. **Pouco detalhe.** 4 parafusos, 2 aletas, uma roda. Detalhe a mais vira borrão em tamanho pequeno.
+4. **Versão pequena.** Abaixo de 96 px, usar a pose "rosto" (só o tambor com rosto e aro): avatar, ícone, foto de perfil do WhatsApp.
+5. **Olhos e boca carregam a personalidade.** Olhos grandes com dois brilhos, sobrancelha marcada, boca sempre com traço (nunca sem boca).
+6. **Gesto claro.** Um gesto por peça (acenar, apontar, mostrar, comemorar), com leve inclinação de até 4° para dar energia.
+
+### Uso
 - Usar em dicas de prevenção, passo a passo do atendimento e comemoração de serviço resolvido.
-- Não usar em anúncio de preço ou prazo. Não trocar cores, não deformar, não tirar o aro laranja.
+- Não usar em anúncio de preço ou prazo. Não trocar cores, não deformar, não tirar o aro laranja nem o contorno branco.
 
 ## Forma
 - Cantos suaves (6 px), círculos (números de passo, ícones) que ecoam a logo.

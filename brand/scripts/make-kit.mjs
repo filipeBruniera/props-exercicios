@@ -41,7 +41,7 @@ for (const [size, name] of [[512, 'icon-512.png'], [180, 'apple-touch-icon.png']
 const molaJs = readFileSync(R('../src/mola.js'), 'utf8');
 const mDir = dir('03-mascote-mola');
 const pDir = dir('03-mascote-mola/png');
-const combos = [['feliz', 'parado'], ['feliz', 'acenando'], ['sorriso', 'apontando'], ['sorriso', 'mostrando'], ['sorriso', 'pronto'], ['concentrado', 'mostrando'], ['duvida', 'pensando'], ['surpreso', 'parado'], ['comemorando', 'comemorando']];
+const combos = [['feliz', 'parado'], ['feliz', 'acenando'], ['sorriso', 'apontando'], ['sorriso', 'mostrando'], ['sorriso', 'pronto'], ['concentrado', 'mostrando'], ['duvida', 'pensando'], ['surpreso', 'parado'], ['comemorando', 'comemorando'], ['feliz', 'rosto'], ['sorriso', 'rosto'], ['comemorando', 'rosto']];
 {
   const page = await browser.newPage({ viewport: { width: 760, height: 800 }, deviceScaleFactor: 3 });
   await page.setContent(`<body style="margin:0;background:transparent"><div id="m" style="width:760px"></div><script>${molaJs}</script></body>`);
@@ -69,6 +69,13 @@ const combos = [['feliz', 'parado'], ['feliz', 'acenando'], ['sorriso', 'apontan
   await page.close();
 }
 copyFileSync(R('../src/mola.js'), `${mDir}/mola-animada.js`);
+{
+  // Teste da silhueta (uma cor) e de tamanhos: a Mola tem de ser reconhecível pintada de preto e pequena
+  const page = await browser.newPage({ viewport: { width: 900, height: 300 } });
+  await page.setContent(`<body style="margin:0;padding:20px;background:#fff;display:flex;align-items:flex-end;gap:24px"><div id="a" style="width:220px;filter:brightness(0)"></div><div id="b" style="width:220px"></div><div id="c" style="width:96px"></div><div id="d" style="width:48px"></div><div id="e" style="width:48px;filter:brightness(0)"></div><script>${molaJs}</script><script>Mola.create(a,{idle:false});Mola.create(b,{pose:'acenando',idle:false});Mola.create(c,{idle:false});Mola.create(d,{pose:'rosto',idle:false});Mola.create(e,{pose:'rosto',idle:false})</script></body>`);
+  await page.screenshot({ path: `${mDir}/teste-silhueta-e-tamanhos.png`, fullPage: true });
+  await page.close();
+}
 
 // 3. Tokens
 const tDir = dir('04-tokens');

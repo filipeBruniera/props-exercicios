@@ -17,7 +17,7 @@
   --paper: #e3e3e3;
   --white: #ffffff;
   --steel: #4a5866;
-  --steel-light: #b7c4d3;
+  --steel-light: #d0dae6;
   --line: #c9ced6;
   --wa: #1d9e52;
   --ink-0: #001a3d;
@@ -38,6 +38,9 @@
   --display: 'Cormorant Garamond', Georgia, serif;
   --body: 'Questrial', 'Century Gothic', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: 'Julius Sans One', 'Questrial', sans-serif;
+  /* Interface (botões, menu, selos, h3, títulos de card): Questrial em caixa alta.
+     A Cormorant (--display) fica só de 28px para cima: abaixo disso os traços finos somem. */
+  --ui: 'Questrial', 'Century Gothic', system-ui, sans-serif;
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --t-quick: 150ms;
@@ -66,8 +69,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 1.125rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -123,13 +126,15 @@ h1 {
 }
 
 h2 {
-  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  font-size: clamp(2.2rem, 4.8vw, 3.5rem);
 }
 
 h3 {
-  font-size: 1.45rem;
+  font-family: var(--ui);
+  font-size: 1.12rem;
   font-weight: 700;
-  line-height: 1.05;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
 }
 
 p {
@@ -177,11 +182,11 @@ p {
   gap: 8px;
   background: var(--yellow);
   color: var(--on-yellow);
-  font-family: var(--display);
+  font-family: var(--ui);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.86rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   padding: 6px 12px 5px;
   border-radius: 999px;
 }
@@ -223,10 +228,10 @@ p {
   min-height: 56px;
   padding: 0 1.5rem;
   border-radius: var(--radius);
-  font-family: var(--display);
+  font-family: var(--ui);
   font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: 0.02em;
+  font-size: 1.02rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
@@ -347,7 +352,7 @@ p {
 
 @media (max-width: 560px) {
   .btn {
-    font-size: 1.12rem;
+    font-size: 0.95rem;
     padding: 0 1rem;
     max-width: 100%;
   }
@@ -355,10 +360,10 @@ p {
 
 /* ---------- Componentes do sistema M&C Fluxo ---------- */
 .tag.blue { background: var(--water-3); color: var(--white); }
-.tag.dark { background: var(--navy-3); color: var(--yellow); }
+.tag.dark { background: var(--ink-0); color: var(--yellow-2); }
 
 .mono { font-family: var(--mono); }
-.ex { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--yellow-text); border: 1px solid currentColor; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
+.ex { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; font-weight: 700; text-transform: uppercase; color: var(--yellow-text); border: 1px solid currentColor; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
 .on-dark .ex { color: var(--yellow); }
 
 /* Status do atendimento */
